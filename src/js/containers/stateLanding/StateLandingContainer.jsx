@@ -3,150 +3,31 @@
  * Created by Kevin Li 5/23/18
  */
 
-import React from 'react';
-import { isCancel } from 'axios';
-
-import { Search } from 'js-search';
-import { orderBy } from 'lodash-es';
-
-import { fetchStateList } from 'apis/state';
-import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
-
+import React, { useState } from 'react';
 import StateLandingContent from 'components/stateLanding/StateLandingContent';
+import useFetchStateRecipientList from './useFetchStateRecipientList';
 
-export default class StateLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const StateLandingContainer = () => {
+    const [searchString, setSearchString] = useState('');
+    const [sort, setSort] = useState({ field: 'name', direction: 'asc' });
 
-        this.state = {
-            loading: false,
-            error: false,
-            total: 0,
-            searchString: '',
-            sortField: 'name',
-            sortDirection: 'asc',
-            fullData: [],
-            results: []
-        };
+    const { results, resultsText, total, loading, error } = useFetchStateRecipientList(sort, searchString);
 
-        this.request = null;
-    }
+    const setSortLocal = (field, direction) => setSort({ field, direction });
 
-    componentDidMount() {
-        this.loadData();
-    }
+    return (
+        <StateLandingContent
+            setSearchString={setSearchString}
+            resultsText={resultsText}
+            setSort={setSortLocal}
+            loading={loading}
+            error={error}
+            total={total}
+            results={results}
+            sortField={sort.field}
+            sortDirection={sort.direction}
+            searchString={searchString} />
+    );
+};
 
-    setSearchString = (input) => {
-        this.setState({
-            searchString: input
-        }, () => {
-            this.performSearch();
-        });
-    };
-
-    setSort = (field, direction) => {
-        this.setState({
-            sortField: field,
-            sortDirection: direction
-        }, () => {
-            this.performSearch();
-        });
-    };
-
-    loadData() {
-        if (this.request) {
-            // a request is in-flight, cancel it
-            this.request.cancel();
-        }
-
-        this.setState({
-            loading: true,
-            error: false
-        });
-
-        this.request = fetchStateList();
-        this.request.promise
-            .then((res) => {
-                this.parseData(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                    console.error(err);
-                }
-            });
-    }
-
-    parseData(data) {
-        let total = 0;
-        const parsed = data.map((state) => {
-            const item = Object.create(BaseStateLandingItem);
-            item.populate(state);
-            total += state.amount;
-            return item;
-        });
-
-        this.setState({
-            total,
-            loading: false,
-            error: false,
-            fullData: parsed
-        }, () => {
-            this.performSearch();
-        });
-    }
-
-    performSearch() {
-    // perform a local search
-        const search = new Search('fips');
-        search.addIndex('name');
-        search.addIndex('code');
-        search.addDocuments(this.state.fullData);
-
-        // return the full data set if no search string is provided
-        let results = this.state.fullData;
-        if (this.state.searchString) {
-            results = search.search(this.state.searchString);
-        }
-
-        // now sort the results by the appropriate table column and direction
-        const sortedResults = orderBy(results,
-            [this.state.sortField], [this.state.sortDirection]);
-
-        let orderedResults = sortedResults;
-
-        if (this.state.sortField === 'name') {
-            // Separate states and territories
-            const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
-            const territories = sortedResults.filter((result) => result.type === 'territory');
-            orderedResults = states.concat(territories);
-            if (this.state.sortDirection === 'desc') {
-                orderedResults = territories.concat(states);
-            }
-        }
-
-        this.setState({
-            results: orderedResults
-        });
-    }
-
-    render() {
-        const resultsCount = this.state.results.length;
-        let resultsText = `${resultsCount} results`;
-        if (resultsCount === 1) {
-            resultsText = `${resultsCount} result`;
-        }
-
-        return (
-            <StateLandingContent
-                setSearchString={this.setSearchString}
-                setSort={this.setSort}
-                resultsText={resultsText}
-                {...this.state} />
-        );
-    }
-}
-
+export default StateLandingContainer;

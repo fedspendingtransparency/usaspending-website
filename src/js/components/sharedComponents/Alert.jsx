@@ -47,19 +47,19 @@ const Alert = memo(function Alert({
     return (
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
             <div className="alert__message__container">
-                { icon &&
+                { icon && (
                     <div className="alert___message__icon-container">
                         <FontAwesomeIcon
                             className="alert___message__icon"
                             icon={iconString} />
                     </div>
-                }
+                )}
                 <div className="alert__message">
-                    { header &&
+                    { header && (
                         <div className="alert__message__header">
                             {header}
                         </div>
-                    }
+                    )}
                     <div className="alert__message__body">
                         {body}
                     </div>

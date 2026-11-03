@@ -24,7 +24,7 @@ const propTypes = {
 
 const DownloadButtonContainer = ({
     icon = "download",
-    className =''
+    className = ''
 }) => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);

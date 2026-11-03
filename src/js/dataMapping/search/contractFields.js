@@ -3,7 +3,7 @@
  * Created by Emily Gullo on 6/22/17
  */
 
-/* eslint-disable quote-props */
+/* eslint-disable @stylistic/quote-props */
 export const pricingTypeDefinitions = {
     '2': 'Combination',
     'S': 'Cost No Fee',
@@ -222,5 +222,3 @@ export const pricingTypeMapping = [
         filters: ['Y']
     }
 ];
-
-/* eslint-enable quote-props */

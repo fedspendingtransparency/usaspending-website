@@ -171,4 +171,3 @@ const NestedAwardTable = (props) => {
 NestedAwardTable.propTypes = propTypes;
 
 export default NestedAwardTable;
-

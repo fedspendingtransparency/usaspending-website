@@ -22,7 +22,10 @@ const TruncationWarning = ({
                 {startCase(activeSubdivision)} Display Limit
             </div>
             <div className="truncation-warning__detail">
-                Only the 500 {startCase(activeSubdivision)}s with the highest amounts are shown.
+                Only the 500
+                {' '}
+                {startCase(activeSubdivision)}
+                s with the highest amounts are shown.
                 {activeSubdivision === 'award' && (
                     <>
                         For further research on individual awards, visit our <Link to="/search">Advanced Search</Link>.

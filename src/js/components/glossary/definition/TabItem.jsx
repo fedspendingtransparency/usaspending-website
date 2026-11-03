@@ -20,7 +20,6 @@ const TabItem = ({
         clickedTab(type);
     };
 
-
     let activeLocal = '';
     if (active) {
         activeLocal = 'active';

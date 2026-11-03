@@ -47,9 +47,9 @@ const FinancialAssistanceContent = ({
         setCFDAOverviewLinkClicked(didClick);
     };
 
-    const glossaryLink = glossaryLinks[overview.type]
-        ? `/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
-        : null;
+    const glossaryLink = glossaryLinks[overview.type] ?
+        `/award/${awardId}?glossary=${glossaryLinks[overview.type]}` :
+        null;
 
     const jumpToTransactionHistoryTable = () => {
         setActiveTab('transaction');
@@ -116,11 +116,13 @@ const FinancialAssistanceContent = ({
             </AwardSection>
             <AwardSection type="row">
                 {
-                    isGrant && <ContractGrantActivityContainer
-                        awardId={awardId}
-                        awardType={overview.category}
-                        dates={overview.periodOfPerformance}
-                        jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                    isGrant && (
+                        <ContractGrantActivityContainer
+                            awardId={awardId}
+                            awardType={overview.category}
+                            dates={overview.periodOfPerformance}
+                            jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                    )
                 }
                 {!isGrant && (
                     <CFDASection

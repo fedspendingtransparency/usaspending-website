@@ -67,8 +67,8 @@ export default class ProgramActivityFilter extends React.Component {
             if (activities.length < this.state.shown) {
                 const label = `${programActivity.code} - ${programActivity.name}`;
 
-                if (activities.length <= this.state.shown
-                    && (programActivity.name !== null && programActivity.name !== '')) {
+                if (activities.length <= this.state.shown &&
+                    (programActivity.name !== null && programActivity.name !== '')) {
                     // return new checkbox here
                     activities.push(
                         <PrimaryCheckboxType
@@ -79,7 +79,8 @@ export default class ProgramActivityFilter extends React.Component {
                             types={keyBy(this.props.availableProgramActivities, 'id')}
                             filterType="Object Class"
                             selectedCheckboxes={this.props.selectedProgramActivities}
-                            toggleCheckboxType={this.toggleValue} />);
+                            toggleCheckboxType={this.toggleValue} />
+                    );
                 }
             }
         });
@@ -110,8 +111,12 @@ export default class ProgramActivityFilter extends React.Component {
                     className="see-more account-program-activity-toggle-button"
                     onClick={this.toggleShownAmount}
                     title={`See ${shownStatement}`}>
-                    See {shownStatement}
-                    &nbsp; {arrow}
+                    See
+                    {' '}
+                    {shownStatement}
+                    &nbsp;
+                    {' '}
+                    {arrow}
                 </button>
             );
         }

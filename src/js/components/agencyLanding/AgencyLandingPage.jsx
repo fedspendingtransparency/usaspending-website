@@ -41,7 +41,7 @@ const AgencyLandingPage = () => {
                 <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl('agency')}
-                    key={'agency'} />
+                    key="agency" />
             ]}>
             <main
                 id="main-content"

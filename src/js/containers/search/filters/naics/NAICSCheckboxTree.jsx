@@ -33,7 +33,6 @@ import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree'
 import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
 
-
 const NAICSCheckboxTree = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -86,9 +85,9 @@ const NAICSCheckboxTree = () => {
         if (showNoResults) setShowNoResults(false);
 
         setIsLoading(true);
-        const queryParam = isSearch
-            ? `?filter=${searchString}`
-            : param;
+        const queryParam = isSearch ?
+            `?filter=${searchString}` :
+            param;
 
         request.current = naicsRequest(queryParam);
 
@@ -100,9 +99,9 @@ const NAICSCheckboxTree = () => {
                 const naicsNodes = cleanNaicsData(data.results);
 
                 if (isPartialTree) {
-                    const key = param.includes('/')
-                        ? param.split('/')[1]
-                        : param;
+                    const key = param.includes('/') ?
+                        param.split('/')[1] :
+                        param;
 
                     if (isSearch) {
                         const searchExpandedNodes = expandNaicsAndAllDescendantParents(
@@ -139,13 +138,13 @@ const NAICSCheckboxTree = () => {
                         }
                     }
 
-                    const newChecked = modChecked?.length
-                        ? autoCheckNaicsAfterExpand(
+                    const newChecked = modChecked?.length ?
+                        autoCheckNaicsAfterExpand(
                             naicsNodes[0],
                             modChecked,
                             unchecked
-                        )
-                        : checked;
+                        ) :
+                        checked;
                     dispatch(setCheckedNaics(newChecked));
                 }
                 else {
@@ -193,9 +192,9 @@ const NAICSCheckboxTree = () => {
 
     const onCheck = (newChecked) => {
         // prevent double count
-        const stateNewChecked = newChecked?.length > 1
-            ? newChecked.filter((id) => !id.includes("children_of_"))
-            : newChecked;
+        const stateNewChecked = newChecked?.length > 1 ?
+            newChecked.filter((id) => !id.includes("children_of_")) :
+            newChecked;
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
             stateNewChecked,
             checked,
@@ -310,7 +309,6 @@ const NAICSCheckboxTree = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, isSearch]);
-
 
     useEffect(() => {
         if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {

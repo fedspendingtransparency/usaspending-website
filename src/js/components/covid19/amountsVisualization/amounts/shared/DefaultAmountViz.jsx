@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import Rectangle from './Rectangle';
 import DefaultLineAndText from './DefaultLineAndText';
 
-
 const propTypes = {
     dataId: PropTypes.string,
     tooltipId: PropTypes.string,

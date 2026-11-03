@@ -31,7 +31,6 @@ export const formatTitle = (category, item) => {
     return '--';
 };
 
-
 const LocationEntity = {
     populate(item) {
         this.category = item.category || '--';

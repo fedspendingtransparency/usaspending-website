@@ -422,7 +422,7 @@ const DateRange = (props) => {
             <div className="date-range-option__dropdown-section">
                 <div className="date-range-option__dropdown-section-top">
                     <div className="date-range-option__dropdown-section-label">
-                            Date Ranges
+                        Date Ranges
                     </div>
                 </div>
                 <div className="date-range-option__dropdown-section-bottom">
@@ -432,10 +432,10 @@ const DateRange = (props) => {
                             size="sm"
                             options={dropdownOptions}
                             enabled
-                            selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find(
-                                    (obj) => obj.value === selectedDropdownOption)?.name
-                                : `${selectedDropdownOption}`}
+                            selectedOption={dropdownOptions?.length ?
+                                dropdownOptions?.find(
+                                    (obj) => obj.value === selectedDropdownOption)?.name :
+                                `${selectedDropdownOption}`}
                             sortFn={sortFn} />
                     </div>
                     <Button

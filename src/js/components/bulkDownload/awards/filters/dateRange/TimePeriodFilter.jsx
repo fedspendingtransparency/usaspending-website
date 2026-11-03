@@ -75,15 +75,14 @@ const TimePeriodFilter = ({
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
     let defaultValue = '';
 
-
     const validateDates = useCallback(() => {
         // validate the date ranges
-        const start = dayjs.isDayjs(startDateBulkUI)
-            ? startDateBulkUI
-            : dayjs(startDateBulkUI);
-        const end = dayjs.isDayjs(endDateBulkUI)
-            ? endDateBulkUI
-            : dayjs(endDateBulkUI);
+        const start = dayjs.isDayjs(startDateBulkUI) ?
+            startDateBulkUI :
+            dayjs(startDateBulkUI);
+        const end = dayjs.isDayjs(endDateBulkUI) ?
+            endDateBulkUI :
+            dayjs(endDateBulkUI);
 
         const yearBeforeEnd = dayjs(endDateBulkUI).subtract(1, 'y');
 
@@ -230,12 +229,12 @@ const TimePeriodFilter = ({
     }
 
     if (startDateBulkUI && endDateBulkUI) {
-        const start = dayjs.isDayjs(startDateBulkUI)
-            ? startDateBulkUI.format('YYYY-MM-DD')
-            : startDateBulkUI;
-        const end = dayjs.isDayjs(endDateBulkUI)
-            ? endDateBulkUI.format('YYYY-MM-DD')
-            : endDateBulkUI;
+        const start = dayjs.isDayjs(startDateBulkUI) ?
+            startDateBulkUI.format('YYYY-MM-DD') :
+            startDateBulkUI;
+        const end = dayjs.isDayjs(endDateBulkUI) ?
+            endDateBulkUI.format('YYYY-MM-DD') :
+            endDateBulkUI;
 
         const searchValue = `${start} - ${end}`;
         const persistedOption = periodOptions.find((option) => option.value === searchValue);
@@ -257,8 +256,7 @@ const TimePeriodFilter = ({
 
     useEffect(() => {
         const isSameAsRedux = (
-            startDateBulkUI === filterTimePeriodStart
-            &&
+            startDateBulkUI === filterTimePeriodStart &&
             endDateBulkUI === filterTimePeriodEnd
         );
 
@@ -291,29 +289,31 @@ const TimePeriodFilter = ({
                 <div className="input-container">
                     {timePeriodTypeList}
                 </div>
-                {currentTimeType === "time_period" ? (
-                    <div className="combo-box-container">
-                        <ComboBox
-                            optionsArray={periodOptions}
-                            onSelect={handleComboDateChange}
-                            onClearSelect={handleDateUpdate}
-                            formName="time-period-combo"
-                            label={<>Time Period <span className="required">(Required)</span></>}
-                            placeholder="Select time period"
-                            defaultValue={defaultValue} />
-                    </div>
-                ) : (
-                    <DownloadDateRange
-                        datePlaceholder=""
-                        startDate={startDateBulkUI}
-                        endDate={endDateBulkUI}
-                        onDateChange={handleDateChange}
-                        error={error} />
-                )}
+                {currentTimeType === "time_period" ?
+                    (
+                        <div className="combo-box-container">
+                            <ComboBox
+                                optionsArray={periodOptions}
+                                onSelect={handleComboDateChange}
+                                onClearSelect={handleDateUpdate}
+                                formName="time-period-combo"
+                                label={<>Time Period <span className="required">(Required)</span></>}
+                                placeholder="Select time period"
+                                defaultValue={defaultValue} />
+                        </div>
+                    ) :
+                    (
+                        <DownloadDateRange
+                            datePlaceholder=""
+                            startDate={startDateBulkUI}
+                            endDate={endDateBulkUI}
+                            onDateChange={handleDateChange}
+                            error={error} />
+                    )}
 
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
-                        Data is available for download from 10/01/2000 (FY 2001) - present.
+                    Data is available for download from 10/01/2000 (FY 2001) - present.
                 </p>
             </div>
         </div>

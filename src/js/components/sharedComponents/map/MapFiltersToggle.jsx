@@ -32,7 +32,7 @@ const MapFiltersToggle = memo(function MapFiltersToggle({ isFiltersOpen, setIsFi
             className={className}
             aria-label={ariaLabel}
             role="button"
-            tabIndex={0} >
+            tabIndex={0}>
             <FontAwesomeIcon icon={icon} />
         </div>
     );

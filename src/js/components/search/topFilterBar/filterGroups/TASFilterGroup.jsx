@@ -31,7 +31,6 @@ const TASFilterGroup = ({ name, resultsView }) => {
     const unchecked = useSelector((state) => state.tas.unchecked.toJS());
     const dispatch = useDispatch();
 
-
     const toggleFilter = ({ value, array }, staged) => {
         let newRequire;
         let newExclude;
@@ -53,7 +52,6 @@ const TASFilterGroup = ({ name, resultsView }) => {
             newExclude,
             newCounts
         ));
-
 
         if (nodes.length !== 0) {
             // only want last index of each array.

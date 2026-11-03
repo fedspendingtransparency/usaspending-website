@@ -55,12 +55,14 @@ export default class NewAwardsOnlyFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return (<BaseTopFilterGroup
-            resultsView={this.props.resultsView}
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
+        return (
+            <BaseTopFilterGroup
+                resultsView={this.props.resultsView}
+                tags={tags}
+                filter={this.props.filter}
+                clearFilterGroup={this.clearGroup}
+                compressed={this.props.compressed} />
+        );
     }
 }
 

@@ -58,7 +58,8 @@ export default class DetailsTabItem extends React.Component {
                     className="award-section-tt"
                     icon="info"
                     tooltipComponent={this.props.tooltipContent}
-                    {...this.props.tooltipProps} />);
+                    {...this.props.tooltipProps} />
+            );
         }
 
         let count = null;

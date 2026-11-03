@@ -42,7 +42,7 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
         dispatch(updateGenericFilter({
             type: 'timePeriodType',
             value: 'dr'
-        })); 
+        }));
     };
 
     const filters = {

@@ -9,13 +9,13 @@ const FeaturedContentHeader = ({ isMobile, isTablet, chosenArticle }) => (
         className="featured-content__header-wrapper"
         style={{ backgroundColor: (isMobile || isTablet) && getPrimaryFill(chosenArticle) }}>
         { !isMobile &&
-            !isTablet &&
+            !isTablet && (
             <img
                 src={chosenArticle?.slug ? `${heroPath}${chosenArticle?.slug}.webp` : null}
                 alt="hero"
                 name="featured-content-hero"
                 id="featured-content-hero" />
-        }
+        )}
         <FlexGridCol
             desktopxl={{ span: 4, offset: 1 }}
             desktop={{ span: 5, offset: 1 }}
@@ -34,6 +34,7 @@ const FeaturedContentHeader = ({ isMobile, isTablet, chosenArticle }) => (
                 {chosenArticle?.banner_subtitle}
             </span>
         </FlexGridCol>
-    </FlexGridRow>);
+    </FlexGridRow>
+);
 
 export default FeaturedContentHeader;

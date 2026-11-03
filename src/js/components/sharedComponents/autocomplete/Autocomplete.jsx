@@ -30,7 +30,8 @@ const propTypes = {
     isLoading: PropTypes.bool,
     disabled: PropTypes.bool,
     selectedItemsDisplayNames: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.string,
+    locationCount: PropTypes.number
 };
 
 const Autocomplete = ({
@@ -54,7 +55,8 @@ const Autocomplete = ({
     isLoading = false,
     disabled = false,
     selectedItemsDisplayNames,
-    type
+    type,
+    locationCount
 }) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
@@ -219,7 +221,8 @@ const Autocomplete = ({
             const warning = (header, description) => (
                 <ul className="autocomplete" role="listbox">
                     <li className="unselectable">
-                        <span>{header}</span><br />
+                        <span>{header}</span>
+                        <br />
                         {description}
                     </li>
                 </ul>
@@ -283,6 +286,12 @@ const Autocomplete = ({
     }, [values]);
 
     useEffect(() => {
+        if (locationCount === 0 && autocompleteInputRef.current) {
+            autocompleteInputRef.current.value = '';
+        }
+    }, [locationCount]);
+
+    useEffect(() => {
         toggleWarning();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [noResults]);
@@ -330,14 +339,18 @@ const Autocomplete = ({
                     role="alert">
                     {status}
                 </div>
-                {isLoading ? loadingIndicator : <SuggestionHolder
-                    suggestions={values}
-                    shown={shown}
-                    selectedIndex={selectedIndex}
-                    select={select}
-                    maxSuggestions={maxSuggestions}
-                    autocompleteId={autocompleteIdRef}
-                    matchingString={value} />}
+                {isLoading ?
+                    loadingIndicator :
+                    (
+                        <SuggestionHolder
+                            suggestions={values}
+                            shown={shown}
+                            selectedIndex={selectedIndex}
+                            select={select}
+                            maxSuggestions={maxSuggestions}
+                            autocompleteId={autocompleteIdRef}
+                            matchingString={value} />
+                    )}
                 {generateWarning()}
             </div>
         </div>

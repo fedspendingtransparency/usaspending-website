@@ -12,7 +12,10 @@ const NoDownloadHover = () => (
         <div className="message">
             Our Advanced Search limits downloads to 500,000 records.
             Narrow your search using additional filters, or grab larger files from
-            our <Link to="/download_center/custom_award_data">Custom Award Data</Link>.
+            our
+            {' '}
+            <Link to="/download_center/custom_award_data">Custom Award Data</Link>
+            .
         </div>
     </TooltipComponent>
 );

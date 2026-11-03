@@ -57,7 +57,6 @@ const ProgramActivityList = ({
         };
     }, [clearAutocompleteSuggestions, clearSearchFilters]);
 
-
     const parseAutocompleteProgramActivity = (programActivity) => {
         const values = [];
         if (programActivity && programActivity.length > 0) {

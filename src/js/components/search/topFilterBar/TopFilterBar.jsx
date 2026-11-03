@@ -105,7 +105,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
                         }${
                             fadeClass
                         }`}
-                        ref={contentRef} >
+                        ref={contentRef}>
                         {groups}
                     </div>
                 </div>

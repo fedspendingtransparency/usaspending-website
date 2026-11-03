@@ -94,7 +94,6 @@ export const getSubawardDataByPrimeId = (awardId, filters, paramsOptions) => {
     return SearchHelper.performSpendingByAwardSearch(params);
 };
 
-
 export const getTransactionDataByPrimeId = (awardId, filters, paramsOptions) => {
     // get searchParams from state
     const searchParamsTemp = new SearchAwardsOperation();
@@ -151,7 +150,6 @@ export const getTransactionDataByPrimeId = (awardId, filters, paramsOptions) => 
 
     return performKeywordSearch(params);
 };
-
 
 export const getNestedTableData = (type, awardId, filters, paramsOptions) => {
     switch (type) {

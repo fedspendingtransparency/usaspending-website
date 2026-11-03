@@ -54,22 +54,22 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
                     value={file.url}
                     name="file-agency"
                     checked={selectedFiles.has(file.url)}
-                    onChange={onChange}/>
+                    onChange={onChange} />
                 {file.agency === "All" ? "All Agencies" : file.agency}
             </div>
         ),
         file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta File" : "Full File",
         file.fy,
         file.date
-    ]))
+    ]));
 
     return (
         <Table
-            classNames={`award-data-archive-table${rows.length !== 0 ? ' no-results': ''}`}
+            classNames={`award-data-archive-table${rows.length !== 0 ? ' no-results' : ''}`}
             columns={columns}
             rows={rows} />
     );
-}
+};
 
 AwardDataArchiveTable.propTypes = propTypes;
 export default AwardDataArchiveTable;

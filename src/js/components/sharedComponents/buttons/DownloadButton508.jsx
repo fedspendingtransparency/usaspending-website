@@ -20,7 +20,7 @@ const DownloadIconButton508 = ({
     downloadInFlight,
     isEnabled = true,
     key,
-    downloadIcon="download"
+    downloadIcon = "download"
 }) => {
     const startDownload = (e) => {
         e.preventDefault();
@@ -53,7 +53,7 @@ const DownloadIconButton508 = ({
     );
 
     return (
-        <div className={wrapperclass} >
+        <div className={wrapperclass}>
             {downloadButton()}
         </div>
     );

@@ -11,12 +11,11 @@
   .featured-content__citation {
     font-size: rem(14);
     padding-left: 0;
-    div {
-      display: flex;
-      align-items: center;
-
+    .usda-external-link,
+    .usda-external-link__card {
+      @include button-link;
       &:hover {
-        cursor: pointer;
+        text-decoration: none;
       }
     }
 

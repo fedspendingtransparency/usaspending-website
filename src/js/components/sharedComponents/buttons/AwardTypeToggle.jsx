@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Button } from 'data-transparency-ui';
 import { Check } from 'components/sharedComponents/icons/Icons';
 
-
 const propTypes = {
     spendingLevel: PropTypes.string,
     onToggle: PropTypes.func
@@ -24,9 +23,8 @@ const AwardTypeToggle = ({
         }
     };
 
-
     return (
-        <div className="award-type-toggle" >
+        <div className="award-type-toggle">
             <Button
                 onClick={() => onToggleClick(nonGroup)}
                 buttonSize="sm"

@@ -18,19 +18,18 @@ const DEFCheckboxTreeDownload = ({
     const dispatch = useDispatch();
 
     const titlesByCode = (codes) => codes.reduce((obj, item) => {
-        // eslint-disable-next-line no-param-reassign
         obj[item.code] = item.title;
         return obj;
     }, {});
 
     const detailsDisplay = (codes) => codes.reduce((obj, item) => {
-        // eslint-disable-next-line no-param-reassign
         obj[item.code] = (
             <DEFCheckboxTreeDownloadLabel
                 label={item.title}
                 subLabel={item.public_law}
                 value={item.code}
-                defSearchString={defSearchString} />);
+                defSearchString={defSearchString} />
+        );
         return obj;
     }, {});
 
@@ -88,25 +87,26 @@ const DEFCheckboxTreeDownload = ({
     }, [validDefCodes]);
 
     useEffect(() => {
-        if (isDisabled && defCodes.length){
+        if (isDisabled && defCodes.length) {
             dispatch(setDefCodes(type, []));
         }
-    }, [defCodes, dispatch, isDisabled, type])
+    }, [defCodes, dispatch, isDisabled, type]);
 
     return (
         <div className="def-code-filter-download">
             {isLoading && loadingIndicator }
-            {validDefCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
-                filterCategoryMapping={defcDataByType(validDefCodes)}
-                filters={titlesByCode(validDefCodes)}
-                customLabels={detailsDisplay(validDefCodes)}
-                selectedFilters={new Set(defCodes)}
-                singleFilterChange={toggleDefc}
-                bulkFilterChange={bulkChangeDefc}
-                setDefSearchString={setDefSearchString}
-                showSearch={false}
-                isDisabled={isDisabled} />
-            }
+            {validDefCodes?.length > 0 && !isLoading && !errorMsg && (
+                <AccordionCheckbox
+                    filterCategoryMapping={defcDataByType(validDefCodes)}
+                    filters={titlesByCode(validDefCodes)}
+                    customLabels={detailsDisplay(validDefCodes)}
+                    selectedFilters={new Set(defCodes)}
+                    singleFilterChange={toggleDefc}
+                    bulkFilterChange={bulkChangeDefc}
+                    setDefSearchString={setDefSearchString}
+                    showSearch={false}
+                    isDisabled={isDisabled} />
+            )}
         </div>
     );
 };

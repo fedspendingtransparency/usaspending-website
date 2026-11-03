@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showSlideout } from 'helpers/slideoutHelper';
 import { Glossary } from './icons/Icons';
 
-
 const propTypes = {
     term: PropTypes.string.isRequired,
     hidden: PropTypes.bool,
@@ -33,8 +32,8 @@ const GlossaryLink = ({
 }) => {
     const { pathname, search } = useLocation();
     const params = new URLSearchParams(search);
-    params.set('glossary', term)
-    const glossaryUrl = `${pathname}`
+    params.set('glossary', term);
+    const glossaryUrl = `${pathname}`;
 
     const stopBubble = (e) => {
         e.preventDefault();

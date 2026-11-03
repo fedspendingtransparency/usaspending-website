@@ -25,7 +25,8 @@ const CustomXTick = ({ x, y, payload }) => (
             width="40px">
             {payload.value}
         </text>
-    </g>);
+    </g>
+);
 
 CustomXTick.propTypes = customXTickPropTypes;
 export default CustomXTick;

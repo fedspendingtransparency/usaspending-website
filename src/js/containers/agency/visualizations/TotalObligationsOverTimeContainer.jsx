@@ -61,25 +61,25 @@ const TotalObligationsOverTimeContainer = ({
         if (isError) setLoading(false);
     }, [isError]);
 
-    const ref = useCallbackRef(throttle((entry) => setVisualizationWidth(entry.contentRect.width), 50))
+    const ref = useCallbackRef(throttle((entry) => setVisualizationWidth(entry.contentRect.width), 50));
 
     return (
         <div ref={ref} className="total-obligations-over-time-visualization-container">
             {isError && <ErrorMessage />}
             {!isError && loading && <LoadingMessage />}
-            {!isError && !loading && !data.length &&
+            {!isError && !loading && !data.length && (
                 <GenericMessage
                     title="Chart Not Available"
                     description="No available data to display."
                     className="usda-message" />
-            }
-            {!isError && !loading && data.length > 0 &&
-            <TotalObligationsOverTimeVisualization
-                width={visualizationWidth}
-                agencyBudget={agencyBudget}
-                data={data}
-                fy={fy} />
-            }
+            )}
+            {!isError && !loading && data.length > 0 && (
+                <TotalObligationsOverTimeVisualization
+                    width={visualizationWidth}
+                    agencyBudget={agencyBudget}
+                    data={data}
+                    fy={fy} />
+            )}
         </div>
     );
 };

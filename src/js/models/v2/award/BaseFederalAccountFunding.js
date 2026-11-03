@@ -76,9 +76,9 @@ const BaseFederalAccount = {
         this.reportingFiscalQuarter = data.reporting_fiscal_quarter || null;
         this.id = data.piid || 0;
         this.awardId = data.award_id || '';
-        this.generatedId = data.generated_unique_award_id
-            ? encodeURIComponent(`${data.generated_unique_award_id}`)
-            : '';
+        this.generatedId = data.generated_unique_award_id ?
+            encodeURIComponent(`${data.generated_unique_award_id}`) :
+            '';
         this._mainAccountCode = data.main_account_code || 0;
         this.agency = data.funding_agency_name || '';
         this.fundingAgencyId = data.funding_agency_id || '';
@@ -92,9 +92,9 @@ const BaseFederalAccount = {
         this._agencyId = data.agency_id || '';
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
-        this._fundingObligated = data.transaction_obligated_amount === null
-            ? ''
-            : parseFloat(data.transaction_obligated_amount);
+        this._fundingObligated = data.transaction_obligated_amount === null ?
+            '' :
+            parseFloat(data.transaction_obligated_amount);
         this._disasterEmergencyFundCode = data.disaster_emergency_fund_code || '';
         this._grossOutlayAmount = data.gross_outlay_amount || '';
         this._isQuarterlySubmission = data.is_quarterly_submission;

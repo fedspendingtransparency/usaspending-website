@@ -34,7 +34,7 @@ const InlineShare = ({
     return (
         <div className={classNames}>
             <span className="featured-content__citation-heading">
-            Share this page
+                Share this page
             </span>
             <FlexGridRow className="featured-content__share-wrapper">
                 {socialShareOptions.map((option) => (

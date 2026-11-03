@@ -29,11 +29,13 @@ const AwardFilterButton = ({
     const click = () => {
         if (onClick) onClick(value);
     };
-    const countBadge = showCount ? (
-        <div className="count-badge">
-            {((count || count === 0) && formatNumber(count)) || '--'}
-        </div>
-    ) : null;
+    const countBadge = showCount ?
+        (
+            <div className="count-badge">
+                {((count || count === 0) && formatNumber(count)) || '--'}
+            </div>
+        ) :
+        null;
     return (
         <div className={`award-filter__button ${active ? ' award-filter__button_active' : ''}`}>
             <button

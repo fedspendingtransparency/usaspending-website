@@ -17,7 +17,6 @@ import { showModal } from '../../redux/actions/modal/modalActions';
 const slug = 'federal_account';
 const emailSubject = 'USAspending.gov Federal Account Profiles';
 
-
 const AccountLandingPage = () => {
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {

@@ -106,20 +106,22 @@ const AwardSpendingSubagency = ({ fy }) => {
                 subHeading="Offices" />
             <Note message={(
                 <>
-                The sub-agencies presented in this section represent
-                awarding organizations and were sourced from the General Services
-                Administration (GSA) Federal Hierarchy (available at{ ' ' }
+                    The sub-agencies presented in this section represent
+                    awarding organizations and were sourced from the General Services
+                    Administration (GSA) Federal Hierarchy (available at
+                    { ' ' }
                     <a
                         href="https://sam.gov/content/hierarchy"
                         target="_blank"
                         rel="noopener noreferrer">
                         https://sam.gov/content/hierarchy
                     </a>
-                ). This award hierarchy establishes the relationship between a
-                department or independent agency’s sub-tiers and its offices and is used
-                by federal agencies as the authoritative source for managing federal
-                funding and awarding organizations.
-                </>)} />
+                    ). This award hierarchy establishes the relationship between a
+                    department or independent agency’s sub-tiers and its offices and is used
+                    by federal agencies as the authoritative source for managing federal
+                    funding and awarding organizations.
+                </>
+            )} />
         </div>
     );
 };

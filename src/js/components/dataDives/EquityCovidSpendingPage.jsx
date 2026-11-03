@@ -82,7 +82,8 @@ const EquityCovidSpendingPage = () => {
         spotlightCardIcon: (
             <span>
                 <FontAwesomeIcon className="equity-spotlight__star" icon="star" size="xl" style={{ height: '20px', width: '20px' }} />
-            </span>),
+            </span>
+        ),
         spotlightCardTitle: (
             <p>Spotlight on The Opportunity Project</p>
         ),
@@ -101,7 +102,8 @@ const EquityCovidSpendingPage = () => {
         trackCardIcon: (
             <span>
                 <FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
-            </span>),
+            </span>
+        ),
         trackCardTitle: (
             <p>Track <span>COVID-19</span> Spending</p>
         ),

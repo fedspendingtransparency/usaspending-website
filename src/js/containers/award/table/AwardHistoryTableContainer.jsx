@@ -146,7 +146,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.fundingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.agency}
+                        }}>
+                        {obj.agency}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -154,7 +155,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.awardingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.awardingAgencyName}
+                        }}>
+                        {obj.awardingAgencyName}
                     </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
                     <a
@@ -163,7 +165,8 @@ const AwardHistoryTableContainer = ({
                         href={`/federal_account/${obj.federalAccountCode}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.fedAccount}
+                        }}>
+                        {obj.fedAccount}
                     </a> || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
@@ -192,7 +195,8 @@ const AwardHistoryTableContainer = ({
                         href={`/federal_account/${obj.federalAccountCode}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.fedAccount}
+                        }}>
+                        {obj.fedAccount}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -200,7 +204,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.fundingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.agency}
+                        }}>
+                        {obj.agency}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -208,7 +213,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.awardingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.awardingAgencyName}
+                        }}>
+                        {obj.awardingAgencyName}
                     </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
                     <ReadMore
@@ -284,9 +290,9 @@ const AwardHistoryTableContainer = ({
         switch (activeTab) {
             case 'transaction': requestRef.current = fetchAwardTransaction(params);
                 break;
-            case 'federal_account': requestRef.current = (award.category === 'idv')
-                ? fetchAwardFedAccountFunding(params)
-                : fetchFederalAccountFunding(params);
+            case 'federal_account': requestRef.current = (award.category === 'idv') ?
+                fetchAwardFedAccountFunding(params) :
+                fetchFederalAccountFunding(params);
                 break;
             case 'subaward': requestRef.current = performSubawardSearch(params);
                 break;
@@ -381,7 +387,7 @@ const AwardHistoryTableContainer = ({
 
     return (
         <>
-            {activeTab === 'subaward' &&
+            {activeTab === 'subaward' && (
                 <div className="subaward-totals">
                     <InformationBoxes boxes={[{
                         title: totalSubAwardLabel,
@@ -399,7 +405,7 @@ const AwardHistoryTableContainer = ({
                         amount: `${award.overview.subAwardedPercent}`
                     }]} />
                 </div>
-            }
+            )}
             <div className="search-results-table-section">
                 <div className="results-table-content">
                     <div className="advanced-search__table-wrapper">

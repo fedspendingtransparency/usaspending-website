@@ -17,7 +17,8 @@ const TrainingVideosContainer = () => {
         if (item.id === featuredVideoId) {
             featuredVideo = Object.create(VideoMetadata);
             featuredVideo.populate(item);
-        } else {
+        }
+        else {
             const videoMetadata = Object.create(VideoMetadata);
             videoMetadata.populate(item);
             videos.push(videoMetadata);
@@ -27,8 +28,8 @@ const TrainingVideosContainer = () => {
     return (
         <TrainingVideosPage
             featuredVideo={featuredVideo}
-            videos={videos} />);
+            videos={videos} />
+    );
 };
 
 export default TrainingVideosContainer;
-

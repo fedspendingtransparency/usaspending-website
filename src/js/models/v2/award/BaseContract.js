@@ -14,7 +14,6 @@ import CoreAward from './CoreAward';
 import CoreExecutiveDetails from './CoreExecutiveDetails';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 
-
 const BaseContract = Object.create(CoreAward);
 
 BaseContract.populate = function populate(data) {
@@ -134,7 +133,6 @@ BaseContract.populate = function populate(data) {
     this._amount = parseFloat(data.base_and_all_options) || 0;
     this.piid = data.piid || '';
 };
-
 
 // getter functions
 Object.defineProperty(BaseContract, 'amount', {

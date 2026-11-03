@@ -124,7 +124,6 @@ const Award = (props) => {
         });
     };
 
-
     const renderContent = (overview, awardId) => {
         if (!overview) return null;
         if (overview.category === 'contract') {
@@ -177,9 +176,9 @@ const Award = (props) => {
     const { awardId, isLoading } = props;
     const content = renderContent(overview, awardId);
     const slug = `award/${awardId}`;
-    const title = (overview?.category === 'idv')
-        ? 'Indefinite Delivery Vehicle'
-        : `${startCase(overview?.category)} Summary`;
+    const title = (overview?.category === 'idv') ?
+        'Indefinite Delivery Vehicle' :
+        `${startCase(overview?.category)} Summary`;
 
     return (
         <PageWrapper

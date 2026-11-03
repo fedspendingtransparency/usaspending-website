@@ -9,7 +9,7 @@ const propTypes = {
 };
 
 const H2PageHeader = ({ title, subtitle, className = "" }) => (
-    <FlexGridCol width={9} className={`h2-page-header ${className}`} >
+    <FlexGridCol width={9} className={`h2-page-header ${className}`}>
         <h2 className="h2-page-header__title">{title}</h2>
         <div className="h2-page-header__subtitle">{subtitle}</div>
     </FlexGridCol>

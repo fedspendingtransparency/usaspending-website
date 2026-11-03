@@ -62,7 +62,7 @@ const AwardContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [unlinked, setUnlinked] = useState(false);
     const match = useMatch(`/award/:awardId`);
-    const awardId  = encodeURIComponent(match.params.awardId);
+    const awardId = encodeURIComponent(match.params.awardId);
 
     const parseAward = (data) => {
         countRequestRef.current = getAwardHistoryCounts(

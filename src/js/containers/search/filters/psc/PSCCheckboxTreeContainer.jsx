@@ -48,7 +48,6 @@ const PSCCheckboxTreeContainer = () => {
         exclude: uncheckedStaged
     } = useSelector((state) => state.filters.pscCodes);
 
-
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +77,6 @@ const PSCCheckboxTreeContainer = () => {
 
         return new Set([...checkedLocal, ...newChecked]);
     };
-
 
     const fetchPscLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (request.current) {
@@ -140,13 +138,13 @@ const PSCCheckboxTreeContainer = () => {
                         }
                     }
 
-                    const newChecked = modChecked?.length
-                        ? autoCheckPscAfterExpand(
+                    const newChecked = modChecked?.length ?
+                        autoCheckPscAfterExpand(
                             { children: pscNodes, value: key },
                             modChecked,
                             unchecked
-                        )
-                        : checked;
+                        ) :
+                        checked;
 
                     dispatch(setCheckedPsc(newChecked));
                 }

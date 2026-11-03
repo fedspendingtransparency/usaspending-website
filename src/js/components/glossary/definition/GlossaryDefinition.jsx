@@ -36,7 +36,7 @@ const GlossaryDefinition = ({ glossary }) => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    
+
     const checkDefinitions = () => {
         let hasPlainLocal = false;
         let hasOfficialLocal = false;
@@ -81,7 +81,7 @@ const GlossaryDefinition = ({ glossary }) => {
             // if glossary is already part of the query
             if (window.location.href.includes('&glossary=')) {
                 // remove the old glossary term
-                const newQuery = { ...query }
+                const newQuery = { ...query };
                 delete newQuery.glossary;
 
                 // add back in all other queries
@@ -148,7 +148,7 @@ const GlossaryDefinition = ({ glossary }) => {
                 <div className="back-content">
                     <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                     <div className="label">
-                            Back
+                        Back
                     </div>
                 </div>
             </button>

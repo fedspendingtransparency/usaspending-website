@@ -184,7 +184,6 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
         updateFilters();
     };
 
-
     const loadNextPage = () => {
         // check if request is already in-flight
         if (isLoading) {

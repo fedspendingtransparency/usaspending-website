@@ -11,12 +11,12 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const NLDefaultHint = React.memo(function NLDefaultHint({hint, onClick}) {
+const NLDefaultHint = React.memo(function NLDefaultHint({ hint, onClick }) {
     return (
         <>
             <button className="sidebar-default-hint" onClick={onClick}>
                 {hint}
-            </button>   
+            </button>
         </>
     );
 });

@@ -80,7 +80,7 @@ export const addState = (state, countryAbbreviation, fipsIdByStateName, stateFIP
     };
 };
 
-export const addCountry = (country, countryAbbreviation) => {    
+export const addCountry = (country, countryAbbreviation) => {
     return ({
         identifier: countryAbbreviation,
         display: {
@@ -92,7 +92,7 @@ export const addCountry = (country, countryAbbreviation) => {
             country: countryAbbreviation
         }
     });
-}
+};
 
 export const addDistrict = (district, category, type) => {
     const districtArray = district.split('-');
@@ -236,7 +236,8 @@ export const createLocationObject = (selectedItem, countriesList, createLocation
     const item = selectedItem;
     let location = {};
     const countryAbbreviation =
-        item.data.country_name === 'UNITED STATES' ? 'USA' :
+        item.data.country_name === 'UNITED STATES' ?
+            'USA' :
             countriesList?.find(
                 (country) => {
                     return country.name === item.data.country_name;

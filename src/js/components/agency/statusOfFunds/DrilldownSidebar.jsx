@@ -48,7 +48,6 @@ const DrilldownSidebar = ({
     const prgActivityOrObjectClassObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._obligations), 2);
     const prgActivityOrObjectClassOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._outlays), 2);
 
-
     return (
         <>
             <DrilldownSidebarLevel
@@ -57,13 +56,18 @@ const DrilldownSidebar = ({
                 active={level === 0}
                 obligatedText={(
                     <div className="drilldown-level__description">
-                        <strong>{agencyObligatedShort}</strong> committed of <strong>{agencyBudgetShort}</strong> Total
+                        <strong>{agencyObligatedShort}</strong>
+                        {' '}
+                        committed of
+                        <strong>{agencyBudgetShort}</strong>
+                        {' '}
+                        Total
                         Budgetary Resources
                     </div>
                 )}
                 toggle={toggle}
                 outlay={agencyOutlayedShort} />
-            {level >= 1 &&
+            {level >= 1 && (
                 <DrilldownSidebarLevel
                     key="Sub-Component"
                     label="Sub-Component"
@@ -71,15 +75,20 @@ const DrilldownSidebar = ({
                     name={subComponentName}
                     obligatedText={(
                         <div className="drilldown-level__description">
-                            <strong>{subComponentObligation}</strong> committed of <strong>{subComponentTbr}</strong> Total
+                            <strong>{subComponentObligation}</strong>
+                            {' '}
+                            committed of
+                            <strong>{subComponentTbr}</strong>
+                            {' '}
+                            Total
                             Budgetary Resources
                         </div>
                     )}
                     outlay={subComponentOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 2 &&
+            )}
+            {level >= 2 && (
                 <DrilldownSidebarLevel
                     key="Federal Account"
                     label="Federal Account"
@@ -87,15 +96,20 @@ const DrilldownSidebar = ({
                     name={federalAccountName}
                     obligatedText={(
                         <div className="drilldown-level__description">
-                            <strong>{federalAccountObligation}</strong> committed of <strong>{federalAccountTbr}</strong> Total
+                            <strong>{federalAccountObligation}</strong>
+                            {' '}
+                            committed of
+                            <strong>{federalAccountTbr}</strong>
+                            {' '}
+                            Total
                             Budgetary Resources
                         </div>
                     )}
                     outlay={federalAccountOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 3 &&
+            )}
+            {level >= 3 && (
                 <DrilldownSidebarLevel
                     key="Treasury Account Symbol"
                     label="Treasury Account Symbol"
@@ -109,8 +123,8 @@ const DrilldownSidebar = ({
                     outlay={tasOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 4 &&
+            )}
+            {level >= 4 && (
                 <DrilldownSidebarLevel
                     key={dropdownSelection}
                     label={dropdownSelection}
@@ -124,7 +138,7 @@ const DrilldownSidebar = ({
                     outlay={prgActivityOrObjectClassOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
+            )}
         </>
     );
 };

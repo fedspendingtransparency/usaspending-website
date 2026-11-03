@@ -14,7 +14,7 @@ const onClickHandler = (linkName, scope, hash) => {
 const tickFormatter = (value, isDesktopSm) => {
     const limit = isDesktopSm ? 34 : 36; // put your maximum character
     if (value.length < limit) {
-        return {text: value, isOneLine: (value === value.toUpperCase() ? value.length < 24 : value.length < 27)};
+        return { text: value, isOneLine: (value === value.toUpperCase() ? value.length < 24 : value.length < 27) };
     }
     const newValue = value.replace("Department", "Dept");
     if (newValue.length <= limit) return { text: newValue, isOneLine: false };
@@ -30,7 +30,7 @@ const propTypes = {
     isDesktopSm: PropTypes.bool,
     scope: PropTypes.string,
     hash: PropTypes.string
-}
+};
 
 const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash }) => {
     const labelWidthVar = isTablet ? 400 : 175;
@@ -47,32 +47,34 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
     return (
         <g transform={`translate(${x - 8},${translateY()})`}>
             {link[payload.index].link ?
-                <a
-                    href={`${link[payload.index].link}`}
-                    onClick={() => onClickHandler(
-                        payload.value,
-                        scope,
-                        hash
-                    )}>
+                (
+                    <a
+                        href={`${link[payload.index].link}`}
+                        onClick={() => onClickHandler(
+                            payload.value,
+                            scope,
+                            hash
+                        )}>
+                        <Text
+                            textAnchor={isTablet ? "start" : "end"}
+                            fontSize={14}
+                            width={isTablet ? labelWidthVar : labelWidthVar + 16}
+                            fill="#2378C3"
+                            lineHeight={17.5}>
+                            {formattedText.text}
+                        </Text>
+                    </a>
+                ) :
+                (
                     <Text
                         textAnchor={isTablet ? "start" : "end"}
                         fontSize={14}
                         width={isTablet ? labelWidthVar : labelWidthVar + 16}
-                        fill="#2378C3"
+                        fill="#5c5c5c"
                         lineHeight={17.5}>
                         {formattedText.text}
                     </Text>
-                </a>
-                :
-                <Text
-                    textAnchor={isTablet ? "start" : "end"}
-                    fontSize={14}
-                    width={isTablet ? labelWidthVar : labelWidthVar + 16}
-                    fill="#5c5c5c"
-                    lineHeight={17.5}>
-                    {formattedText.text}
-                </Text>
-            }
+                )}
         </g>
     );
 };

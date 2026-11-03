@@ -50,4 +50,3 @@ const RecipientLandingPage = () => {
     );
 };
 export default RecipientLandingPage;
-

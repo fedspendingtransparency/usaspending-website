@@ -47,4 +47,3 @@ export const pickLocationFormat = (location) => {
     }
     return '--';
 };
-

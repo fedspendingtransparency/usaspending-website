@@ -79,10 +79,10 @@ const CheckboxTree = ({
          */
         const shouldFetchChildren = (
             (
-                !selectedNode?.children
-                || selectedNode?.children?.some((child) => child.value.includes('children_of_'))
-            )
-            && !isSearch
+                !selectedNode?.children ||
+                selectedNode?.children?.some((child) => child.value.includes('children_of_'))
+            ) &&
+            !isSearch
         );
 
         return onExpandProp(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
@@ -183,34 +183,34 @@ const CheckboxTree = ({
             };
         }
 
-        const displayId = Object.keys(node).includes('displayId')
-            ? node.displayId
-            : true;
+        const displayId = Object.keys(node).includes('displayId') ?
+            node.displayId :
+            true;
         return {
             ...node,
-            label: labelComponent
-                ? cloneElement(
+            label: labelComponent ?
+                cloneElement(
                     labelComponent,
                     { ...node }
-                )
-                : (
+                ) :
+                (
                     <CheckboxTreeLabel
                         className={node?.labelClassName}
                         count={node.count}
                         displayId={displayId}
                         subLabel={node.subLabel}
-                        value={node?.isSearchable === false
-                            ? node.value
-                            : highlightText(node.value)}
-                        label={node?.isSearchable === false
-                            ? node.label
-                            : highlightText(node.label)}
+                        value={node?.isSearchable === false ?
+                            node.value :
+                            highlightText(node.value)}
+                        label={node?.isSearchable === false ?
+                            node.label :
+                            highlightText(node.label)}
                         countLabel={countLabel}
                         searchString={searchString} />
                 ),
-            children: node.children
-                ? createLabels(node.children)
-                : null
+            children: node.children ?
+                createLabels(node.children) :
+                null
         };
     });
 

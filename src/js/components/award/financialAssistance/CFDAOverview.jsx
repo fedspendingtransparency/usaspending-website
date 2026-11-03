@@ -25,7 +25,8 @@ const CFDAOverview = ({
         <div className="award-overview__right-section__cfda award-overview-column first award-overview-column__spacing award-viz">
             <h6 className="award-overview-title">
                 {cfdaCount === 1 ?
-                    "Assistance Listings (CFDA Programs)" : "Primary Assistance Listings (CFDA Programs)"}
+                    "Assistance Listings (CFDA Programs)" :
+                    "Primary Assistance Listings (CFDA Programs)"}
                 <TooltipWrapper
                     className="award-section-tt"
                     icon="info"

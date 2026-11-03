@@ -1,4 +1,3 @@
- 
 /**
  * NewDownloadBottomBarContainer.jsx
  * Created by Kevin Li 8/8/17
@@ -36,9 +35,9 @@ const NewDownloadBottomBarContainer = ({
     const [showSuccess, setShowSuccess] = useState(false);
     const { expectedFile, expectedUrl } = useSelector((state) => state.download);
     const [title, setTitle] = useState('We\'re preparing your download(s)...');
-    // eslint-disable-next-line max-len
+
     const [descriptionOne, setDescriptionOne] = useState('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
-    // eslint-disable-next-line max-len
+
     const [descriptionTwo, setDescriptionTwo] = useState(' in your browser\'s address bar before closing this page.');
     const [statusCount, setStatusCount] = useState(null);
     const downloadRequest = useRef(null);
@@ -161,7 +160,6 @@ will no longer download to your computer. Are you sure you want to do this?`;
         return () => window.clearTimeout(statusTimer.current);
     }, [statusCount, checkStatus]);
 
-     
     const displayBar = () => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
@@ -169,13 +167,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setShowError(false);
         setShowSuccess(false);
         setTitle('We\'re preparing your download(s)...');
-        // eslint-disable-next-line max-len
+
         setDescriptionOne('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
     };
-
-
-
 
     useEffect(() => {
         const requestDownload = () => {

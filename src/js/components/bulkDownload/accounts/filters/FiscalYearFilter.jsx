@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
-import {useLatestAccountData} from "../../../../containers/account/WithLatestFy";
+import { useLatestAccountData } from "../../../../containers/account/WithLatestFy";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -20,19 +20,20 @@ const FiscalYearFilter = ({ updateFilter }) => {
     const quarter = useSelector((state) => state.bulkDownload.accounts.quarter);
     const [, allPeriods, { year: latestFy }] = useLatestAccountData();
 
-    /* eslint-disable max-len */
-    const noteOne = (<>
-        The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the{' '}
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={'https://www.congress.gov/113/plaws/publ101/PLAW-113publ101.pdf'}>
-            Digital Accountability and Transparency Act of 2014 (DATA Act)
-        </a>
-        . Financial data will not be available prior to that timeframe.
-    </>);
+    const noteOne = (
+        <>
+            The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the
+            {' '}
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.congress.gov/113/plaws/publ101/PLAW-113publ101.pdf">
+                Digital Accountability and Transparency Act of 2014 (DATA Act)
+            </a>
+            . Financial data will not be available prior to that timeframe.
+        </>
+    );
     const noteTwo = 'Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.';
-    /* eslint-enable max-len */
 
     const latestSelectedTimeInterval = period || quarter;
 
@@ -64,7 +65,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
         <div className="download-filter">
             <FilterSectionTitle type="fy" />
             <div className="download-filter__content new">
-                <p className={"download-filter__content-description"}>
+                <p className="download-filter__content-description">
                     The government
                     <span> Fiscal Year (FY) </span>
                     from October 1 through September 30 of the following year.
@@ -91,7 +92,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
             </div>
         </div>
     );
-}
+};
 
 FiscalYearFilter.propTypes = propTypes;
 export default FiscalYearFilter;

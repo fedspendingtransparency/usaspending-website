@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from "prop-types";
 
@@ -12,7 +11,7 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     ref: PropTypes.object
-}
+};
 
 const DefaultText = ({
     text,

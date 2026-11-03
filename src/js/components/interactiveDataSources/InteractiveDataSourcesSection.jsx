@@ -16,20 +16,20 @@ const InteractiveDataSourcesSection = ({
     children
 }) => (
     <>
-        {section.showSectionWrapper
-            ?
+        {/* eslint-disable-next-line @stylistic/multiline-ternary */}
+        {section.showSectionWrapper ? (
             <SectionWrapper
                 // isCollapsible // Currently disable for `Scroller`
                 id={`interactive-data-sources-${section.section}`}
                 title={section.label}>
                 {children}
             </SectionWrapper>
-            :
+        ) : (
             <section
                 id={`interactive-data-sources-${section.section}`}>
                 {children}
             </section>
-        }
+        )}
     </>
 );
 

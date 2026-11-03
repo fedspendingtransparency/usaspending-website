@@ -122,7 +122,6 @@ export const getAllUniqueAncestors = (ancestorArray) => {
     return [...new Set(allUniqueAncestors)];
 };
 
-
 export const getFormattedNaicsDataForCheckboxTree = (nodes) => getFormattedDataForCheckboxTree(nodes, 'naics', getFormattedChildren, getFormattedAncestors);
 
 export const decrementNaicsCountAndUpdateUnchecked = (

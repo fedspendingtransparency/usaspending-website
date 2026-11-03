@@ -53,6 +53,5 @@ const QuarterButton = (props) => {
     );
 };
 
-
 QuarterButton.propTypes = propTypes;
 export default QuarterButton;

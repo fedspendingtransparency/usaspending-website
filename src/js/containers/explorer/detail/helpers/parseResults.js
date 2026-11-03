@@ -22,7 +22,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
             () => goToUnreported(item);
 
         const result = {
-            Name: name,
+            "Name": name,
             "Obligated Amount": obligatedAmount,
             "Obligated Amount unformatted": item.amount,
             "Percent of Total": percent,
@@ -30,13 +30,13 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         };
         resultsArray.push(result);
     });
-    if (sort.field == 'Obligated Amount' ){
+    if (sort.field == 'Obligated Amount') {
         return orderBy(
             resultsArray,
             ['Obligated Amount unformatted'],
             [sort.direction]
-        )
-    }  
+        );
+    }
     return orderBy(
         resultsArray,
         [sort.field],

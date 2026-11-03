@@ -49,6 +49,5 @@ const DownloadOption = ({
     );
 };
 
-
 DownloadOption.propTypes = propTypes;
 export default DownloadOption;

@@ -27,9 +27,9 @@ export class AlternateNamesRecipientModalContainer extends React.Component {
     updateSort = (sortField, sortDirection) => this.setState({ sortField, sortDirection });
 
     render() {
-        const sortedAlternateNames = this.state.sortDirection === "asc"
-            ? this.props.recipient.overview.alternateNames.sort((a, b) => (a.localeCompare(b)))
-            : this.props.recipient.overview.alternateNames.sort((a, b) => (b.localeCompare(a)));
+        const sortedAlternateNames = this.state.sortDirection === "asc" ?
+            this.props.recipient.overview.alternateNames.sort((a, b) => (a.localeCompare(b))) :
+            this.props.recipient.overview.alternateNames.sort((a, b) => (b.localeCompare(a)));
 
         return (
             <AlternateNamesRecipientModal

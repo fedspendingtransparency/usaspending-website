@@ -114,7 +114,7 @@ const FySummary = ({
                 data={(<>{totalBudgetaryResources}<br />in budgetary resources</>)}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time"
-                key="Total Budgetary Resources Over Time" >
+                key="Total Budgetary Resources Over Time">
                 <BarChart
                     isLoading={isLoading}
                     isError={isError}
@@ -130,7 +130,7 @@ const FySummary = ({
                 data={(<>{totalObligations}<br />in total obligations</>)}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time"
-                key="Total Obligations Over Time" >
+                key="Total Obligations Over Time">
                 <TotalObligationsOverTimeContainer
                     isLoading={isLoading}
                     isError={isError}
@@ -144,7 +144,7 @@ const FySummary = ({
                 data={(<>{awardObligations}<br /> in award obligations</>)}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type"
-                key="Award Obligations by Type" >
+                key="Award Obligations by Type">
                 <ObligationsByAwardTypeContainer fiscalYear={+fy} isMobile={isMobile} />
             </VisualizationSection>
         )
@@ -155,8 +155,9 @@ const FySummary = ({
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
-            {isMobile ? <Carousel items={sections} />
-                : (
+            {isMobile ?
+                <Carousel items={sections} /> :
+                (
                     <FlexGridRow hasGutter className="fy-summary__row">
                         {sections.map((viz, i) => (
                             <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>

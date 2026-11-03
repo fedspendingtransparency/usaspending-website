@@ -10,7 +10,6 @@ import {
 import { fetchAgencySlugs } from "../apis/agency";
 import { setAgencySlugs } from "../redux/actions/agency/agencyActions";
 
-
 const useAgencySlugs = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);

@@ -535,8 +535,8 @@ const getFilters = (filters) => {
     };
 
     const determineFYCount = (count) => {
-        const allFY = (currentFiscalYear() - earliestFiscalYear)
-            + 1;
+        const allFY = (currentFiscalYear() - earliestFiscalYear) +
+            1;
 
         if (count === allFY) {
             return 1;

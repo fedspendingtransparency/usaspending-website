@@ -1,13 +1,13 @@
 /**
- * 
- * NLMoreResources.jsx 
+ *
+ * NLMoreResources.jsx
  * Created by Trey Morgan 7/8/2026
  */
 
-import React from "react";
-import { useNavigate } from "react-router";
+import React from 'react';
+import { useNavigate } from 'react-router';
 import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
-import { moreResourcesBtnData } from "./NLData";
+import { moreResourcesBtnData } from './NLData';
 
 const NLMoreResources = () => {
     const navigate = useNavigate();
@@ -18,9 +18,10 @@ const NLMoreResources = () => {
             </FlexGridCol>
             <FlexGridRow className="more-resources__row">
                 {moreResourcesBtnData.map((btn) => (
-                    <FlexGridCol 
+                    <FlexGridCol
+                        id={btn.label === 'Glossary' ? 'animated-tour-step4' : null}
                         className="more-resources__col"
-                        key={`more-resources-${btn.id}`} 
+                        key={`more-resources-${btn.id}`}
                         onClick={() => btn.action(navigate)}
                         mobile={12}
                         tablet={6}
@@ -33,11 +34,12 @@ const NLMoreResources = () => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
-                            image={btn.image}/>
+                            image={btn.image} />
                     </FlexGridCol>
                 ))}
             </FlexGridRow>
         </section>
-    )};
+    );
+};
 
 export default NLMoreResources;

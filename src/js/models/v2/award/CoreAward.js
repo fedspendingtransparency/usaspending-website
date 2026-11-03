@@ -12,9 +12,9 @@ const CoreAward = {
     populateCore(data) {
         this._category = data.category;
         this.id = data.id || '';
-        this.generatedId = data.generatedId
-            ? encodeURIComponent(`${data.generatedId}`)
-            : '';
+        this.generatedId = data.generatedId ?
+            encodeURIComponent(`${data.generatedId}`) :
+            '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || "--";
         this.description = data.description || '--';
@@ -30,13 +30,13 @@ const CoreAward = {
         this.naics = data.naics || {};
         this.psc = data.psc || {};
         this.fileC = data.fileC || { obligations: [], outlays: [] };
-        this.defCodes = data.fileC
-            ? data.fileC
+        this.defCodes = data.fileC ?
+            data.fileC
                 .obligations
                 .concat(data.fileC.outlays)
                 .filter(({ amount }) => amount !== 0)
-                .reduce((acc, { code }) => ([...new Set([...acc, code])]), [])
-            : [];
+                .reduce((acc, { code }) => ([...new Set([...acc, code])]), []) :
+            [];
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {

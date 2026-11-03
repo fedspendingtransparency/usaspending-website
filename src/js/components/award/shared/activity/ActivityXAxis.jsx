@@ -77,22 +77,27 @@ const ActivityXAxis = ({
             if (removeLastLabel && i === (array.length - 1)) return null;
             // adjust the display of the labels
             const translateX = xPos - ((x || x === 0) ?
-                x : labelOffset);
+                x :
+                labelOffset);
             const translateY = yPos + ((y || y === 0) ?
-                y : labelOffset);
+                y :
+                labelOffset);
             const rotateLabel = (rotate || rotate === 0) ?
-                rotate : 325;
+                rotate :
+                325;
             const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
-            return (<ActivityXAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-y-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd}
-                transform={transform}
-                line={line || false} />);
+            return (
+                <ActivityXAxisItem
+                    x={xPos}
+                    y={yPos}
+                    label={`${tickLabels[i]}`}
+                    key={`label-y-${tick}-${i}`}
+                    lineStart={lineStart}
+                    lineEnd={lineEnd}
+                    transform={transform}
+                    line={line || false} />
+            );
         });
 
         setDescription(newDescription);

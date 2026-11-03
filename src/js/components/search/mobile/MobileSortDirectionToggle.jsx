@@ -34,7 +34,7 @@ const MobileSortDirectionToggle = ({
         }
     };
     return (
-        <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
+        <div className="mobile-sort-direction-toggle mobile-sort-toggle">
             <ViewTypeButton
                 value="desc"
                 label="descending order"

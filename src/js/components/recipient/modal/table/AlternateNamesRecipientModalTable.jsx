@@ -36,7 +36,7 @@ const AlternateNamesRecipientModalTable = (props) => {
                         <div className="header-cell">
                             <div className="header-cell__text">
                                 <div className="header-cell__title">
-                                Name
+                                    Name
                                 </div>
                             </div>
                             <Sorter

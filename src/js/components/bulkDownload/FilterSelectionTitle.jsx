@@ -76,12 +76,18 @@ const titleData = {
         icon: "list",
         preSpan: "Select a",
         span: "Budget Function",
-        postSpan: <> and/or <span
-            className={`download-filter__title_em no-right-margin`}
-            style={{backgroundColor: '#F7F2FF'}} >
-            Agency
-        </span>.
-        </>,
+        postSpan: (
+            <>
+                {' '}
+                and/or
+                <span
+                    className="download-filter__title_em no-right-margin"
+                    style={{ backgroundColor: '#F7F2FF' }}>
+                    Agency
+                </span>
+                .
+            </>
+        ),
         showRequired: true,
         background: '#F7F2FF',
         fill: '#54278F',
@@ -123,12 +129,18 @@ const titleData = {
         icon: "calendar",
         preSpan: "Select a",
         span: "Fiscal Year",
-        postSpan: <> and <span
-            className={`download-filter__title_em no-right-margin`}
-            style={{backgroundColor: '#E8F5FF'}} >
-            Period
-        </span>.
-        </>,
+        postSpan: (
+            <>
+                {' '}
+                and
+                <span
+                    className="download-filter__title_em no-right-margin"
+                    style={{ backgroundColor: '#E8F5FF' }}>
+                    Period
+                </span>
+                .
+            </>
+        ),
         showRequired: true,
         background: '#E8F5FF',
         fill: '#0B4778',
@@ -143,8 +155,8 @@ const titleData = {
             <>
                 and
                 <span
-                    className={`download-filter__title_em no-right-margin`}
-                    style={{backgroundColor: '#E5FAFF'}} >
+                    className="download-filter__title_em no-right-margin"
+                    style={{ backgroundColor: '#E5FAFF' }}>
                     Fiscal Year
                 </span>
                 &nbsp;to filter the table below.
@@ -155,8 +167,7 @@ const titleData = {
         fill: '#0E4F5C',
         addClassName: ""
     }
-}
-
+};
 
 const FilterSectionTitle = ({
     type
@@ -178,19 +189,19 @@ const FilterSectionTitle = ({
             <h4 className="download-filter__title">
                 <div
                     className={`title-icon ${optClassName}`}
-                    style={{backgroundColor: background}} >
+                    style={{ backgroundColor: background }}>
                     <FontAwesomeIcon icon={icon} color={fill} />
                 </div>
                 <span>
                     {preSpan}
                     <span
                         className={`download-filter__title_em ${addClassName}`}
-                        style={{backgroundColor: background}} >
+                        style={{ backgroundColor: background }}>
                         {span}
                     </span>
                     {postSpan}
                 </span>
-                {showRequired && <span className='required'>&nbsp;(Required)&nbsp;</span>}
+                {showRequired && <span className="required">&nbsp;(Required)&nbsp;</span>}
             </h4>
         </div>
     );

@@ -25,7 +25,6 @@ const useFetchAllTerms = () => {
         }
     }, [data]);
 
-
     return {
         allTerms, isSuccess, isLoading, error
     };

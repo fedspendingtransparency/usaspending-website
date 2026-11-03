@@ -14,9 +14,9 @@ const BaseAwardAmounts = {
         if (data.generatedId) {
             this.generatedId = encodeURIComponent(`${data.generatedId}`);
         }
-        this.generatedId = data.generated_unique_award_id
-            ? encodeURIComponent(`${data.generated_unique_award_id}`)
-            : '';
+        this.generatedId = data.generated_unique_award_id ?
+            encodeURIComponent(`${data.generated_unique_award_id}`) :
+            '';
     },
     populateAggIdv(data, defCodes) {
         this.childIDVCount = data.child_idv_count || 0;

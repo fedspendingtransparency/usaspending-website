@@ -2,11 +2,13 @@
  * TableSection.jsx
  */
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import ResultsTableContainer from "containers/search/resultsView/ResultsTableContainer";
 
 import TableDsm from "./TableDsm";
+import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
+import logVisualizationViewEvent from "../logVisualizationViewEvent";
 
 const propTypes = {
     tabData: PropTypes.object,
@@ -20,9 +22,16 @@ const TableSection = ({
     const sectionTitle = spendingLevel === "awards" ? 'Prime Award Results' : 'Subaward Results';
 
     const dsmContent = useMemo(() => <TableDsm spendingLevel={spendingLevel} />, [spendingLevel]);
+    const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+
+    useEffect(() => {
+        if (isIntersecting) {
+            logVisualizationViewEvent("awards", hash);
+        }
+    }, [isIntersecting, hash]);
 
     return (
-        <div id="search-page-component" className="awards">
+        <div ref={ref} className="awards">
             <ResultsTableContainer
                 tabData={tabData}
                 hash={hash}

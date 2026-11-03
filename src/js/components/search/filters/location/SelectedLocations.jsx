@@ -18,7 +18,8 @@ const SelectedLocations = ({ activeTab }) => {
 
     const shownLocations = [];
     const selectedLocationsObj = activeTab === "recipient" ?
-        selectedRecipientLocations : selectedLocations;
+        selectedRecipientLocations :
+        selectedLocations;
 
     if (selectedLocationsObj?.size !== 0) {
         selectedLocationsObj?.entrySeq()

@@ -36,7 +36,6 @@ const ListOfVideos = ({ videos }) => {
             tmpVideos.sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt));
         }
 
-
         if (sortOrder === "Oldest") {
             tmpVideos.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
         }
@@ -44,7 +43,6 @@ const ListOfVideos = ({ videos }) => {
         if (sortOrder === "Longest") {
             tmpVideos.sort((a, b) => new Date(b.durationInSecs) - new Date(a.durationInSecs));
         }
-
 
         if (sortOrder === "Shortest") {
             tmpVideos.sort((a, b) => new Date(a.durationInSecs) - new Date(b.durationInSecs));
@@ -133,13 +131,13 @@ const ListOfVideos = ({ videos }) => {
                                         url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
                                     }));
                                 }} />
-                        </FlexGridCol>))
-                    }
+                        </FlexGridCol>
+                    ))}
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 ListOfVideos.propTypes = propTypes;
 export default ListOfVideos;
-

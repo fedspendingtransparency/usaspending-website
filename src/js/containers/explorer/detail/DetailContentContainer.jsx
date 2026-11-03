@@ -323,7 +323,6 @@ const DetailContentContainer = ({
             })
         );
 
-
         trackSpendingEvent({
             event: 'Drilldown', action: filterBy, label: `${name} - ${dataId}`
         });
@@ -361,7 +360,6 @@ const DetailContentContainer = ({
 
         // determine how many steps we need to rewind
         const steps = index - (trailJS.length - 1);
-
 
         if (index === 0) {
             // we are going all the way back to the start

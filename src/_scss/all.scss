@@ -49,3 +49,5 @@ $output-bourbon-deprecation-warnings: false !default;
 
 // Selectors --------------- //
 @import "selectors/idv";
+
+@import "./pages/search/naturalLanguage/animatedTour";

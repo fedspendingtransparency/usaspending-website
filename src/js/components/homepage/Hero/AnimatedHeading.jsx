@@ -229,7 +229,8 @@ const AnimatedHeading = ({ paused }) => {
                     </div>
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 
     return (<>{rotatingText()}</>);
 };

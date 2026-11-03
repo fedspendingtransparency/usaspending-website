@@ -46,7 +46,6 @@ const AccountUserSelections = () => {
         );
     };
 
-
     const generateBudgetAgencyFunctionString = () => {
         let selectedFilterValues = [];
 
@@ -54,26 +53,26 @@ const AccountUserSelections = () => {
             selectedFilterValues.push({
                 title: "Budget Function",
                 value: accounts.budgetFunction.title
-            })
+            });
         }
         if (accounts.budgetSubfunction.title !== 'Select a Budget Sub-Function') {
             selectedFilterValues.push({
                 title: "Budget Sub-function",
                 value: accounts.budgetSubfunction.title
-            })
+            });
         }
 
         if (accounts.agency.name !== 'Select an Agency') {
             selectedFilterValues.push({
                 title: "Agency",
                 value: accounts.agency.name
-            })
+            });
         }
         if (accounts.federalAccount.name !== 'Select a Federal Account') {
             selectedFilterValues.push({
                 title: "Federal Account",
                 value: accounts.federalAccount.name
-            })
+            });
         }
 
         if (selectedFilterValues.length > 0) {
@@ -94,7 +93,6 @@ const AccountUserSelections = () => {
             </div>
         );
     };
-
 
     const generateSubmissionTypeString = () => {
         if (accounts.submissionTypes.length > 0) {

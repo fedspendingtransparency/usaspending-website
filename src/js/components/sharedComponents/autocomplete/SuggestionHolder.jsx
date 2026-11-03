@@ -30,17 +30,19 @@ const SuggestionHolder = ({
     // Ensure we're only showing maxSuggestions results at most
     for (let i = 0; i < Math.min(suggestions.length,
         maxSuggestions); i++) {
-        suggestionsArray.push(<Suggestion
-            values={suggestions}
-            category={suggestions[i].category}
-            title={suggestions[i].title}
-            subtitle={suggestions[i].subtitle}
-            data={suggestions[i]}
-            selected={i === selectedIndex}
-            select={select}
-            id={`${autocompleteId}__option_${i}`}
-            key={i}
-            matchingString={matchingString} />);
+        suggestionsArray.push(
+            <Suggestion
+                values={suggestions}
+                category={suggestions[i].category}
+                title={suggestions[i].title}
+                subtitle={suggestions[i].subtitle}
+                data={suggestions[i]}
+                selected={i === selectedIndex}
+                select={select}
+                id={`${autocompleteId}__option_${i}`}
+                key={i}
+                matchingString={matchingString} />
+        );
     }
 
     let hiddenClass = 'hide';

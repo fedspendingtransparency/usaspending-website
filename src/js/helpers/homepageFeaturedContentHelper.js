@@ -59,7 +59,8 @@ const getCurrentArticles = (otherArticleCadence, dayOneString = publishedDate) =
     const today = new Date();
     const dayOne = new Date(dayOneString);
     const weekDifference = (today - dayOne) > 0 ?
-        Math.ceil(((today - dayOne) / 604800000)) :  1;
+        Math.ceil(((today - dayOne) / 604800000)) :
+        1;
 
     const featureSprintNum = weekDifference > 0 ? Math.ceil(weekDifference / 3) : 1;
     const featureWeekNum = weekDifference - ((featureSprintNum - 1) * 3);

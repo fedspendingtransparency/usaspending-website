@@ -33,7 +33,7 @@ const TempPage = () => {
         }, 5000);
     }, []);
 
-    const searchTestState = buildSearchTestState(searchTestData);    
+    const searchTestState = buildSearchTestState(searchTestData);
 
     const exampleLabel = (
         <>
@@ -254,7 +254,8 @@ const TempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" size="sm" height="200px">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                    <div>
+                                        When awarding funding, the U.S. government enters a binding agreement called an
                                         obligation, which meand that the federal government promises to spend the money.
                                     </div>
                                 </CardBody>
@@ -263,7 +264,8 @@ const TempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" size="md">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                    <div>
+                                        When awarding funding, the U.S. government enters a binding agreement called an
                                         obligation, which meand that the federal government promises to spend the money.
                                     </div>
                                 </CardBody>
@@ -272,7 +274,8 @@ const TempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="md">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                    <div>
+                                        When awarding funding, the U.S. government enters a binding agreement called an
                                         obligation, which meand that the federal government promises to spend the money.
                                     </div>
                                 </CardBody>
@@ -281,7 +284,8 @@ const TempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" fill="#1a4480">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                    <div>
+                                        When awarding funding, the U.S. government enters a binding agreement called an
                                         obligation, which meand that the federal government promises to spend the money.
                                     </div>
                                 </CardBody>

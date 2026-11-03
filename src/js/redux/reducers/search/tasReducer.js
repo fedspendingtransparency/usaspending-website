@@ -8,7 +8,6 @@ import {
     tasSortFn
 } from 'helpers/tasHelper';
 
-
 const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
     key,

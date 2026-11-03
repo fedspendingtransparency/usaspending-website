@@ -71,13 +71,14 @@ const CFDADetailModal = ({
                         </div>
                         <div className="usa-dt-modal__section__description">
                             {sanitizeUrl(data.cfda_website) ?
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.cfda_website}>
-                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
-                                : '--'
-                            }
+                                (
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.cfda_website}>
+                                        {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                ) :
+                                '--'}
                         </div>
                     </div>
                     <div className="usa-dt-modal__section">
@@ -86,13 +87,14 @@ const CFDADetailModal = ({
                         </div>
                         <div className="usa-dt-modal__section__description">
                             {sanitizeUrl(data.resource_link) ?
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.resource_link}>
-                                    {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
-                                : '--'
-                            }
+                                (
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.resource_link}>
+                                        {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                ) :
+                                '--'}
                         </div>
                     </div>
                 </div>
@@ -140,7 +142,7 @@ const CFDADetailModal = ({
                         <button
                             onClick={updateAdvancedSearchFilters}
                             value={data.code}>
-                                View in Advanced Search
+                            View in Advanced Search
                         </button>
                     </div>
                 </div>

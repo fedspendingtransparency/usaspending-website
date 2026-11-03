@@ -81,7 +81,7 @@ const ShareIcon508 = ({
             </Picker>
             <span className="usda-share-icon__share-text">Share</span>
             {showConfirmationText && (
-                <div className="copy-confirmation" >
+                <div className="copy-confirmation">
                     <FontAwesomeIcon icon={["fa", "check-circle"]} />
                     {' '}
                     Copied!

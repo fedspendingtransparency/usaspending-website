@@ -89,7 +89,7 @@ const additionalDetailsContracts = (awardData) => {
             'Multiple Or Single Parent Award IDV': parentAwardDetails.multipleOrSingle || ''
         },
         placeOfPerformance: {
-            Address: {
+            "Address": {
                 type: 'address',
                 data: [
                     `${placeOfPerformance.regionalAddress}`,
@@ -113,7 +113,7 @@ const additionalDetailsContracts = (awardData) => {
             'Subject to Materials, Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
         },
         recipientDetails: {
-            Recipient: {
+            "Recipient": {
                 type: 'link',
                 data: {
                     path: recipient.internalId ? `/recipient/${recipient.internalId}/latest` : null,

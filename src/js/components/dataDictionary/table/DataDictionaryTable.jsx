@@ -29,6 +29,7 @@ export default class DataDictionaryTable extends React.Component {
         bottomBar.scrollLeft = topBar.scrollLeft;
         headerDiv.scrollLeft = e.target.scrollLeft;
     }
+
     scrollRightBottom(e) {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");

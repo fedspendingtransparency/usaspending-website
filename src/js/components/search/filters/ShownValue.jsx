@@ -28,7 +28,7 @@ const ShownValue = ({ removeValue, label }) => {
                 aria-label={`Applied filter: ${label}`}
                 tabIndex={0}
                 onClick={keyDownHandler}
-                onKeyDown={keyDownHandler} >
+                onKeyDown={keyDownHandler}>
                 {label}
                 <div title="Click to remove filter">
                     <Button

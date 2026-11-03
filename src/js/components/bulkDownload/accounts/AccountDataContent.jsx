@@ -57,11 +57,11 @@ const AccountDataContent = ({
 
     useEffect(() => {
         setValidForm((
-            (accounts.budgetFunction.code !== '')
-            && (accounts.agency.id !== '')
-            && (accounts.submissionTypes.length !== 0)
-            && (accounts.fy !== '')
-            && (accounts.quarter !== '' || accounts.period !== '')
+            (accounts.budgetFunction.code !== '') &&
+            (accounts.agency.id !== '') &&
+            (accounts.submissionTypes.length !== 0) &&
+            (accounts.fy !== '') &&
+            (accounts.quarter !== '' || accounts.period !== '')
         ));
     }, [accounts]);
 
@@ -107,7 +107,7 @@ const AccountDataContent = ({
                         isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
                     <FiscalYearFilter updateFilter={updateFilter} />
                     { isMedium && <AccountUserSelections /> }
-                    <FlexGridRow className='download-button-group'>
+                    <FlexGridRow className="download-button-group">
                         <Button
                             additionalClassnames="download-reset"
                             copy="Reset Form"
@@ -116,7 +116,7 @@ const AccountDataContent = ({
                             buttonType="secondary"
                             backgroundColor="light"
                             onClick={clearAccountFilters}
-                            onKeyDown={onKeyDown}/>
+                            onKeyDown={onKeyDown} />
                         <Button
                             additionalClassnames="download-button"
                             copy="Download"

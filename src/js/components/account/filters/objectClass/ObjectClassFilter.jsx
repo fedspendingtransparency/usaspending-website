@@ -27,7 +27,6 @@ export default class ObjectClassFilter extends React.Component {
         this.props.updateFilter(code);
     }
 
-
     render() {
         const items = this.props.availableObjectClasses.map((major) => {
             const label = major.name;
@@ -39,16 +38,18 @@ export default class ObjectClassFilter extends React.Component {
                 childValues[minor.id] = minor.name;
             });
 
-            return (<PrimaryCheckboxType
-                name={label}
-                value={id}
-                key={id}
-                types={childValues}
-                filters={childFilters}
-                filterType="Major Object Class"
-                selectedCheckboxes={this.props.selectedCodes}
-                toggleCheckboxType={this.toggleValue}
-                bulkTypeChange={this.props.updateMajorFilter} />);
+            return (
+                <PrimaryCheckboxType
+                    name={label}
+                    value={id}
+                    key={id}
+                    types={childValues}
+                    filters={childFilters}
+                    filterType="Major Object Class"
+                    selectedCheckboxes={this.props.selectedCodes}
+                    toggleCheckboxType={this.toggleValue}
+                    bulkTypeChange={this.props.updateMajorFilter} />
+            );
         });
 
         return (

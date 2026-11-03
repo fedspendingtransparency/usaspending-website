@@ -3,14 +3,14 @@
  * Created on 12/15/2025 by Josue Aguilar
  */
 
-import React, { useState } from "react";
-import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 
-import RoundedToggle from "components/sharedComponents/RoundedToggle";
-import Accordion from "components/sharedComponents/accordion/Accordion";
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
+import RoundedToggle from 'components/sharedComponents/RoundedToggle';
+import Accordion from 'components/sharedComponents/accordion/Accordion';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -46,13 +46,14 @@ const AwardBreakdownHeader = ({ toggle, setToggle }) => {
                                 label="View Outlays" />
                             <div className="state-overview__line-div" />
                             <Accordion
+                                open={open}
                                 setOpen={setOpen}
                                 closedIcon="chevron-down"
                                 openIcon="chevron-up"
                                 title="About Outlays" />
                         </div>
                     </div>
-                    {open &&
+                    {open && (
                         <div className="state-overview__what-content">
                             <FontAwesomeIcon
                                 icon="info-circle"
@@ -74,7 +75,8 @@ const AwardBreakdownHeader = ({ toggle, setToggle }) => {
                                 The award types above add up to more than 100% due to negative values not
                                 shown here.
                             </p>
-                        </div>}
+                        </div>
+                    )}
                 </div>
             </FlexGridCol>
         </FlexGridRow>

@@ -21,7 +21,13 @@ const FooterLinkToAdvancedSearch = ({
         <div className="footerLinkToAdvancedSearch__content">
             <h4>{title}</h4>
             <p>
-                Check out the <strong>Award Search</strong> page <br />
+                Check out the
+                {' '}
+                <strong>Award Search</strong>
+                {' '}
+                page
+                {' '}
+                <br />
                 {description}
             </p>
             <button

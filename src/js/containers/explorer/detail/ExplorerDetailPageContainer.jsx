@@ -22,7 +22,6 @@ const ExplorerDetailPageContainer = (props) => {
     const match = useMatch('/explorer/:root');
     const { root } = match.params;
 
-
     const validateRoot = (rootValue) => {
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
         if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
@@ -34,7 +33,6 @@ const ExplorerDetailPageContainer = (props) => {
             props.setExplorerRoot(rootValue);
         }
     };
-
 
     useEffect(() => {
         validateRoot(root);

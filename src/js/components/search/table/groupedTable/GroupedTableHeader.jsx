@@ -19,10 +19,12 @@ const propTypes = {
 
 const SortIcon = ({ currentSort, title, handleClickedSort }) => {
     // highlight the active arrow
-    const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc')
-        ? ' table-header__icon_active' : '';
-    const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc')
-        ? ' table-header__icon_active' : '';
+    const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc') ?
+        ' table-header__icon_active' :
+        '';
+    const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc') ?
+        ' table-header__icon_active' :
+        '';
 
     return (
         <div className="table-header__sort">
@@ -61,7 +63,7 @@ const GroupedTableHeader = ({
     };
 
     return (
-        <div className={`table-header__content${index > 0 ? ' table-header__content_right' : ''}`} >
+        <div className={`table-header__content${index > 0 ? ' table-header__content_right' : ''}`}>
             <div className="table-header__label">
                 { flexRender(
                     header.column.columnDef.header,
@@ -79,4 +81,3 @@ const GroupedTableHeader = ({
 GroupedTableHeader.propTypes = propTypes;
 
 export default GroupedTableHeader;
-

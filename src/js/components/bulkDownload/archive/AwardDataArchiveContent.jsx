@@ -5,14 +5,14 @@
 
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import {startCase} from "lodash-es";
+import { startCase } from 'lodash-es';
 
-import isMobileContext from "context/IsMobileContext";
-import Analytics from "../../../helpers/analytics/Analytics";
+import isMobileContext from 'context/IsMobileContext';
+import Analytics from '../../../helpers/analytics/Analytics';
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
-import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
-import {Link} from "react-router";
+import AwardDataArchiveUserSelections from './AwardDataArchiveUserSelections';
+import { Link } from 'react-router';
 
 const propTypes = {
 
@@ -26,9 +26,9 @@ const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
 const archiveFileDownloadGACategory = 'Download Center - Archive Download';
 const getArchiveFileName = (file) => fileFieldsForAnalytics
     .reduce((acc, key, i, arr) => {
-        const selection = file[key] !== 'N/A'
-            ? file[key]
-            : `AllFYs`;
+        const selection = file[key] !== 'N/A' ?
+            file[key] :
+            `AllFYs`;
         if (i === 0) return `${selection}_`;
         if (i === arr.length - 1) return `${acc}_${selection}`;
         return `${acc}_${selection}_`;
@@ -45,9 +45,9 @@ const logArchiveDownload = (e, file) => {
 
     fileFieldsForAnalytics
         .forEach((key) => {
-            const label = file[key] !== 'N/A'
-                ? file[key]
-                : `AllFYs`;
+            const label = file[key] !== 'N/A' ?
+                file[key] :
+                `AllFYs`;
 
             Analytics.event({
                 event: 'archive_fields_for_download',
@@ -57,9 +57,8 @@ const logArchiveDownload = (e, file) => {
                 gtm: true
             });
         });
-}
+};
 
-/* eslint-disable max-len */
 const AwardDataArchiveContent = ({
     filters,
     updateFilter,
@@ -69,10 +68,16 @@ const AwardDataArchiveContent = ({
     const { isTablet } = useContext(isMobileContext);
     const [selectedFiles, setSelectedFiles] = useState(new Set());
 
+    const [prevResults, setPrevResults] = useState(results);
+    if (results !== prevResults) {
+        setPrevResults(results);
+        setSelectedFiles(new Set());
+    }
+
     const onClickReset = () => setSelectedFiles(new Set());
 
     const onClickDownload = () => selectedFiles.forEach((url) => {
-        logArchiveDownload({}, results.find((file) => file.url === url))
+        logArchiveDownload({}, results.find((file) => file.url === url));
         window.open(url, '_blank');
     });
 
@@ -93,7 +98,9 @@ const AwardDataArchiveContent = ({
                     <b> Full files</b> - data for the fiscal year up until the date the file was prepared
                 </li>
                 <li>
-                    <b>Delta files</b> - only new, modified, and deleted data since the date the last month&#39;s files were generated.
+                    <b>Delta files</b>
+                    {' '}
+                    - only new, modified, and deleted data since the date the last month&#39;s files were generated.
                     The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
                 </li>
             </ul>
@@ -107,18 +114,20 @@ const AwardDataArchiveContent = ({
                 setSelectedFiles={setSelectedFiles} />
             <div className="note-text">
                 <span>
-                    Note:{" "}
+                    Note:{' '}
                 </span>
-                To download data prior to FY 2008, visit our{" "}
+                To download data prior to FY 2008, visit our
+                {' '}
                 <Link
                     to="/download_center/custom_award_data">
                     Custom Award Data
                 </Link>
-                {" "}page.
+                {' '}
+                page.
             </div>
-            {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
+            {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results} />}
             <button
-                className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
+                className={`reset-button${isTablet ? ' buttons-tablet' : ''}`}
                 id="reset-button"
                 aria-label="Reset File Selections"
                 title="Reset File Selections"
@@ -126,7 +135,7 @@ const AwardDataArchiveContent = ({
                 Reset
             </button>
             <button
-                className={`download-button${isTablet ? " buttons-tablet" : ""}`}
+                className={`download-button${isTablet ? ' buttons-tablet' : ''}`}
                 id="download-button"
                 aria-label="Download File Selections"
                 title="Download File Selections"
@@ -136,7 +145,7 @@ const AwardDataArchiveContent = ({
             </button>
         </div>
     );
-}
+};
 
 AwardDataArchiveContent.propTypes = propTypes;
 export default AwardDataArchiveContent;

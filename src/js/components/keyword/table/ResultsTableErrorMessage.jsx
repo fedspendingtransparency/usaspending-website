@@ -29,6 +29,5 @@ const ResultsTableErrorMessage = ({
     </div>
 );
 
-
 ResultsTableErrorMessage.propTypes = propTypes;
 export default ResultsTableErrorMessage;

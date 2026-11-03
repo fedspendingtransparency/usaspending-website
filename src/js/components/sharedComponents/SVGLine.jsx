@@ -95,10 +95,12 @@ export default class SVGLine extends Component {
         };
         if (onMouseMoveLine) this.props.onMouseMoveLine(data, text);
     });
+
     onMouseLeaveLine = throttle(() => {
         const { onMouseLeaveLine } = this.props;
         if (onMouseLeaveLine) this.props.onMouseLeaveLine();
     });
+
     onMouseMoveText = throttle(() => {
         const { onMouseMoveText, text, position } = this.props;
         const stateName = text.replace(/\s/g, '').toLowerCase();
@@ -110,6 +112,7 @@ export default class SVGLine extends Component {
             if (onMouseMoveText) this.props.onMouseMoveText(data, text);
         }
     });
+
     onMouseLeaveText = throttle(() => {
         const { onMouseLeaveText } = this.props;
         if (onMouseLeaveText) this.props.onMouseLeaveText();
@@ -138,6 +141,7 @@ export default class SVGLine extends Component {
         if (isHorizontal) return graphHeight;
         return scale(max) + (adjustmentX || 0);
     };
+
     // since we set the position of the text we need to update it on window resize
     handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
@@ -267,6 +271,7 @@ export default class SVGLine extends Component {
 
     description = () => (this.props.description ||
         `A ${this.props.isHorizontal ? 'horizontal' : 'vertical'} line representing today's date`);
+
     render() {
         const line = this.line();
         const text = this.text(line);

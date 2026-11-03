@@ -16,7 +16,8 @@ const BarChartLegend = (props) => {
     const items = props.legend.map((item) => (
         <BarChartLegendItem
             {...item}
-            key={item.label} />)
+            key={item.label} />
+    )
     );
 
     return (

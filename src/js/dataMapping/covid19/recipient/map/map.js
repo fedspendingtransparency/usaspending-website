@@ -138,11 +138,11 @@ export const advancedSearchFilters = {
         options: [
             {
                 value: 'totalSpending',
-                label: 'Total Spending'
+                label: 'Obligations'
             },
             {
                 value: 'perCapita',
-                label: 'Per Capita Spending'
+                label: 'Per Capita Obligations'
             }
         ]
     }

@@ -56,7 +56,8 @@ const additionalDetails = (awardData) => {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.agencySlug ?
-                        `/agency/${parentAwardDetails.agencySlug}` : null,
+                        `/agency/${parentAwardDetails.agencySlug}` :
+                        null,
                     title: parentAwardDetails.agencyName
                 }
             },
@@ -74,7 +75,7 @@ const additionalDetails = (awardData) => {
             'Subject to Materials, Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
         },
         recipientDetails: {
-            Recipient: {
+            "Recipient": {
                 type: 'link',
                 data: {
                     path: recipient.internalId ? `/recipient/${recipient.internalId}/latest` : null,

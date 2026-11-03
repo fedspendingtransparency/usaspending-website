@@ -29,7 +29,10 @@ const AwardBreakdownTable = ({ toggleState, awardBreakdown, hasNegatives }) => {
     if (hasNegatives) {
         greatThanOneHundredDescription = (
             <p>
-                <em><strong>Note:</strong> The award types above add up to more
+                <em>
+                    <strong>Note:</strong>
+                    {' '}
+                    The award types above add up to more
                     than 100% due to negative values not shown here.
                 </em>
             </p>

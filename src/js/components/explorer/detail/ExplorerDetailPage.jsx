@@ -34,12 +34,16 @@ const ExplorerDetailPage = () => {
     let tooltipUi = null;
 
     if (showTooltip) {
-        tooltipUi = (<ExplorerTooltip
-            {...tooltip} />);
+        tooltipUi = (
+            <ExplorerTooltip
+                {...tooltip} />
+        );
 
         if (tooltip.isAward) {
-            tooltipUi = (<ExplorerAwardTooltip
-                {...tooltip} />);
+            tooltipUi = (
+                <ExplorerAwardTooltip
+                    {...tooltip} />
+            );
         }
     }
 

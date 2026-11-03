@@ -31,7 +31,8 @@ const AwardIDSearch = ({ toggleAwardID, selectedAwardIDs }) => {
             return (
                 <SelectedAwardIDs
                     selectedAwardIDs={selectedAwardIDs}
-                    toggleAwardID={toggleAwardID} />);
+                    toggleAwardID={toggleAwardID} />
+            );
         }
         return null;
     };

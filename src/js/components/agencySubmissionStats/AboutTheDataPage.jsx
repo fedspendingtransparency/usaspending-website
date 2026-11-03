@@ -85,31 +85,33 @@ const AboutTheDataPage = () => {
     };
 
     /* eslint-disable max-len */
-    const subtitle = (<>
-        <p className="sub-header">
-            In accordance with the 2014 DATA Act, federal agencies submit financial data
-            on a quarterly and/or monthly basis to USAspending.gov. The table below
-            shows information about the status and content of these submissions. It will
-            be updated as agencies publish/certify new submissions or
-            republish/recertify existing submissions.
-        </p>
-        <p className="sub-header">
-            <span className="sub-header-span">Statistics by Submission Period </span>
-            - Please note that if you select the first or second period of a quarter, you will only see data from agencies that upload monthly. Only by selecting the last period of each quarter (i.e., P03, P06, P09, P12) will you see data for all agencies, including quarterly-submitting agencies.
-        </p>
-        <p className="sub-header">
-            <span className="sub-header-span">Updates by Fiscal Year </span>
-            - The columns for the last period of each quarter (i.e., P03, P06, P09, P12) do show data for all agencies.
-        </p>
-        <p className="sub-header">
-            <span className="sub-header-span">Please Note: </span>
-            Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report monthly data to USAspending.gov.
-        </p>
-        <p className="sub-header">
-            For more information about the data in this table, visit
-            <Link className="sub-header-link" to="/submission-statistics/data-sources"> the Data Sources and Methodology page.</Link>
-        </p>
-    </>);
+    const subtitle = (
+        <>
+            <p className="sub-header">
+                In accordance with the 2014 DATA Act, federal agencies submit financial data
+                on a quarterly and/or monthly basis to USAspending.gov. The table below
+                shows information about the status and content of these submissions. It will
+                be updated as agencies publish/certify new submissions or
+                republish/recertify existing submissions.
+            </p>
+            <p className="sub-header">
+                <span className="sub-header-span">Statistics by Submission Period </span>
+                - Please note that if you select the first or second period of a quarter, you will only see data from agencies that upload monthly. Only by selecting the last period of each quarter (i.e., P03, P06, P09, P12) will you see data for all agencies, including quarterly-submitting agencies.
+            </p>
+            <p className="sub-header">
+                <span className="sub-header-span">Updates by Fiscal Year </span>
+                - The columns for the last period of each quarter (i.e., P03, P06, P09, P12) do show data for all agencies.
+            </p>
+            <p className="sub-header">
+                <span className="sub-header-span">Please Note: </span>
+                Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report monthly data to USAspending.gov.
+            </p>
+            <p className="sub-header">
+                For more information about the data in this table, visit
+                <Link className="sub-header-link" to="/submission-statistics/data-sources"> the Data Sources and Methodology page.</Link>
+            </p>
+        </>
+    );
     /* eslint-enable max-len */
 
     return (
@@ -125,7 +127,7 @@ const AboutTheDataPage = () => {
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol width={12} >
+                    <FlexGridCol width={12}>
                         <H2PageHeader
                             title="About These Statistics"
                             subtitle={subtitle}
@@ -133,7 +135,7 @@ const AboutTheDataPage = () => {
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol width={12} className="agency-submission-stat-col" >
+                    <FlexGridCol width={12} className="agency-submission-stat-col">
                         <LoadingWrapper isLoading={!activeTab}>
                             <>
                                 <div className="table-controls">
@@ -165,10 +167,9 @@ const AboutTheDataPage = () => {
                                     openModal={modalClick}
                                     activeTab={activeTab}
                                     selectedFy={selectedFy}
-                                    selectedPeriod={selectedPeriod
-                                        ? selectedPeriod.id
-                                        : ''
-                                    } />
+                                    selectedPeriod={selectedPeriod ?
+                                        selectedPeriod.id :
+                                        ''} />
                                 <AboutTheDataModal
                                     id="usa-dt-modal__agency-submission-statistics"
                                     mounted={!!showModalLocal.length}

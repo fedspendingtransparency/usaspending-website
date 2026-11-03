@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
-
 const propTypes = {
     message: PropTypes.node
 };

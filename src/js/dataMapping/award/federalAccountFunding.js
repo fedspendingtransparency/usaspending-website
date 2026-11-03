@@ -124,4 +124,3 @@ export const nonIdvTableMapping = {
         grossOutlayAmount: 'Outlayed Amount (Beginning of FY to Period End)'
     }
 };
-

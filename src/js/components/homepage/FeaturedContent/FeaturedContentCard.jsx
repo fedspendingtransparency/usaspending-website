@@ -46,11 +46,11 @@ const FeaturedContentCard = ({
                 img={img} />
             <CardBody
                 overline={taxonomy?.toUpperCase()}
-                headline={
+                headline={(
                     <div>
                         {title}
                     </div>
-                }>
+                )}>
             </CardBody>
         </CardContainer>
     );
@@ -58,19 +58,21 @@ const FeaturedContentCard = ({
     return (
         <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
             {externalLink ?
-                <ExternalLink isCard url={url}>
-                    {content()}
-                </ExternalLink>
-                :
-                <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackHomePageLink(title)}
-                    className="featured-content__section--link" >
-                    {content()}
-                </a>
-            }
+                (
+                    <ExternalLink isCard url={url}>
+                        {content()}
+                    </ExternalLink>
+                ) :
+                (
+                    <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackHomePageLink(title)}
+                        className="featured-content__section--link">
+                        {content()}
+                    </a>
+                )}
         </FlexGridCol>
     );
 };

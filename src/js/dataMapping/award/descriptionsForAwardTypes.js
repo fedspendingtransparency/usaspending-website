@@ -3,6 +3,7 @@
  * Created by Max Kendall 3/8/19
  */
 
+/* eslint-disable @stylistic/quote-props */
 export const descriptionsForAwardTypes = {
     A: 'Blanket Purchase Agreement (BPA) Call',
     B: 'Purchase Order (PO)',

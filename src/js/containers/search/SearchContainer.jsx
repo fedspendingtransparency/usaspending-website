@@ -24,13 +24,12 @@ import {
     areFiltersSelected,
     generateUrlHash, getObjFromQueryParams,
     restoreUrlHash, parseRemoteFilters
-} from "helpers/searchHelper";
-import useQueryParams from "hooks/useQueryParams";
+} from 'helpers/searchHelper';
+import useQueryParams from 'hooks/useQueryParams';
 import SearchPage from 'components/search/SearchPage';
-import useRequestDownloadCount from "./useRequestDownloadCount";
+import useRequestDownloadCount from './useRequestDownloadCount';
 
 require('pages/search/searchPage.scss');
-
 
 const SearchContainer = () => {
     const location = useLocation();
@@ -71,7 +70,7 @@ const SearchContainer = () => {
     }, [areAppliedFiltersEmpty, appliedFilters]);
 
     useEffect(() => {
-        if (QAT || query && (Object.prototype.hasOwnProperty.call(query, 'smart-assist') && query['smart-assist'] === LLM_HEADER_VALUE)) {
+        if (QAT || (Object.prototype.hasOwnProperty.call(query, 'smart-assist') && query['smart-assist'] === LLM_HEADER_VALUE)) {
             dispatch(setSmartAssistIsVisible(true));
         }
     }, []);
@@ -103,7 +102,7 @@ const SearchContainer = () => {
                     else {
                         console.error('Error fetching filters from hash');
                         // corrupt hash redirect to error page.
-                        navigate("/hash-error", { replace: true });
+                        navigate('/hash-error', { replace: true });
                     }
                     request.current = null;
                 })
@@ -111,7 +110,7 @@ const SearchContainer = () => {
                     if (!isCancel(err)) {
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        searchURLParams.delete("hash");
+                        searchURLParams.delete('hash');
                         setSearchURLParams(searchURLParams);
                         request.current = null;
                     }
@@ -141,7 +140,7 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            searchURLParams.delete("hash");
+            searchURLParams.delete('hash');
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
@@ -240,4 +239,3 @@ const SearchContainer = () => {
 export default SearchContainer;
 
 export const SearchContainerRedirectv2 = () => <></>;
-

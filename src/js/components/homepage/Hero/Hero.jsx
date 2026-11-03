@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 import { throttle } from 'lodash-es';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
@@ -88,6 +88,7 @@ const Hero = () => {
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a
                                     className="hero__pause-button"
                                     role="button"
@@ -99,10 +100,8 @@ const Hero = () => {
                                         keyPressHandler(e);
                                     }}>
                                     { isPaused ?
-                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
-                                        :
-                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
-                                    }
+                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</> :
+                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>}
                                 </a>
                             </div>
                         </div>
@@ -110,40 +109,41 @@ const Hero = () => {
                 </div>
             </div>
             <div className="homepage-hero-graphic-container">
-                {isLargeScreen &&
-                <div className="homepage-hero-graphic">
-                    <div className="hero__graphic-layer-background">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
-                            alt="" />
+                {isLargeScreen && (
+                    <div className="homepage-hero-graphic">
+                        <div className="hero__graphic-layer-background">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-bridge">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-buildings">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-windmills">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-foreground">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
+                                alt="" />
+                        </div>
                     </div>
-                    <div className="hero__graphic-layer-bridge">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-buildings">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-windmills">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-foreground">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
-                            alt="" />
-                    </div>
-                </div> }
-                {!isLargeScreen &&
+                )}
+                {!isLargeScreen && (
                     <div className="homepage-hero-graphic">
                         <div className="hero__graphic-layer-windmills">
                             <img
@@ -163,11 +163,11 @@ const Hero = () => {
                                 src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp"
                                 alt="" />
                         </div>
-                    </div> }
+                    </div>
+                )}
             </div>
         </section>
     );
 };
 
 export default Hero;
-

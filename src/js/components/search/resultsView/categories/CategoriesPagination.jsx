@@ -70,7 +70,8 @@ const CategoriesPagination = (props) => {
                     </div>
                 </div>
             </button>
-        </div>);
+        </div>
+    );
 };
 
 CategoriesPagination.propTypes = propTypes;

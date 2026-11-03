@@ -22,7 +22,7 @@ export const useLatestAccountData = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState('');
     const { submissionPeriods } = useSelector((state) => state.account);
-    const [{latestMoment, latestPeriod }, setLatestData] = useState(
+    const [{ latestMoment, latestPeriod }, setLatestData] = useState(
         { latestPeriod: getLatestPeriod([]), latestMoment: null }
     );
     const request = useRef();
@@ -165,7 +165,6 @@ export const useValidTimeBasedQueryParams = (
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
 
-
     useEffect(() => {
     // Handles validating defined params
         if (
@@ -180,12 +179,12 @@ export const useValidTimeBasedQueryParams = (
 
             if (availablePeriodsInFy.length && currentUrlPeriod) {
                 // fy selection is valid but what about the period? 🤔
-                const validPeriod = isPeriodVisible(availablePeriodsInFy, currentUrlPeriod)
-                    ? currentUrlPeriod
-                    : `${latestPeriod}`;
-                const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod)
-                    ? validPeriod
-                    : getLastPeriodWithinQuarterByPeriod(validPeriod);
+                const validPeriod = isPeriodVisible(availablePeriodsInFy, currentUrlPeriod) ?
+                    currentUrlPeriod :
+                    `${latestPeriod}`;
+                const selectablePeriod = isPeriodSelectable(availablePeriodsInFy, validPeriod) ?
+                    validPeriod :
+                    getLastPeriodWithinQuarterByPeriod(validPeriod);
                 handleTimeChange(currentUrlFy, selectablePeriod);
             }
             else if (currentUrlPeriod) {
@@ -225,9 +224,9 @@ const withLatestFy = (WrappedComponent, format = null) => (props) => {
             {...props}
             isFetchLatestFyLoading={isLoading}
             fetchLatestFyError={errorMsg}
-            latestSubmissionDate={(latestPeriodAsMoment && format)
-                ? latestPeriodAsMoment.format(format)
-                : latestPeriodAsMoment}
+            latestSubmissionDate={(latestPeriodAsMoment && format) ?
+                latestPeriodAsMoment.format(format) :
+                latestPeriodAsMoment}
             submissionPeriods={submissionPeriods.toJS()}
             latestPeriod={latestPeriod} />
     );

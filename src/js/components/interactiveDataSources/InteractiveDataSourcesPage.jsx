@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
@@ -162,7 +161,7 @@ const InteractiveDataSourcesPage = () => {
                     secondaryColor="#0076D6" />
                 <InPageNav
                     sections={sections}
-                    activeSection={'intro-section'}
+                    activeSection="intro-section"
                     pageName="interactive-data-sources"
                     detectActiveSection
                     jumpToSection={jumpToSection} />

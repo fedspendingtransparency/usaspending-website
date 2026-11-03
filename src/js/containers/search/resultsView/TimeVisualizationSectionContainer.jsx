@@ -97,11 +97,11 @@ const TimeVisualizationSectionContainer = ({
                 ?.ySeries
                 ?.flat()
                 ?.reduce((partialSum, a) => partialSum + a, 0) === 0}
-            downloadComponent={
+            downloadComponent={(
                 <TimeFileDownload
                     downloadData={downloadData}
                     visualizationPeriod={visualizationPeriod} />
-            }
+            )}
             manualSort
             hash={hash}
             setActiveField={setActiveField}>

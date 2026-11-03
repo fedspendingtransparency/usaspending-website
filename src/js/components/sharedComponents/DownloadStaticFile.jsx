@@ -25,7 +25,8 @@ const DownloadStaticFile = ({ path }) => (
                 <span>Download</span>
             </div>
         </a>
-    </div>);
+    </div>
+);
 
 DownloadStaticFile.propTypes = propTypes;
 export default DownloadStaticFile;

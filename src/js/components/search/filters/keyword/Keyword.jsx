@@ -38,7 +38,6 @@ const Keyword = memo(function Keyword() {
         dispatch(updateTextSearchInput(keyword));
     };
 
-
     return (
         <div className="keyword-filter search-filter">
             <form onSubmit={searchKeyword}>

@@ -39,14 +39,14 @@ const AwardAmountsSection = ({
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    {tabTypes.length > 0 &&
+                    {tabTypes.length > 0 && (
                         <div style={{ paddingBottom: '20px' }}>
                             <Tabs
                                 active={active}
                                 switchTab={switchTab}
                                 types={tabTypes} />
                         </div>
-                    }
+                    )}
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}

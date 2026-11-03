@@ -28,17 +28,21 @@ const AwardOverviewRightSection = ({
     updateCFDAOverviewLinkClicked
 }) => {
     const firstSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
-        (<CFDAOverview
-            cfdaProgram={overview.cfdaProgram}
-            cfdaCount={overview.cfdaList.length}
-            jumpToSection={jumpToSection}
-            updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />) :
-        (<RelatedAwards
-            jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
-            setRelatedAwardsTab={setRelatedAwardsTab}
-            jumpToSection={jumpToSection}
-            details={details}
-            overview={overview} />);
+        (
+            <CFDAOverview
+                cfdaProgram={overview.cfdaProgram}
+                cfdaCount={overview.cfdaList.length}
+                jumpToSection={jumpToSection}
+                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
+        ) :
+        (
+            <RelatedAwards
+                jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
+                setRelatedAwardsTab={setRelatedAwardsTab}
+                jumpToSection={jumpToSection}
+                details={details}
+                overview={overview} />
+        );
     const dates = overview.category === 'idv' ? overview.dates : overview.periodOfPerformance;
     return (
         <AwardSection type="column" className="award-overview__right-section award-overview-column">

@@ -33,7 +33,6 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-
 const MobileDropdownItem = ({
     title,
     section1Items,
@@ -88,59 +87,61 @@ const MobileDropdownItem = ({
                     {section1Options[index].title}
                 </div>
             </div>
-            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"} >
+            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
                 {section1Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
                 {type === "secondary" ?
-                    <>
-                        <ul>
-                            {section1Items.map((item) => (
-                                <li key={uniqueId()}>
-                                    <Link
-                                        to={item.url}
-                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
-                                        onClick={clickedLink}
-                                        className="mobile-dropdown__section-link">
-                                        <div className="mobile-dropdown__section-icon">
-                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
+                    (
+                        <>
+                            <ul>
+                                {section1Items.map((item) => (
+                                    <li key={uniqueId()}>
+                                        <Link
+                                            to={item.url}
+                                            prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                                            onClick={clickedLink}
+                                            className="mobile-dropdown__section-link">
+                                            <div className="mobile-dropdown__section-icon">
+                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
+                                            </div>
+                                            <div className="mobile-dropdown__section-etd-label">
+                                                {item.label}
+                                            </div>
+                                        </Link>
+                                        <div className="mobile-dropdown__section-etd-description">
+                                            {item.description}
                                         </div>
-                                        <div className="mobile-dropdown__section-etd-label">
-                                            {item.label}
+                                    </li>
+                                ))}
+                            </ul>
+                            <hr />
+                        </>
+                    ) :
+                    (
+                        <>
+                            <ul>
+                                {section1Items.map((item) => (
+                                    <li className="mobile-dropdown__section" key={uniqueId()}>
+                                        <Link
+                                            to={item.url}
+                                            prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                                            onClick={clickedLink}
+                                            className="mobile-dropdown__section-link"
+                                            state={item.queryParam}>
+                                            <div className="mobile-dropdown__section-label">
+                                                {item.label}
+                                            </div>
+                                        </Link>
+                                        <div className="mobile-dropdown__section-description">
+                                            {item.description}
                                         </div>
-                                    </Link>
-                                    <div className="mobile-dropdown__section-etd-description">
-                                        {item.description}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <hr />
-                    </>
-                    :
-                    <>
-                        <ul>
-                            {section1Items.map((item) => (
-                                <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link
-                                        to={item.url}
-                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
-                                        onClick={clickedLink} 
-                                        className="mobile-dropdown__section-link" 
-                                        state={item.queryParam}>
-                                        <div className="mobile-dropdown__section-label">
-                                            {item.label}
-                                        </div>
-                                    </Link>
-                                    <div className="mobile-dropdown__section-description">
-                                        {item.description}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <hr />
-                    </>
-                }
+                                    </li>
+                                ))}
+                            </ul>
+                            <hr />
+                        </>
+                    )}
             </div>
             <div className={type === "primary" ? "mobile-dropdown_main-container" : ""}>
                 <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
@@ -175,7 +176,7 @@ const MobileDropdownItem = ({
                     ))}
                 </ul>
             </div>
-            {index > 0 &&
+            {index > 0 && (
                 <div className="mobile-dropdown_main-container">
                     <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
                         {section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
@@ -188,43 +189,47 @@ const MobileDropdownItem = ({
                             {section3Options[index].sub}
                         </div>
                         <div className="mobile-dropdown__section-container">
-                            {type === "primary" &&
-                            <>
-                                <ul>
-                                    {section3Items.map((item) => (
-                                        <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
-                                            { isRedirectNeeded(item) ?
-                                                <ExternalLink isCard={false} url={item.url}>
-                                                    <div className="mobile-dropdown__section-link">
-                                                        <div className="mobile-dropdown__section-label">
-                                                            {item.label}
-                                                            <span className="mobile-dropdown__section-description">
-                                                                {item.description}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </ExternalLink> :
-                                                <a 
-                                                    href={item.url} 
-                                                    target={item.shouldOpenNewTab ? "_blank" : null} 
-                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} 
-                                                    className="mobile-dropdown__section-link">
-                                                    <div className="mobile-dropdown__section-label">
-                                                        {item.label}
-                                                        <span className="mobile-dropdown__section-description">
-                                                            {item.description}
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            }
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                            }
+                            {type === "primary" && (
+                                <>
+                                    <ul>
+                                        {section3Items.map((item) => (
+                                            <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
+                                                { isRedirectNeeded(item) ?
+                                                    (
+                                                        <ExternalLink isCard={false} url={item.url}>
+                                                            <div className="mobile-dropdown__section-link">
+                                                                <div className="mobile-dropdown__section-label">
+                                                                    {item.label}
+                                                                    <span className="mobile-dropdown__section-description">
+                                                                        {item.description}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </ExternalLink>
+                                                    ) :
+                                                    (
+                                                        <a
+                                                            href={item.url}
+                                                            target={item.shouldOpenNewTab ? "_blank" : null}
+                                                            rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
+                                                            className="mobile-dropdown__section-link">
+                                                            <div className="mobile-dropdown__section-label">
+                                                                {item.label}
+                                                                <span className="mobile-dropdown__section-description">
+                                                                    {item.description}
+                                                                </span>
+                                                            </div>
+                                                        </a>
+                                                    )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
                         </div>
                     </div>
-                </div>}
+                </div>
+            )}
         </div>
     );
 };

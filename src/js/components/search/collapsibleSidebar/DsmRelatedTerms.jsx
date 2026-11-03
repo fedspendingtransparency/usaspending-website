@@ -32,7 +32,8 @@ const DsmRelatedTerms = ({ headingTitle, glossaryLinks, aboutTheData }) => (
                     className="collapsible-sidebar--dsm-wrapper--text-links"
                     key={glossaryLink.term}>
                     <GlossaryLink term={glossaryLink.term} label={glossaryLink.text} />
-                </div>)
+                </div>
+            )
             )}
             {aboutTheData && aboutTheData.map((data) => (
                 <div className="collapsible-sidebar--dsm-wrapper--text-links" key="data.slug">

@@ -8,7 +8,6 @@ import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOppo
 import AwardSection from '../shared/AwardSection';
 import ExpandableAwardSection from '../shared/ExpandableAwardSection';
 
-
 const propTypes = {
     currentCfda: PropTypes.shape({
         cfda_number: PropTypes.string,
@@ -35,7 +34,6 @@ const SingleCFDA = ({ currentCfda }) => {
         cfdaObjectives,
         cfdaNumber
     } = currentCfda;
-
 
     const displayRedirectModal = (e) => {
         e.persist();

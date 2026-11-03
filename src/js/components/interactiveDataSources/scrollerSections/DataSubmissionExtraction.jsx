@@ -37,9 +37,7 @@ const DataSubmissionExtraction = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
-
 
                 {/* SUBMISSION AND EXCTRACTION */}
                 <ScrollerOverlay
@@ -47,25 +45,23 @@ const DataSubmissionExtraction = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="center"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 300, 1)
-                    }>
+                        ref1.current?.playAnimation(120, 300, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
-                                Data from government systems flow into USAspending.gov in one of two
-                                ways: they are either submitted directly or extracted.
+                                    Data from government systems flow into USAspending.gov in one of two
+                                    ways: they are either submitted directly or extracted.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -73,74 +69,74 @@ const DataSubmissionExtraction = (props) => {
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(300, 360, 1.5)
-                    }>
+                        ref1.current?.playAnimation(300, 360, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(360, 420, 1)
-                    }>
+                        ref1.current?.playAnimation(360, 420, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Submitted</h4>}
-                            content={
+                            content={(
                                 <p>
-                                Files A, B, and C, as well as FABS data, are all sent directly
-                                from federal agencies to USAspending.gov. For more information about
-                                what is included in these submissions, please consult the
-                                Reporting Submission Specification (RSS) spreadsheet in the{" "}
+                                    Files A, B, and C, as well as FABS data, are all sent directly
+                                    from federal agencies to USAspending.gov. For more information about
+                                    what is included in these submissions, please consult the
+                                    Reporting Submission Specification (RSS) spreadsheet in the
+                                    {" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
-                                    </a>{" "}
-                                page.
+                                    </a>
+                                    {" "}
+                                    page.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* EXTRACTION */}
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(420, 480, 1.5)
-                    }>
+                        ref1.current?.playAnimation(420, 480, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="left"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(480, 540, 1)
-                    }>
+                        ref1.current?.playAnimation(480, 540, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Extracted</h4>}
-                            content={
+                            content={(
                                 <p>
-                                Data in Files D1, E, and F, as well as all reference data,
-                                are extracted by USAspending.gov from government sources. For more
-                                information about what is included in these extractions, please
-                                consult the Interface Definition Document (IDD) spreadsheet in
-                                the{" "}
+                                    Data in Files D1, E, and F, as well as all reference data,
+                                    are extracted by USAspending.gov from government sources. For more
+                                    information about what is included in these extractions, please
+                                    consult the Interface Definition Document (IDD) spreadsheet in
+                                    the
+                                    {" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
-                                    </a>{" "}
-                                page.
-                                </p>} />
+                                    </a>
+                                    {" "}
+                                    page.
+                                </p>
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -150,8 +146,7 @@ const DataSubmissionExtraction = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(540, 600, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 

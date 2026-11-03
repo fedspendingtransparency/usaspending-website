@@ -9,9 +9,9 @@ const useRequestAgenciesList = (type, agency = 0) => {
     const { data, isSuccess, isLoading, error } = useQuery({
         queryKey: ['requestAgenciesList', type, agency],
         queryFn: () => requestAgenciesList({ type, agency }).promise
-    })
+    });
 
-    return { data, isSuccess, isLoading, error }
-}
+    return { data, isSuccess, isLoading, error };
+};
 
 export default useRequestAgenciesList;

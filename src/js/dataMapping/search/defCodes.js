@@ -1,4 +1,3 @@
-
 import { parseCodes } from "helpers/disasterHelper";
 
 export const defCodes = {

@@ -185,37 +185,43 @@ const TimePeriod = ({
     let activeClassDR = '';
 
     if (showError && activeTab === 'dr' && header !== '' && errorMessage !== '') {
-        errorDetails = (<DateRangeError
-            header={header}
-            message={errorMessage} />);
+        errorDetails = (
+            <DateRangeError
+                header={header}
+                message={errorMessage} />
+        );
         activeClassDR = 'inactive';
     }
 
     if (activeTab === 'fy' && !dateRangeChipRemoved) {
-        showFilter = (<AllFiscalYearsWithChips
-            updateFilter={updateFilter}
-            timePeriods={timePeriods}
-            selectedFY={filterTimePeriodFY} />);
+        showFilter = (
+            <AllFiscalYearsWithChips
+                updateFilter={updateFilter}
+                timePeriods={timePeriods}
+                selectedFY={filterTimePeriodFY} />
+        );
     }
     else {
-        showFilter = (<DateRange
-            label={label}
-            datePlaceholder=""
-            startingTab={1}
-            startDate={startDateUI}
-            endDate={endDateUI}
-            startDateDropdown={startDateDropdown}
-            endDateDropdown={endDateDropdown}
-            timePeriod={filterTimePeriod}
-            onDateChange={handleDateChange}
-            showError={showErrorFunc}
-            errorState={showError}
-            hideError={hideError}
-            removeDateRange={removeDateRange}
-            updateFilter={updateFilter}
-            header={header}
-            setStartDate={setStartDateUI}
-            setEndDate={setEndDateUI} />);
+        showFilter = (
+            <DateRange
+                label={label}
+                datePlaceholder=""
+                startingTab={1}
+                startDate={startDateUI}
+                endDate={endDateUI}
+                startDateDropdown={startDateDropdown}
+                endDateDropdown={endDateDropdown}
+                timePeriod={filterTimePeriod}
+                onDateChange={handleDateChange}
+                showError={showErrorFunc}
+                errorState={showError}
+                hideError={hideError}
+                removeDateRange={removeDateRange}
+                updateFilter={updateFilter}
+                header={header}
+                setStartDate={setStartDateUI}
+                setEndDate={setEndDateUI} />
+        );
         activeClassDR = '';
     }
 

@@ -20,9 +20,9 @@ export const convertNumToShortMonth = (m) => monthConversion(m).format("MMM");
 
 export const convertMonthToFY = (m, y) => {
     const parsedMonth = isNaN(parseInt(m, 10)) ? 1 : parseInt(m, 10);
-    const parsedYear = isNaN(parseInt(y, 10))
-        ? FiscalYearHelper.currentFiscalYear()
-        : parseInt(y, 10);
+    const parsedYear = isNaN(parseInt(y, 10)) ?
+        FiscalYearHelper.currentFiscalYear() :
+        parseInt(y, 10);
 
     if (parsedMonth <= 3) {
         return parsedYear - 1;
@@ -32,9 +32,9 @@ export const convertMonthToFY = (m, y) => {
 
 export const convertPeriodToDate = (period, fy) => {
     const parsedPeriod = isNaN(parseInt(period, 10)) ? 1 : parseInt(period, 10);
-    const parsedFy = isNaN(parseInt(fy, 10))
-        ? FiscalYearHelper.currentFiscalYear()
-        : parseInt(fy, 10);
+    const parsedFy = isNaN(parseInt(fy, 10)) ?
+        FiscalYearHelper.currentFiscalYear() :
+        parseInt(fy, 10);
     const month = convertNumToMonth(period);
     // In Oct, Nov, and Dec, subtract 1 from the Fiscal Year for the calendar year
     const year = (parsedPeriod <= 3) ? parsedFy - 1 : parsedFy;

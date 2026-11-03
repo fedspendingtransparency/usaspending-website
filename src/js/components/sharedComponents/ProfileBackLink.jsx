@@ -19,7 +19,7 @@ const ProfileBackLink = ({ label, url, className = "" }) => (
         <div className="usa-profile-back-link__wrapper">
             <Link
                 to={url}
-                className="usa-profile-back-link__item" >
+                className="usa-profile-back-link__item">
                 <FontAwesomeIcon icon="arrow-left" alt="Back" className="bc-back-link" />
                 {label}
             </Link>

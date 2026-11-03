@@ -58,4 +58,3 @@ export const getLatestPeriodAsDayjs = (availablePeriods) => {
         quarter: null
     };
 };
-

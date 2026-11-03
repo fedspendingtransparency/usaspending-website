@@ -27,4 +27,3 @@ export const setSmartAssistIsVisible = (state) => ({
     type: 'SET_SMART_ASSIST_IS_VISIBLE',
     value: state
 });
-

@@ -24,7 +24,6 @@ const CheckboxChevron = ({
         }
     };
 
-
     return (
         <button
             onClick={onClick}

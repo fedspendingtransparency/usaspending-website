@@ -109,14 +109,16 @@ const TimeVisualization = ({
     }
     else if (data.xSeries.length > 0) {
         // only mount the chart component if there is data to display
-        chart = (<BarChartStacked
-            width={width}
-            height={height}
-            data={data}
-            legend={legend}
-            showTooltip={showTooltipLocal}
-            hideTooltip={hideTooltip}
-            toggleTooltip={toggleTooltip} />);
+        chart = (
+            <BarChartStacked
+                width={width}
+                height={height}
+                data={data}
+                legend={legend}
+                showTooltip={showTooltipLocal}
+                hideTooltip={hideTooltip}
+                toggleTooltip={toggleTooltip} />
+        );
     }
 
     if (showTooltip) {

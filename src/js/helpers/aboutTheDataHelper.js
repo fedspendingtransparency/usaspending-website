@@ -13,9 +13,9 @@ import {
 } from 'dataMapping/agencySubmissionStats/timeFilters';
 
 export const getSelectedPeriodTitle = (str) => (
-    str.includes('Q')
-        ? `${str.split(' ')[0]} / ${str.split(' ')[1]}`
-        : str
+    str.includes('Q') ?
+        `${str.split(' ')[0]} / ${str.split(' ')[1]}` :
+        str
 );
 
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'

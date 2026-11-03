@@ -11,9 +11,9 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'Time Period':
-            if (reduxFilters.timePeriodFY.toArray().length > 0
-                || (reduxFilters.timePeriodRange
-                && reduxFilters.timePeriodRange.toArray().length === 2)) {
+            if (reduxFilters.timePeriodFY.toArray().length > 0 ||
+                (reduxFilters.timePeriodRange &&
+                    reduxFilters.timePeriodRange.toArray().length === 2)) {
                 return true;
             }
             return false;
@@ -23,8 +23,8 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'Agency':
-            if (reduxFilters.selectedFundingAgencies.toArray().length > 0
-                || reduxFilters.selectedAwardingAgencies.toArray().length > 0) {
+            if (reduxFilters.selectedFundingAgencies.toArray().length > 0 ||
+                reduxFilters.selectedAwardingAgencies.toArray().length > 0) {
                 return true;
             }
             return false;
@@ -39,8 +39,8 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'Location':
-            if (reduxFilters.selectedLocations.toArray().length > 0
-                || reduxFilters.selectedRecipientLocations.toArray().length > 0) {
+            if (reduxFilters.selectedLocations.toArray().length > 0 ||
+                reduxFilters.selectedRecipientLocations.toArray().length > 0) {
                 return true;
             }
             return false;

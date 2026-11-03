@@ -46,7 +46,6 @@ const StateTimeVisualizationChart = ({
     // sort years
     if (visualizationPeriod === 'fiscal_year') {
         if (!outlayToggle) {
-            // eslint-disable-next-line no-nested-ternary
             data.combined.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
             for (let i = 0; i < data.combined.length; i++) {
                 label = data.combined[i].x;
@@ -56,7 +55,6 @@ const StateTimeVisualizationChart = ({
             }
         }
         else {
-            // eslint-disable-next-line no-nested-ternary
             data.combinedOutlay.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
             for (let i = 0; i < data.combinedOutlay.length; i++) {
                 label = data.combinedOutlay[i].x;
@@ -85,7 +83,6 @@ const StateTimeVisualizationChart = ({
             });
         }
     }
-
 
     const onMouseLeave = useCallback(() => {
         if (focusBar) {
@@ -123,26 +120,26 @@ const StateTimeVisualizationChart = ({
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={
+                        content={(
                             <CustomLegend
                                 barColor={barColor}
                                 label={legendLabel} />
-                        }
+                        )}
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
                         dataKey="value"
-                        shape={
+                        shape={(
                             <CustomShape
                                 focusBar={focusBar}
                                 barColor={barColor} />
-                        }
-                        activeBar={
+                        )}
+                        activeBar={(
                             <CustomShape
                                 isActive
                                 focusBar={focusBar}
                                 barColor={barColor} />
-                        }
+                        )}
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}
                         onMouseLeave={onMouseLeave} />

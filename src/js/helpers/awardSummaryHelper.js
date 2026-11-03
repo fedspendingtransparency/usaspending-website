@@ -57,9 +57,9 @@ export const isUSAAward = (placeOfPerformance) => {
     const countryCode = placeOfPerformance._countryCode;
     const countryName = placeOfPerformance.countryName;
     if (
-        countryCode === 'USA'
-        || countryCode === 'UNITED STATES'
-        || countryName === 'UNITED STATES'
+        countryCode === 'USA' ||
+        countryCode === 'UNITED STATES' ||
+        countryName === 'UNITED STATES'
     ) return true;
     return false;
 };
@@ -82,9 +82,9 @@ export const getAwardTypeByRecordtypeCountyAndState = (
             return 'redactedDueToPIIDomestic';
         }
         if (recordType === 2) {
-            return !isUSA
-                ? 'financialAssistanceForeign'
-                : 'financialAssistanceDomestic';
+            return !isUSA ?
+                'financialAssistanceForeign' :
+                'financialAssistanceDomestic';
         }
         if (recordType === 1) {
             // aggregated by state
@@ -102,9 +102,9 @@ export const getAwardTypeByRecordtypeCountyAndState = (
         }
     }
     // IDV or contract
-    return isUSA
-        ? 'nonFinancialAssistanceDomestic'
-        : 'nonFinancialAssistanceForeign';
+    return isUSA ?
+        'nonFinancialAssistanceDomestic' :
+        'nonFinancialAssistanceForeign';
 };
 
 export const datesByDateType = (dates, awardType) => {
@@ -127,8 +127,8 @@ export const isBadDates = (dates, awardType) => {
     // for contracts only
     if (contract) {
         if (isNaN(currentEndDate.valueOf())) return true;
-        if (currentEndDate.isBefore(startDate)
-            || endDate.isBefore(currentEndDate)
+        if (currentEndDate.isBefore(startDate) ||
+            endDate.isBefore(currentEndDate)
         ) return true;
     }
     return false;

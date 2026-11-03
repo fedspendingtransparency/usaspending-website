@@ -171,19 +171,20 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, isMobile }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fiscalYear, toptierCode]);
 
-
-    return (<>
-        {loading && <LoadingMessage />}
-        {error && <ErrorMessage />}
-        {noData && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
-        {!loading && !error && !noData &&
-        <ObligationsByAwardType
-            outer={categoriesForGraph}
-            inner={detailsForGraph}
-            fiscalYear={fiscalYear}
-            isMobile={isMobile} />
-        }
-    </>);
+    return (
+        <>
+            {loading && <LoadingMessage />}
+            {error && <ErrorMessage />}
+            {noData && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
+            {!loading && !error && !noData && (
+                <ObligationsByAwardType
+                    outer={categoriesForGraph}
+                    inner={detailsForGraph}
+                    fiscalYear={fiscalYear}
+                    isMobile={isMobile} />
+            )}
+        </>
+    );
 }
 
 ObligationsByAwardTypeContainer.propTypes = propTypes;

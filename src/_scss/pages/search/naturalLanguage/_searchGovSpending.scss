@@ -50,7 +50,7 @@
     margin-top: rem(16);
     margin-bottom: rem(16);
     .search-gov-spending__clear-container {
-      width:100%;
+      width: 100%;
       display: flex;
       flex: 1 1 0;
       .search-gov-spending__input {
@@ -66,13 +66,12 @@
         font-size: $font-size-14;
         height: rem(40);
         margin: 0;
-
       }
       .clear-button {
         @include button-unstyled;
         position: absolute;
         position-anchor: --input-anchor;
-        position-area: center start; 
+        position-area: center start;
         left: anchor(right);
         transform: translateX(-36px);
         margin-top: rem(8);
@@ -80,7 +79,7 @@
         margin-right: rem(12);
         width: rem(24);
         height: rem(24);
-        margin-left:auto;
+        margin-left: auto;
         svg {
           width: rem(16);
           height: rem(16);
