@@ -61,7 +61,15 @@ export const CustomA = (props) =>
     // eslint-disable-next-line jsx-a11y/anchor-has-content,react/jsx-filename-extension
     (<a target="_blank" rel="noopener noreferrer" {...props} />);
 
-export const CustomImg = (props) => (<img src={`../../img/featuredContent/articles/${props.src}`} alt={props.alt} />);
+const articleImages = import.meta.glob('/src/img/featuredContent/articles/**/*', { eager: true, import: 'default' });
+const thumbnailImages = import.meta.glob('/src/img/featuredContent/thumbnails/*', { eager: true, import: 'default' });
+const bannerImages = import.meta.glob('/src/img/featuredContent/banner/desktop/*', { eager: true, import: 'default' });
+
+export const CustomImg = (props) => (
+    <img src={articleImages[`/src/img/featuredContent/articles/${props.src}`]} alt={props.alt} />
+);
+
+export const getBannerPath = (slug) => bannerImages[`/src/img/featuredContent/banner/desktop/banner-${slug}.webp`];
 
 export const getPrimaryFill = (article) => {
     if (!article) return 'none';
@@ -74,7 +82,6 @@ export const getSecondaryFill = (article) => {
 
 export const getThumbnailPath = (article) => {
     const slug = article.slug;
-    const thumbnailPath = "../../img/featuredContent/thumbnails/";
-    return `${thumbnailPath}${slug}-thumbnail.webp`;
+    return thumbnailImages[`/src/img/featuredContent/thumbnails/${slug}-thumbnail.webp`];
 };
 

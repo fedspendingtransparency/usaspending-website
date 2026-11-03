@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import iconFlipMobile from 'img/icon--flipMobile.png';
 
 const cookie = 'usaspending_mobile_view_disclaimer';
 
@@ -40,7 +41,7 @@ const MobileMessage = () => {
         <div className="mobile-message__container">
             <div className="mobile-message">
                 <div className="mobile-message__image">
-                    <img src="../../../img/icon--flipMobile.png" alt="Rotate to landscape view" />
+                    <img src={iconFlipMobile} alt="Rotate to landscape view" />
                 </div>
                 <div className="mobile-message__text">
                     Rotate your device for the optimal mobile experience

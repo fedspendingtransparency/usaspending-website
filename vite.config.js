@@ -77,7 +77,9 @@ export default defineConfig(({ command, mode }) => {
       }),
       mdx(),
       createHtmlPlugin({
-        template: path.resolve(__dirname, "index.html"),
+        // must stay relative: with an absolute path the plugin's closeBundle
+        // moves the source index.html into the output dir, deleting it
+        template: "index.html",
         chunksSortMode: "",
         inject: {
           GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',

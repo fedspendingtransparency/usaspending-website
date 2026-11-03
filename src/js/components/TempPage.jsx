@@ -11,11 +11,12 @@ import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
 import { mockComboBox } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
+import topBowieStateCombinedImage from 'img/top-bowie-state-combined-image.svg';
 
 import "../../_scss/pages/search/searchPage.scss";
 
 const TempPage = () => {
-    const imageLink = "../../img/top-bowie-state-combined-image.svg";
+    const imageLink = topBowieStateCombinedImage;
 
     // eslint-disable-next-line no-alert
     const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);

@@ -15,6 +15,8 @@ import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/st
 import globalConstants from "../../GlobalConstants";
 import { generateUrlHash } from "../../helpers/searchHelper";
 
+const categoryIcons = import.meta.glob('/src/img/state-categories/*.png', { eager: true, import: 'default' });
+
 const propTypes = {
     category: PropTypes.string,
     results: PropTypes.array,
@@ -374,7 +376,7 @@ const TopFive = (props) => {
             <div className="category-table__title">
                 <img
                     className="category-table__title-icon"
-                    src={`img/state-categories/${props.category}.png`}
+                    src={categoryIcons[`/src/img/state-categories/${props.category}.png`]}
                     aria-hidden="true"
                     alt="" />
                 <div className="category-table__title-name">

@@ -6,11 +6,15 @@
 import React from 'react';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from 'data-transparency-ui';
 import Analytics from '../../../helpers/analytics/Analytics';
+import homepageReadyToGetStartedHomepageGetStartedAwardSearch from 'img/homepage-ready-to-get-started/homepage-get-started-award-search.webp';
+import homepageReadyToGetStartedHomepageGetStartedSpendingExplorer from 'img/homepage-ready-to-get-started/homepage-get-started-spending-explorer.webp';
+import homepageReadyToGetStartedHomepageGetStartedRecipientProfiles from 'img/homepage-ready-to-get-started/homepage-get-started-recipient-profiles.webp';
+import homepageReadyToGetStartedHomepageGetStartedLearnMore from 'img/homepage-ready-to-get-started/homepage-get-started-learn-more.webp';
 
 const cardObjects = [
     {
         fillColor: '#00bde3',
-        image: 'img/homepage-ready-to-get-started/homepage-get-started-award-search.webp',
+        image: homepageReadyToGetStartedHomepageGetStartedAwardSearch,
         imageHeight: '177px',
         overline: 'SEARCH AWARD DATA',
         headline: 'Find details on federal awards',
@@ -25,7 +29,7 @@ const cardObjects = [
     },
     {
         fillColor: '#34a37e',
-        image: 'img/homepage-ready-to-get-started/homepage-get-started-spending-explorer.webp',
+        image: homepageReadyToGetStartedHomepageGetStartedSpendingExplorer,
         imageHeight: '177px',
         overline: 'EXPLORE THE DATA',
         headline: 'Break down the federal budget',
@@ -40,7 +44,7 @@ const cardObjects = [
     },
     {
         fillColor: '#fa9441',
-        image: 'img/homepage-ready-to-get-started/homepage-get-started-recipient-profiles.webp',
+        image: homepageReadyToGetStartedHomepageGetStartedRecipientProfiles,
         imageHeight: '177px',
         overline: 'EXPLORE THE DATA',
         headline: 'Find recipients of federal funds',
@@ -55,7 +59,7 @@ const cardObjects = [
     },
     {
         fillColor: '#9355dc',
-        image: 'img/homepage-ready-to-get-started/homepage-get-started-learn-more.webp',
+        image: homepageReadyToGetStartedHomepageGetStartedLearnMore,
         imageHeight: '177px',
         overline: 'FIND RESOURCES',
         headline: 'Learn more about USAspending.gov',

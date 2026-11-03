@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { throttle } from "lodash-es";
 import { tabletScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import usFlagSmall from 'img/us_flag_small.png';
+import uswdsIconDotGov from 'img/uswds/icon-dot-gov.svg';
+import uswdsIconHttps from 'img/uswds/icon-https.svg';
+import uswdsLock from 'img/uswds/lock.svg';
 
 
 const GovBanner = () => {
@@ -64,7 +68,7 @@ const GovBanner = () => {
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
-                                    src="../../../../img/us_flag_small.png" />
+                                    src={usFlagSmall} />
                                 <div
                                     className="usa-banner__header-text">
                                     <div className="usa-banner__header-sub-text">An official website of the United States government</div>
@@ -104,7 +108,7 @@ const GovBanner = () => {
                                 <img
                                     className="usa-banner__content-icon"
                                     alt="Lock"
-                                    src="../../../../img/uswds/icon-dot-gov.svg" />
+                                    src={uswdsIconDotGov} />
                                 <p><strong>Official websites use .gov</strong><br />A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
                             </div>
                         </div>
@@ -113,13 +117,13 @@ const GovBanner = () => {
                                 <img
                                     className="usa-banner__content-icon"
                                     alt="Lock"
-                                    src="../../../../img/uswds/icon-https.svg" />
+                                    src={uswdsIconHttps} />
                                 <p><strong>Secure .gov websites use HTTPS</strong><br />A&nbsp;
                                     <strong>lock (
                                         <img
                                             className="usa-banner__content-lock"
                                             alt="Lock"
-                                            src="../../../../img/uswds/lock.svg" />
+                                            src={uswdsLock} />
                                         )
                                     </strong> or <strong>https://</strong> means
                                     you’ve safely connected to the .gov website. Share sensitive information only on official,

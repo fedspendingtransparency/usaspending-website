@@ -18,6 +18,10 @@ import Analytics from '../../../helpers/analytics/Analytics';
 /* eslint-disable */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
+import homepageAwardSearchAwardSearchCommunities from 'img/homepage-award-search/award-search-communities.svg';
+import homepageAwardSearchAwardSearchOverTime2x from 'img/homepage-award-search/award-search-over-time-2x.svg';
+import homepageAwardSearchAwardSearchIndustry2x from 'img/homepage-award-search/award-search-industry-2x.svg';
+import homepageAwardSearchAwardSearchPsc2x from 'img/homepage-award-search/award-search-psc-2x.svg';
 import "swiper/css/bundle";
 import "swiper/css";
 /* eslint-enable */
@@ -221,7 +225,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text={placeOfPerformance} >
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchCommunities} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -244,7 +248,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending Over Time"
                                                 text={fiscalYear}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-over-time-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchOverTime2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -267,7 +271,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Industry"
                                                 text={naics}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-industry-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchIndustry2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -290,7 +294,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Product or Service"
                                                 text={psc}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-psc-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchPsc2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -343,7 +347,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text={placeOfPerformance}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchCommunities} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -367,7 +371,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending Over Time"
                                                 text={fiscalYear}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-over-time-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchOverTime2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -389,7 +393,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Industry"
                                                 text={naics}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-industry-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchIndustry2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -411,7 +415,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Product or Service"
                                                 text={psc}>
                                                 <div className="award-search__image">
-                                                    <img src="../../../../img/homepage-award-search/award-search-psc-2x.svg" alt="" role="presentation" />
+                                                    <img src={homepageAwardSearchAwardSearchPsc2x} alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction

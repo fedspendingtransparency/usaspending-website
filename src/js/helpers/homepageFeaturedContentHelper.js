@@ -1,5 +1,5 @@
 import articles from "../../config/featuredContent/featuredContentMetadata";
-import { transformString } from "./featuredContent/featuredContentHelper";
+import { transformString, getThumbnailPath } from "./featuredContent/featuredContentHelper";
 
 const publishedSprint = 211;
 const publishedDate = '11/13/2025';
@@ -14,7 +14,7 @@ const partition = (array, isValid) => array.reduce(
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances",
     fill: '#1b2b85',
-    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
+    thumbnail_path: getThumbnailPath({ slug: "exploring-americas-finances" }),
     taxonomy: "Exploring America's Finances",
     slug: "exploring-americas-finances"
 };
@@ -22,7 +22,7 @@ const fallbackMarketingArticle = {
 const fallbackOtherArticle = {
     title: "What is an Award?",
     fill: '#783cb9',
-    thumbnail_path: "../../img/featuredContent/thumbnails/what-is-an-award-thumbnail.webp",
+    thumbnail_path: getThumbnailPath({ slug: "what-is-an-award" }),
     taxonomy: "Data Definitions",
     slug: "what-is-an-award"
 };

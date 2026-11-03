@@ -11,6 +11,14 @@ import { Button } from 'data-transparency-ui';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import Analytics from '../../../helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
+import homepageHeroDesktopHeroGraphicBackgroundMountains2x from 'img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp';
+import homepageHeroDesktopHeroGraphicBackgroundBridge2x from 'img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp';
+import homepageHeroDesktopHeroGraphicBackgroundLeftHill2x from 'img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp';
+import homepageHeroDesktopHeroGraphicBackgroundRightHill2x from 'img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp';
+import homepageHeroDesktopHeroGraphicForeground2x from 'img/homepage-hero/desktop/hero-graphic-foreground@2x.webp';
+import homepageHeroMobileMobileHeroGraphicBackgroundRightHill2x from 'img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp';
+import homepageHeroMobileMobileHeroGraphicBackgroundLeftHill2x from 'img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp';
+import homepageHeroMobileMobileHeroGraphicForeground2x from 'img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp';
 
 const Hero = () => {
     const [isPaused, setIsPaused] = useState(false);
@@ -115,31 +123,31 @@ const Hero = () => {
                     <div className="hero__graphic-layer-background">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
+                            src={homepageHeroDesktopHeroGraphicBackgroundMountains2x}
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-bridge">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
+                            src={homepageHeroDesktopHeroGraphicBackgroundBridge2x}
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-buildings">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
+                            src={homepageHeroDesktopHeroGraphicBackgroundLeftHill2x}
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-windmills">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
+                            src={homepageHeroDesktopHeroGraphicBackgroundRightHill2x}
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-foreground">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
+                            src={homepageHeroDesktopHeroGraphicForeground2x}
                             alt="" />
                     </div>
                 </div> }
@@ -148,19 +156,19 @@ const Hero = () => {
                         <div className="hero__graphic-layer-windmills">
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp"
+                                src={homepageHeroMobileMobileHeroGraphicBackgroundRightHill2x}
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-background">
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp"
+                                src={homepageHeroMobileMobileHeroGraphicBackgroundLeftHill2x}
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-foreground">
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp"
+                                src={homepageHeroMobileMobileHeroGraphicForeground2x}
                                 alt="" />
                         </div>
                     </div> }

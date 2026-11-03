@@ -17,6 +17,10 @@ import { showModal } from '../../redux/actions/modal/modalActions';
 import MainCards from "./shared/MainCards";
 import EquityHeading from "./shared/DataDiveHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
+import topBowieStateCombinedImage from 'img/top-bowie-state-combined-image.svg';
+import topMorehouseCombinedImage from 'img/top-morehouse-combined-image.svg';
+import topUniversityKansasCombinedImage from 'img/top-university-kansas-combined-image.svg';
+import topMomProjectCombinedImage from 'img/top-mom-project-combined-image.svg';
 
 import '../../../_scss/pages/equityCovidSpendingPage/equityCovidSpendingPage.scss';
 
@@ -50,7 +54,7 @@ const EquityCovidSpendingPage = () => {
         bowie: {
             text: 'The Bowie State University Opportunity Project uses publicly accessible CDC’s Social Vulnerability Index, CDC’s County vaccination rates, and American Rescue Plan COVID-19 vaccine spending data from USAspending to assess COVID-19 vaccination and equity problems for community leaders as end users.',
             link: 'https://a.flow.gl/flow/kx4yer85/display',
-            img: '../../../../img/top-bowie-state-combined-image.svg',
+            img: topBowieStateCombinedImage,
             heading: 'Bowie State University',
             color: '#ffbe60'
 
@@ -58,21 +62,21 @@ const EquityCovidSpendingPage = () => {
         morehouse: {
             text: 'The MSI (Minority Serving Institutions) COVID-19 Relief Dashboard for Equity and Transparency uses several federal datasets surrounding school enrollment and COVID-19 relief awards to highlight whether or not COVID-19 funding was equitably distributed to MSIs around the country for federal, state, and local officials and organizations.',
             link: 'https://a.flow.gl/flow/kuo62d54/display',
-            img: '../../../../img/top-morehouse-combined-image.svg',
+            img: topMorehouseCombinedImage,
             heading: 'Morehouse College',
             color: '#339189'
         },
         kansas: {
             text: 'The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between childcare and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.',
             link: 'https://top.kucppr.org/',
-            img: '../../../../img/top-university-kansas-combined-image.svg',
+            img: topUniversityKansasCombinedImage,
             heading: 'University of Kansas Center for Public Partnerships and Research',
             color: '#fa9441'
         },
         momproject: {
             text: 'The PEI (Predictive Equity Index) model employs machine learning and predictive analytics to understand key drivers of equity in the distribution of PPP loans. This methodology allows for creation of a cohesive dataset, allowing for an in-depth assessment of county-level performance of equity, as well as an understanding of how future actions serve to impact anticipated levels of equity in future funding efforts. Taken together, this product allows for policy makers at the county, state, and national-level to take county-level action maximizing the impact of federal dollars on the communities the investments aim to serve.',
             link: 'https://work.themomproject.com/predictiveequity',
-            img: '../../../../img/top-mom-project-combined-image.svg',
+            img: topMomProjectCombinedImage,
             heading: 'The Mom Project',
             color: '#29abe2'
         }

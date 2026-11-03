@@ -1,8 +1,6 @@
 import React from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
-import { getPrimaryFill, getSecondaryFill } from '../../helpers/featuredContent/featuredContentHelper';
-
-const heroPath = "../../img/featuredContent/banner/desktop/banner-";
+import { getPrimaryFill, getSecondaryFill, getBannerPath } from '../../helpers/featuredContent/featuredContentHelper';
 
 const FeaturedContentHeader = ({ isMobile, isTablet, chosenArticle }) => (
     <FlexGridRow
@@ -11,7 +9,7 @@ const FeaturedContentHeader = ({ isMobile, isTablet, chosenArticle }) => (
         { !isMobile &&
             !isTablet &&
             <img
-                src={chosenArticle?.slug ? `${heroPath}${chosenArticle?.slug}.webp` : null}
+                src={chosenArticle?.slug ? getBannerPath(chosenArticle.slug) : null}
                 alt="hero"
                 name="featured-content-hero"
                 id="featured-content-hero" />

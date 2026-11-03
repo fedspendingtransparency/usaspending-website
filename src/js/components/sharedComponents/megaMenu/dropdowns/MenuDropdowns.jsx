@@ -18,6 +18,7 @@ import {
 import MenuDropdownWrapper from "./MenuDropdownWrapper";
 import MenuItem from './MenuItem';
 import MenuDropdown from './MenuDropdown';
+import caret from 'img/caret.svg';
 
 const navbarConfig = [
     {
@@ -168,7 +169,7 @@ const MenuDropdowns = React.memo(() => {
                             <div
                                 style={dropdownRoot()}>
                                 <Flipped flipId="dropdown-caret">
-                                    <img role="presentation" src="../../../../../img/caret.svg" alt="" className="caret" />
+                                    <img role="presentation" src={caret} alt="" className="caret" />
                                 </Flipped>
                                 <Flipped flipId="dropdown">
                                     <div className="dropdown-background">

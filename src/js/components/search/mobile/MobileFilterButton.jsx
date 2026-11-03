@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import addSearchFiltersIcon from 'img/Add-search-filters-icon.svg';
 
 const pluralizeFilterLabel = (count) => {
     if (count === 1) {
@@ -47,7 +48,7 @@ const MobileFilterButton = ({
                             className="usa-da-mobile-filter-icon"
                             alt="Toggle filters"
                             aria-label="Toggle filters"
-                            src="../../../../img/Add-search-filters-icon.svg" />
+                            src={addSearchFiltersIcon} />
                     </div>
                     <div className="mobile-filter-button-label">
                         {pluralizeFilterLabel(filterCount)}

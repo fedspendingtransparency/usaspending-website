@@ -10,6 +10,9 @@ import { useDispatch } from 'react-redux';
 import { Button } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { hideModal } from "../../redux/actions/modal/modalActions";
+import fY21WOB from 'img/FY21_WOB.png';
+import fY21WOBVOB from 'img/FY21_WOB_VOB.png';
+import wOBVOB from 'img/WOB_VOB.png';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -65,7 +68,7 @@ const FilterModal = (props) => {
                         <div className="filter-modal__image">
                             <img
                                 role="presentation"
-                                src="../../../../img/FY21_WOB.png"
+                                src={fY21WOB}
                                 alt="" />
                         </div>
                         <div className="filter-modal__description">
@@ -79,7 +82,7 @@ const FilterModal = (props) => {
                         <div className="filter-modal__image">
                             <img
                                 role="presentation"
-                                src="../../../../img/FY21_WOB_VOB.png"
+                                src={fY21WOBVOB}
                                 alt="" />
                         </div>
                         <div className="filter-modal__description">
@@ -93,7 +96,7 @@ const FilterModal = (props) => {
                         <div className="filter-modal__image">
                             <img
                                 role="presentation"
-                                src="../../../../img/WOB_VOB.png"
+                                src={wOBVOB}
                                 alt="" />
                         </div>
                         <div className="filter-modal__description">

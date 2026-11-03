@@ -10,6 +10,9 @@ import { FlexGridContainer, FlexGridRow, FlexGridCol } from 'data-transparency-u
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import opportunityProjectLogo from 'img/opportunity-project-logo.png';
+import opportunityProjectMap from 'img/opportunity-project-map.png';
+import opportunityProjectMapWebp from 'img/opportunity-project-map.webp';
 
 import '../../../_scss/pages/covid19/opportunityProject.scss';
 
@@ -39,7 +42,7 @@ const OpportunityProjectPage = () => {
                         <main role="main" className="main-content" id="main-content">
                             <header>
                                 <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
-                                <img src="../../../img/opportunity-project-logo.png" role="presentation" alt="" />
+                                <img src={opportunityProjectLogo} role="presentation" alt="" />
                             </header>
 
                             <section>
@@ -49,9 +52,9 @@ const OpportunityProjectPage = () => {
                             </section>
 
                             <picture>
-                                <source srcSet="img/opportunity-project-map.webp 950w" type="image/webp" />
-                                <source srcSet="img/opportunity-project-map.png" type="image/png" />
-                                <img src="../../../img/opportunity-project-map.png" alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
+                                <source srcSet={`${opportunityProjectMapWebp} 950w`} type="image/webp" />
+                                <source srcSet={opportunityProjectMap} type="image/png" />
+                                <img src={opportunityProjectMap} alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
                             </picture>
 
                             <section>

@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router';
 import Analytics from '../../../helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./MegaMenu";
+import logo from 'img/logo.png';
+import logo2x from 'img/logo@2x.png';
 
 const MegaMenuWrapper = React.memo(() => {
     const [showMobileNav, setShowMobileNav] = useState(false);
@@ -76,8 +78,8 @@ const MegaMenuWrapper = React.memo(() => {
                             onClick={clickedHeaderLink}>
                             <img
                                 className="site-logo__image"
-                                src="../../../../img/logo.png"
-                                srcSet="img/logo.png 1x, img/logo@2x.png 2x"
+                                src={logo}
+                                srcSet={`${logo} 1x, ${logo2x} 2x`}
                                 alt="USAspending.gov" />
                         </Link>
                     </div>

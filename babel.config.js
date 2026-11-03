@@ -27,8 +27,7 @@ const plugins = [
     "@babel/plugin-transform-object-rest-spread",
     "@babel/plugin-transform-class-properties",
     "@babel/plugin-transform-optional-chaining",
-    "@babel/plugin-syntax-dynamic-import",
-    "react-hot-loader/babel"
+    "@babel/plugin-syntax-dynamic-import"
 ];
 
 export default {

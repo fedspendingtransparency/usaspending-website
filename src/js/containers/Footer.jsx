@@ -17,6 +17,7 @@ import BulkDownloadBottomBarContainer from
     '../containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FooterExternalLink from '../components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
+import footerLogo from 'img/footer_logo.png';
 import NewDownloadBottomBarContainer
     from './search/modals/fullDownload/NewDownloadBottomBarContainer';
 
@@ -78,7 +79,7 @@ const Footer = ({
                             title="USAspending.gov Home"
                             aria-label="USAspending.gov Home"
                             onClick={clickedFooterLink.bind(null, '/')}>
-                            <img src="../../img/footer_logo.png" alt="USAspending.gov" />
+                            <img src={footerLogo} alt="USAspending.gov" />
                         </Link>
                     </div>
                     {isLargeScreen && (

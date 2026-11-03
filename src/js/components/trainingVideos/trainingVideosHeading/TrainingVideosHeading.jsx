@@ -15,6 +15,7 @@ import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import { getBaseUrl, handleShareOptionClick } from '../../../helpers/socialShare';
 import { throttle } from 'lodash-es';
 import { showModal } from '../../../redux/actions/modal/modalActions';
+import youtubePageYoutubeLandingPageHeroImage2x from 'img/youtube-page/youtube-landing-page-hero-image@2x.webp';
 
 const TrainingVideosHeading = () => {
     const slug = 'training-videos';
@@ -53,7 +54,7 @@ const TrainingVideosHeading = () => {
                     mobile={0}>
                     <div className="training-videos__column-one">
                         <div className="training-videos__img-container">
-                            <img className="training-videos__img" src="../../../../img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
+                            <img className="training-videos__img" src={youtubePageYoutubeLandingPageHeroImage2x} alt="placeholder" />
                         </div>
                     </div>
                 </FlexGridCol>
