@@ -40,7 +40,7 @@ Babel's `module-resolver` plugin is rooted at `src/js` (`babel.config.js`). Any 
 - `containers/` — components wired to Redux state/dispatch (classic `connect`-style or hooks into the store) and/or React Router params.
 - `components/` — presentational React components, organized by page/feature (e.g. `components/search/`, `components/award/`).
 - `features/` — a newer pattern for self-contained page features (currently only `features/state`); prefer this structure for net-new large page features over adding to `components/`+`containers/`.
-- `redux/actions/<domain>` and `redux/reducers/<domain>` — one subfolder per domain (search, award, agency, covid19, bulkDownload, etc). All reducers are combined in `redux/reducers/deprecated-index.js`.
+- `redux/actions/<domain>` and `redux/reducers/<domain>` — one subfolder per domain (search, award, agency, covid19, bulkDownload, etc). All reducers are combined in `redux/reducers/index.js`.
 - `apis/` — thin per-domain API modules built on `helpers/apiRequest.js`.
 - `helpers/` — business logic and formatting utilities kept out of components (per `react-testing-library.md`, these should have near-100% test coverage since they're plain JS).
 - `models/`, `propTypes/`, `dataMapping/`, `context/`, `hooks/` — shared model classes, PropTypes shapes, data transformation maps, React context providers, and custom hooks respectively.

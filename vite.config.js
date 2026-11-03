@@ -12,7 +12,6 @@ import autoprefixer from 'autoprefixer';
 import mdx from "@mdx-js/rollup";
 import babel from 'vite-plugin-babel';
 import { configDefaults } from 'vitest/config';
-import {ViteEjsPlugin} from "vite-plugin-ejs";
 import svgr from 'vite-plugin-svgr';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -82,15 +81,15 @@ export default defineConfig(({ command, mode }) => {
         template: "index.html",
         chunksSortMode: "",
         inject: {
-          GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',
-          USE_GTM: (
-            import.meta.env?.ENV === 'qat' ||
-            import.meta.env?.ENV === 'sandbox'
-          ),
-          GTM_ID: import.meta.env?.GTM_ID || '',
-          IS_PROD: (
-            import.meta.env?.ENV === 'prod'
-      )}}),
+          // available in index.html as EJS variables, e.g. <%= GTM_ID %>
+          data: {
+            GA_TRACKING_ID: env.GA_TRACKING_ID || '',
+            USE_GTM: env.ENV === 'qat' || env.ENV === 'sandbox',
+            GTM_ID: env.GTM_ID || '',
+            IS_PROD: env.ENV === 'prod',
+          },
+        },
+      }),
       viteStaticCopy({
         targets: [
         {
@@ -160,7 +159,7 @@ export default defineConfig(({ command, mode }) => {
         '-redux': path.resolve(__dirname, './src/js/redux'),
         'context': path.resolve(__dirname, './src/js/context'),
         'GlobalConstants': path.resolve(__dirname, './src/js/GlobalConstants.js'),
-        'propTypes' : path.resolve(__dirname, "./src/js/propTypes/deprecated-index.js"),
+        'propTypes' : path.resolve(__dirname, "./src/js/propTypes/index.js"),
         "hooks": path.resolve(__dirname, "./src/js/hooks"),
         "features": path.resolve(__dirname, "./src/js/features"),
         "models": path.resolve(__dirname, "./src/js/models"),
