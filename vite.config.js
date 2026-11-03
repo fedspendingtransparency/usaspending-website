@@ -94,7 +94,7 @@ export default defineConfig(({ command, mode }) => {
       viteStaticCopy({
         targets: [
         {
-          src: '**/*.xml',
+          src: '*.xml',
           dest: '.',
           suppressError: true
         },
@@ -109,23 +109,35 @@ export default defineConfig(({ command, mode }) => {
           suppressError: true
         },
         {
-          src: path.resolve(__dirname, "./src/img/**/*"),
+          // imported images are bundled and hashed into assets/; only copy files
+          // that are fetched or linked by a fixed URL (lottie json, og/twitter cards, favicons)
+          src: [
+            'src/img/interactive-data-sources/**/*',
+            'src/img/animations/**/*',
+            'src/img/favicons/**/*',
+            'src/img/FacebookOG.png',
+            'src/img/TwitterCard.png'
+          ],
           dest: 'img',
+          rename: { stripBase: 2 },
           suppressError: true
         },
         {
-          src: path.resolve(__dirname, "./src/graphics/**/*"),
+          src: 'src/graphics/**/*',
           dest: 'graphics',
+          rename: { stripBase: 2 },
           suppressError: true
         },
         {
-          src: path.resolve(__dirname, "./src/fonts/*"),
+          src: 'src/fonts/*',
           dest: 'fonts',
+          rename: { stripBase: 2 },
           suppressError: false
         },
         {
-          src: path.resolve(__dirname, "./src/data/**/*"),
+          src: 'src/data/**/*',
           dest: 'data',
+          rename: { stripBase: 2 },
           suppressError: true
         }],
         silent: true})
@@ -148,7 +160,7 @@ export default defineConfig(({ command, mode }) => {
         '-redux': path.resolve(__dirname, './src/js/redux'),
         'context': path.resolve(__dirname, './src/js/context'),
         'GlobalConstants': path.resolve(__dirname, './src/js/GlobalConstants.js'),
-        'propTypes' : path.resolve(__dirname, "./src/js/propTypes/index.js"),
+        'propTypes' : path.resolve(__dirname, "./src/js/propTypes/deprecated-index.js"),
         "hooks": path.resolve(__dirname, "./src/js/hooks"),
         "features": path.resolve(__dirname, "./src/js/features"),
         "models": path.resolve(__dirname, "./src/js/models"),

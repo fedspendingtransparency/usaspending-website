@@ -226,43 +226,21 @@ $green-text: $color-infrastructure-outlays;
       @include phrase-transition("long-fade-out", $scroll-increment, 0);
     }
 
-    @-moz-keyframes fade-in-landing-phrase {
+    @keyframes fade-in-landing-phrase {
       0% {
         opacity: 0;
         visibility: hidden;
-        -moz-transform: translateY(25px);
+        transform: translateY(25px);
       }
       40% {
         opacity: 0;
         visibility: hidden;
-        -moz-transform: translateY(25px);
+        transform: translateY(25px);
       }
       90% {
         opacity: 1;
         visibility: visible;
-        -moz-transform: translateY(0px);
-      }
-      100% {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-
-    @-webkit-keyframes fade-in-landing-phrase {
-      0% {
-        opacity: 0;
-        visibility: hidden;
-        -webkit-transform: translateY(25px);
-      }
-      40% {
-        opacity: 0;
-        visibility: hidden;
-        -webkit-transform: translateY(25px);
-      }
-      90% {
-        opacity: 1;
-        visibility: visible;
-        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
       }
       100% {
         opacity: 1;
@@ -306,14 +284,14 @@ $green-text: $color-infrastructure-outlays;
       }
     }
 
-    @-moz-keyframes main-rotation {
+    @keyframes main-rotation {
       0% {
         opacity: 1;
-        -moz-transform: translateY(25px);
+        transform: translateY(25px);
       }
       5% {
         opacity: 1;
-        -moz-transform: translateY(0px);
+        transform: translateY(0px);
       }
       85% {
         opacity: 1;
@@ -323,38 +301,12 @@ $green-text: $color-infrastructure-outlays;
       }
     }
 
-    @-webkit-keyframes main-rotation {
+    @keyframes scroll-in {
       0% {
-        opacity: 1;
-        -webkit-transform: translateY(25px);
-      }
-      5% {
-        opacity: 1;
-        -webkit-transform: translateY(0px);
-      }
-      85% {
-        opacity: 1;
+        transform: translateY(25px);
       }
       100% {
-        opacity: 0;
-      }
-    }
-
-    @-moz-keyframes scroll-in {
-      0% {
-        -moz-transform: translateY(25px);
-      }
-      100% {
-        -moz-transform: translateY(0px);
-      }
-    }
-
-    @-webkit-keyframes scroll-in {
-      0% {
-        -webkit-transform: translateY(25px);
-      }
-      100% {
-        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
       }
     }
   }

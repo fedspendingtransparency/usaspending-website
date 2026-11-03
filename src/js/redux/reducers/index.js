@@ -1,5 +1,5 @@
 /**
- * index.js
+ * deprecated-index.js
  * Created by Kevin Li 11/1/16
  **/
 

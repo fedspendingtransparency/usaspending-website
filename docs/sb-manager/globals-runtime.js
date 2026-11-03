@@ -286,7 +286,7 @@ ct with keys {" + Object.keys(e).join(", ") + "}" : t) + "). If you meant to ren
   Se.version = "18.3.1";
 });
 
-// ../node_modules/react/index.js
+// ../node_modules/react/deprecated-index.js
 var H = R((olt, v9) => {
   "use strict";
   v9.exports = y9();
@@ -516,7 +516,7 @@ supported") : C9 = 0 < e ? Math.floor(1e3 / e) : 5;
   };
 });
 
-// ../node_modules/scheduler/index.js
+// ../node_modules/scheduler/deprecated-index.js
 var O9 = R((slt, A9) => {
   "use strict";
   A9.exports = T9();
@@ -6350,7 +6350,7 @@ table "));
   bn.version = "18.3.1-next-f1338f8080-20240426";
 });
 
-// ../node_modules/react-dom/index.js
+// ../node_modules/react-dom/deprecated-index.js
 var za = R((clt, qq) => {
   "use strict";
   function kq() {
@@ -6382,7 +6382,7 @@ var Z, Ct = k(() => {
   })();
 });
 
-// ../node_modules/ts-dedent/esm/index.js
+// ../node_modules/ts-dedent/esm/deprecated-index.js
 function _t(e) {
   for (var t = [], r = 1; r < arguments.length; r++)
     t[r - 1] = arguments[r];
@@ -6930,7 +6930,7 @@ var kD = k(() => {
   a(LD, "rulesheet");
 });
 
-// ../node_modules/stylis/index.js
+// ../node_modules/stylis/deprecated-index.js
 var qD = k(() => {
   Mg();
   pc();
@@ -7347,7 +7347,7 @@ de") : 60111, Yg = Kt ? Symbol.for("react.concurrent_mode") : 60111, Kg = Kt ? S
   je.typeOf = wn;
 });
 
-// ../node_modules/react-is/index.js
+// ../node_modules/react-is/deprecated-index.js
 var HD = R((Kut, $D) => {
   "use strict";
   $D.exports = BD();
@@ -9703,7 +9703,7 @@ var tj = k(() => {
   h3();
 });
 
-// ../node_modules/deep-object-diff/mjs/index.js
+// ../node_modules/deep-object-diff/mjs/deprecated-index.js
 var rj = k(() => {
   ZF();
   p3();
@@ -11058,7 +11058,7 @@ var fB = R((Vmt, dB) => {
   a(Vwe, "camelcase");
 });
 
-// ../node_modules/hast-util-parse-selector/index.js
+// ../node_modules/hast-util-parse-selector/deprecated-index.js
 var hB = R((Gmt, mB) => {
   "use strict";
   mB.exports = Wwe;
@@ -11072,7 +11072,7 @@ var hB = R((Gmt, mB) => {
   a(Wwe, "parse");
 });
 
-// ../node_modules/hastscript/node_modules/space-separated-tokens/index.js
+// ../node_modules/hastscript/node_modules/space-separated-tokens/deprecated-index.js
 var yB = R((I3) => {
   "use strict";
   I3.parse = Kwe;
@@ -11089,7 +11089,7 @@ var yB = R((I3) => {
   a(Xwe, "stringify");
 });
 
-// ../node_modules/hastscript/node_modules/comma-separated-tokens/index.js
+// ../node_modules/hastscript/node_modules/comma-separated-tokens/deprecated-index.js
 var bB = R((N3) => {
   "use strict";
   N3.parse = Jwe;
@@ -11196,7 +11196,7 @@ var AB = R((tht, TB) => {
   TB.exports = PB;
 });
 
-// ../node_modules/hastscript/index.js
+// ../node_modules/hastscript/deprecated-index.js
 var IB = R((rht, OB) => {
   "use strict";
   OB.exports = AB();
@@ -11348,7 +11348,7 @@ var NB = R((oht, dEe) => {
   };
 });
 
-// ../node_modules/refractor/node_modules/is-decimal/index.js
+// ../node_modules/refractor/node_modules/is-decimal/deprecated-index.js
 var L3 = R((aht, LB) => {
   "use strict";
   LB.exports = fEe;
@@ -11359,7 +11359,7 @@ var L3 = R((aht, LB) => {
   a(fEe, "decimal");
 });
 
-// ../node_modules/refractor/node_modules/is-hexadecimal/index.js
+// ../node_modules/refractor/node_modules/is-hexadecimal/deprecated-index.js
 var qB = R((sht, kB) => {
   "use strict";
   kB.exports = pEe;
@@ -11370,7 +11370,7 @@ var qB = R((sht, kB) => {
   a(pEe, "hexadecimal");
 });
 
-// ../node_modules/refractor/node_modules/is-alphabetical/index.js
+// ../node_modules/refractor/node_modules/is-alphabetical/deprecated-index.js
 var FB = R((uht, DB) => {
   "use strict";
   DB.exports = mEe;
@@ -11381,7 +11381,7 @@ var FB = R((uht, DB) => {
   a(mEe, "alphabetical");
 });
 
-// ../node_modules/refractor/node_modules/is-alphanumerical/index.js
+// ../node_modules/refractor/node_modules/is-alphanumerical/deprecated-index.js
 var BB = R((dht, jB) => {
   "use strict";
   var hEe = FB(), gEe = L3();
@@ -11405,7 +11405,7 @@ var HB = R((pht, $B) => {
   a(bEe, "decodeEntity");
 });
 
-// ../node_modules/refractor/node_modules/parse-entities/index.js
+// ../node_modules/refractor/node_modules/parse-entities/deprecated-index.js
 var r$ = R((hht, t$) => {
   "use strict";
   var zB = MB(), UB = NB(), wEe = L3(), EEe = qB(), YB = BB(), REe = HB();
@@ -12759,7 +12759,7 @@ var T1, W3, A1, h$ = k(() => {
   A1 = W3;
 });
 
-// ../node_modules/react-syntax-highlighter/dist/esm/index.js
+// ../node_modules/react-syntax-highlighter/dist/esm/deprecated-index.js
 var g$ = k(() => {
   E3();
 });
@@ -16267,7 +16267,7 @@ var kV, qV = k(() => {
   };
 });
 
-// ../node_modules/@popperjs/core/lib/modifiers/index.js
+// ../node_modules/@popperjs/core/lib/modifiers/deprecated-index.js
 var kA = k(() => {
 });
 
@@ -16539,14 +16539,14 @@ var h3e, HA, GV = k(() => {
   });
 });
 
-// ../node_modules/@popperjs/core/lib/index.js
+// ../node_modules/@popperjs/core/lib/deprecated-index.js
 var YV = k(() => {
   Cn();
   kA();
   GV();
 });
 
-// ../node_modules/react-fast-compare/index.js
+// ../node_modules/react-fast-compare/deprecated-index.js
 var XV = R((sSt, KV) => {
   var g3e = typeof Element < "u", y3e = typeof Map == "function", v3e = typeof Set == "function", b3e = typeof ArrayBuffer == "function" && !!ArrayBuffer.
   isView;
@@ -16686,7 +16686,7 @@ var ls, JV, QV, w3e, zA, ZV = k(() => {
   }, "usePopper");
 });
 
-// ../node_modules/react-popper/lib/esm/index.js
+// ../node_modules/react-popper/lib/esm/deprecated-index.js
 var eW = k(() => {
   ZV();
 });
@@ -17369,7 +17369,7 @@ var e7 = R((Rv) => {
   a(OW, "stringifyObject");
 });
 
-// ../node_modules/fast-decode-uri-component/index.js
+// ../node_modules/fast-decode-uri-component/deprecated-index.js
 var LW = R((fCt, NW) => {
   "use strict";
   var IW = 12, iTe = 0, t7 = [
@@ -17911,7 +17911,7 @@ var BW = R(($o) => {
   gTe(Ev(), $o);
 });
 
-// ../node_modules/min-indent/index.js
+// ../node_modules/min-indent/deprecated-index.js
 var lK = R((xPt, sK) => {
   "use strict";
   sK.exports = (e) => {
@@ -17920,7 +17920,7 @@ var lK = R((xPt, sK) => {
   };
 });
 
-// ../node_modules/strip-indent/index.js
+// ../node_modules/strip-indent/deprecated-index.js
 var cK = R((SPt, uK) => {
   "use strict";
   var _Oe = lK();
@@ -17933,7 +17933,7 @@ var cK = R((SPt, uK) => {
   };
 });
 
-// ../node_modules/indent-string/index.js
+// ../node_modules/indent-string/deprecated-index.js
 var fK = R((CPt, dK) => {
   "use strict";
   dK.exports = (e, t = 1, r) => {
@@ -17960,7 +17960,7 @@ var fK = R((CPt, dK) => {
   };
 });
 
-// ../node_modules/redent/index.js
+// ../node_modules/redent/deprecated-index.js
 var $O = R((_Pt, pK) => {
   "use strict";
   var POe = cK(), TOe = fK();
@@ -24137,7 +24137,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }, Y6t = cE.default = (0, Q9e.default)(p6, p6.entries());
 });
 
-// ../node_modules/aria-query/lib/index.js
+// ../node_modules/aria-query/lib/deprecated-index.js
 var m6 = R((co) => {
   "use strict";
   Object.defineProperty(co, "__esModule", {
@@ -24153,7 +24153,7 @@ var m6 = R((co) => {
   sLe.default;
 });
 
-// ../node_modules/color-name/index.js
+// ../node_modules/color-name/deprecated-index.js
 var $Q = R((oIt, BQ) => {
   "use strict";
   BQ.exports = {
@@ -24693,7 +24693,7 @@ var VQ = R((sIt, UQ) => {
   };
 });
 
-// ../node_modules/color-convert/index.js
+// ../node_modules/color-convert/deprecated-index.js
 var GQ = R((uIt, WQ) => {
   var g6 = h6(), pLe = VQ(), gd = {}, mLe = Object.keys(g6);
   function hLe(e) {
@@ -24730,7 +24730,7 @@ var GQ = R((uIt, WQ) => {
   WQ.exports = gd;
 });
 
-// ../node_modules/ansi-styles/index.js
+// ../node_modules/ansi-styles/deprecated-index.js
 var ZQ = R((dIt, QQ) => {
   "use strict";
   var YQ = /* @__PURE__ */ a((e, t) => (...r) => `\x1B[${e(...r) + t}m`, "wrapAnsi16"), KQ = /* @__PURE__ */ a((e, t) => (...r) => {
@@ -24968,7 +24968,7 @@ var lZ = R((gIt, sZ) => {
   };
 });
 
-// ../node_modules/@testing-library/jest-dom/node_modules/chalk/source/index.js
+// ../node_modules/@testing-library/jest-dom/node_modules/chalk/source/deprecated-index.js
 var S6 = R((vIt, fZ) => {
   "use strict";
   var Rm = ZQ(), { stdout: b6, stderr: w6 } = tZ(), {
@@ -26239,7 +26239,7 @@ var W6 = R((V6, jre) => {
   });
 });
 
-// ../node_modules/pretty-format/node_modules/ansi-styles/index.js
+// ../node_modules/pretty-format/node_modules/ansi-styles/deprecated-index.js
 var GI = R((g9t, Nne) => {
   "use strict";
   var Ine = /* @__PURE__ */ a((e = 0) => (t) => `\x1B[${38 + e};5;${t}m`, "wrapAnsi256"), Mne = /* @__PURE__ */ a((e = 0) => (t, r, n) => `\x1B\
@@ -26471,7 +26471,7 @@ var Dne = R((Rs) => {
   Rs.default = K$e;
 });
 
-// ../node_modules/pretty-format/node_modules/ansi-regex/index.js
+// ../node_modules/pretty-format/node_modules/ansi-regex/deprecated-index.js
 var jne = R((R9t, Fne) => {
   "use strict";
   Fne.exports = ({ onlyFirst: e = !1 } = {}) => {
@@ -26938,7 +26938,7 @@ var hoe = R((We) => {
   We.typeOf = Ko;
 });
 
-// ../node_modules/pretty-format/node_modules/react-is/index.js
+// ../node_modules/pretty-format/node_modules/react-is/deprecated-index.js
 var yoe = R((D9t, goe) => {
   "use strict";
   goe.exports = hoe();
@@ -27087,7 +27087,7 @@ var _oe = R((Ts) => {
   Ts.default = JHe;
 });
 
-// ../node_modules/pretty-format/build/index.js
+// ../node_modules/pretty-format/build/deprecated-index.js
 var Hoe = R((ai) => {
   "use strict";
   Object.defineProperty(ai, "__esModule", {
@@ -33783,7 +33783,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   Qx.default = CQe;
 });
 
-// ../node_modules/@testing-library/dom/node_modules/aria-query/lib/index.js
+// ../node_modules/@testing-library/dom/node_modules/aria-query/lib/deprecated-index.js
 var hle = R((mo) => {
   "use strict";
   Object.defineProperty(mo, "__esModule", {
@@ -35064,7 +35064,7 @@ var Sme = R((IQt, xme) => {
   xme.exports = Nit;
 });
 
-// ../node_modules/semver/index.js
+// ../node_modules/semver/deprecated-index.js
 var Tme = R((NQt, Pme) => {
   "use strict";
   var VN = Zd(), Cme = Vh(), qit = Or(), _me = AN(), Dit = Eu(), Fit = Qfe(), jit = epe(), Bit = npe(), $it = ipe(), Hit = lpe(), zit = cpe(),
@@ -45741,7 +45741,7 @@ var $c = N(H());
 // ../node_modules/react-style-singleton/dist/es2015/hook.js
 var Xz = N(H());
 
-// ../node_modules/get-nonce/dist/es2015/index.js
+// ../node_modules/get-nonce/dist/es2015/deprecated-index.js
 var Yz;
 var Kz = /* @__PURE__ */ a(function() {
   if (Yz)
@@ -46084,7 +46084,7 @@ var iU = wy.forwardRef(function(e, t) {
 iU.classNames = Dp.classNames;
 var UT = iU;
 
-// ../node_modules/aria-hidden/dist/es2015/index.js
+// ../node_modules/aria-hidden/dist/es2015/deprecated-index.js
 var L_e = /* @__PURE__ */ a(function(e) {
   if (typeof document > "u")
     return null;
@@ -48312,7 +48312,7 @@ a(HW, "p");
 // ../node_modules/tinyrainbow/dist/browser.js
 var Xe = HW();
 
-// ../node_modules/@vitest/pretty-format/dist/index.js
+// ../node_modules/@vitest/pretty-format/dist/deprecated-index.js
 function tG(e, t) {
   return t.forEach(function(r) {
     r && typeof r != "string" && !Array.isArray(r) && Object.keys(r).forEach(function(n) {
@@ -49408,7 +49408,7 @@ function qv(e, t) {
 }
 a(qv, "inspectHTML");
 
-// ../node_modules/loupe/lib/index.js
+// ../node_modules/loupe/lib/deprecated-index.js
 var QAe = typeof Symbol == "function" && typeof Symbol.for == "function", C7 = QAe ? Symbol.for("chai/inspect") : "@@chai/inspect", _7 = Symbol.
 for("nodejs.util.inspect.custom"), _G = /* @__PURE__ */ new WeakMap(), PG = {}, TG = {
   undefined: /* @__PURE__ */ a((e, t) => t.stylize("undefined", "undefined"), "undefined"),
@@ -56864,7 +56864,7 @@ a(vI, "toHaveSelection");
 var ENt = N($O(), 1);
 var SNt = N(m6(), 1), CNt = N(S6(), 1), _Nt = N(U6(), 1), PNt = N(W6(), 1);
 
-// ../node_modules/@vitest/utils/dist/index.js
+// ../node_modules/@vitest/utils/dist/deprecated-index.js
 var SI, rne;
 function UBe() {
   if (rne) return SI;
@@ -57162,7 +57162,7 @@ var nne = {
 }, UNt = new Set(nne.keyword), VNt = new Set(nne.strict);
 var WNt = Symbol("vitest:SAFE_TIMERS");
 
-// ../node_modules/@vitest/spy/node_modules/tinyspy/dist/index.js
+// ../node_modules/@vitest/spy/node_modules/tinyspy/dist/deprecated-index.js
 function ME(e, t) {
   if (!e)
     throw new Error(t);
@@ -57325,7 +57325,7 @@ function e$e(e) {
 }
 a(e$e, "isSpyFunction");
 
-// ../node_modules/@vitest/spy/dist/index.js
+// ../node_modules/@vitest/spy/dist/deprecated-index.js
 var Ad = /* @__PURE__ */ new Set();
 function Zl(e) {
   return typeof e == "function" && "_isMockFunction" in e && e._isMockFunction;
@@ -57432,7 +57432,7 @@ function n$e(e, t) {
 }
 a(n$e, "getDescriptor");
 
-// ../node_modules/@vitest/expect/dist/index.js
+// ../node_modules/@vitest/expect/dist/deprecated-index.js
 var jm = Symbol.for("matchers-object"), Bm = Symbol.for("$$jest-matchers-object-storybook"), $E = Symbol.for("expect-global"), AI = Symbol.for(
 "asymmetric-matchers-object"), yne = {
   toSatisfy(e, t, r) {
@@ -58740,7 +58740,7 @@ Object.defineProperty(globalThis, $E, {
   configurable: !0
 });
 
-// ../node_modules/tinyspy/dist/index.js
+// ../node_modules/tinyspy/dist/deprecated-index.js
 function O$e(e, t, r) {
   Object.defineProperty(e, t, r);
 }
@@ -64528,7 +64528,7 @@ Multitouch", !1), fi(this, "isCancelled", !1), fi(this, "isDown", !1), fi(this, 
 a(fM, "Pointer");
 var _S = fM;
 
-// ../node_modules/@testing-library/user-event/dist/esm/system/pointer/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/system/pointer/deprecated-index.js
 function Bs(e, t, r) {
   return t in e ? Object.defineProperty(e, t, {
     value: r,
@@ -64619,7 +64619,7 @@ var pM = class pM {
 a(pM, "PointerHost");
 var PS = pM;
 
-// ../node_modules/@testing-library/user-event/dist/esm/system/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/system/deprecated-index.js
 function Xce(e, t, r) {
   return t in e ? Object.defineProperty(e, t, {
     value: r,
@@ -64808,7 +64808,7 @@ function ade(e, t) {
 }
 a(ade, "parseKeyDef");
 
-// ../node_modules/@testing-library/user-event/dist/esm/keyboard/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/keyboard/deprecated-index.js
 async function ide(e) {
   let t = ade(this.config.keyboardMap, e);
   for (let r = 0; r < t.length; r++)
@@ -64916,7 +64916,7 @@ function gM(e, t) {
 }
 a(gM, "parseKeyDef");
 
-// ../node_modules/@testing-library/user-event/dist/esm/pointer/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/pointer/deprecated-index.js
 async function fde(e) {
   let { pointerMap: t } = this.config, r = [];
   (Array.isArray(e) ? e : [
@@ -65326,7 +65326,7 @@ function ltt(e = {}) {
 }
 a(ltt, "tab");
 
-// ../node_modules/@testing-library/user-event/dist/esm/setup/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/setup/deprecated-index.js
 var _h = {
   ...wM,
   setup: Sde
@@ -66439,10 +66439,10 @@ search.slice(1) : ""), "queryFromLocation"), unt = /* @__PURE__ */ a((e) => {
 var Hs = N(H(), 1);
 Ct();
 
-// ../node_modules/react-router-dom/dist/index.js
+// ../node_modules/react-router-dom/dist/deprecated-index.js
 var Wt = N(H());
 
-// ../node_modules/react-router/dist/index.js
+// ../node_modules/react-router/dist/deprecated-index.js
 var we = N(H());
 
 // ../node_modules/@remix-run/router/dist/router.js
@@ -66708,7 +66708,7 @@ e === "#" ? "" : e.startsWith("#") ? e : "#" + e, "normalizeHash");
 var Qde = ["post", "put", "patch", "delete"], eYt = new Set(Qde), hnt = ["get", ...Qde], tYt = new Set(hnt);
 var rYt = Symbol("deferred");
 
-// ../node_modules/react-router/dist/index.js
+// ../node_modules/react-router/dist/deprecated-index.js
 function UM() {
   return UM = Object.assign ? Object.assign.bind() : function(e) {
     for (var t = 1; t < arguments.length; t++) {
@@ -66883,7 +66883,7 @@ a($h, "Router");
 var cYt = new Promise(() => {
 });
 
-// ../node_modules/react-router-dom/dist/index.js
+// ../node_modules/react-router-dom/dist/deprecated-index.js
 function WM() {
   return WM = Object.assign ? Object.assign.bind() : function(e) {
     for (var t = 1; t < arguments.length; t++) {

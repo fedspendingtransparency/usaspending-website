@@ -88,13 +88,13 @@ Read more at http://fb.me/use-check-prop-types"
   };
 });
 
-// ../node_modules/prop-types/index.js
+// ../node_modules/prop-types/deprecated-index.js
 var si = we((P_, tl) => {
   tl.exports = el()();
   var k_, O_;
 });
 
-// ../node_modules/react-fast-compare/index.js
+// ../node_modules/react-fast-compare/deprecated-index.js
 var rl = we((A_, ol) => {
   var fy = typeof Element < "u", my = typeof Map == "function", hy = typeof Set == "function", gy = typeof ArrayBuffer == "function" && !!ArrayBuffer.
   isView;
@@ -182,7 +182,7 @@ var il = we((M_, nl) => {
   nl.exports = yy;
 });
 
-// ../node_modules/shallowequal/index.js
+// ../node_modules/shallowequal/deprecated-index.js
 var al = we((N_, sl) => {
   sl.exports = /* @__PURE__ */ a(function(t, o, i, r) {
     var n = i ? i.call(r, t, o) : void 0;
@@ -580,7 +580,7 @@ var Fi = we((kr) => {
   a(ou, "stringifyObject");
 });
 
-// ../node_modules/fast-decode-uri-component/index.js
+// ../node_modules/fast-decode-uri-component/deprecated-index.js
 var su = we((_A, iu) => {
   "use strict";
   var ru = 12, fv = 0, Ri = [
@@ -1122,7 +1122,7 @@ var du = we((Xe) => {
   wv(_r(), Xe);
 });
 
-// ../node_modules/toggle-selection/index.js
+// ../node_modules/toggle-selection/deprecated-index.js
 var bu = we((XA, yu) => {
   yu.exports = function() {
     var e = document.getSelection();
@@ -1149,7 +1149,7 @@ var bu = we((XA, yu) => {
   };
 });
 
-// ../node_modules/copy-to-clipboard/index.js
+// ../node_modules/copy-to-clipboard/deprecated-index.js
 var Iu = we((ZA, xu) => {
   "use strict";
   var Av = bu(), vu = {
@@ -1301,7 +1301,7 @@ context"), Yr = Symbol.for("react.forward_ref"), Qr = Symbol.for("react.suspense
   pe.typeOf = Ue;
 });
 
-// ../node_modules/downshift/node_modules/react-is/index.js
+// ../node_modules/downshift/node_modules/react-is/deprecated-index.js
 var Cp = we((AR, Tp) => {
   "use strict";
   Tp.exports = Ep();
@@ -5819,7 +5819,7 @@ var $u = /* @__PURE__ */ a((e, t) => Math.abs(e - t) < 1, "approxEqual"), Uu = /
   };
 }, "debounce");
 
-// ../node_modules/@tanstack/virtual-core/dist/esm/index.js
+// ../node_modules/@tanstack/virtual-core/dist/esm/deprecated-index.js
 var f0 = /* @__PURE__ */ a((e) => e, "defaultKeyExtractor"), m0 = /* @__PURE__ */ a((e) => {
   let t = Math.max(e.startIndex - e.overscan, 0), o = Math.min(e.endIndex + e.overscan, e.count - 1), i = [];
   for (let r = t; r <= o; r++)
@@ -6312,7 +6312,7 @@ function g0({
 }
 a(g0, "calculateRange");
 
-// ../node_modules/@tanstack/react-virtual/dist/esm/index.js
+// ../node_modules/@tanstack/react-virtual/dist/esm/deprecated-index.js
 var Ju = typeof document < "u" ? Xt : H;
 function y0(e) {
   let t = Zt(() => ({}), {})[1], o = {
@@ -8908,7 +8908,7 @@ createElement(Ip, { menu: t, isHighlighted: e, onClick: r })), "Heading");
 var Y = Ve(si());
 var Nx = Ve(Cp());
 
-// ../node_modules/compute-scroll-into-view/dist/index.js
+// ../node_modules/compute-scroll-into-view/dist/deprecated-index.js
 var _p = /* @__PURE__ */ a((e) => typeof e == "object" && e != null && e.nodeType === 1, "t"), kp = /* @__PURE__ */ a((e, t) => (!t || e !==
 "hidden") && e !== "visible" && e !== "clip", "e"), en = /* @__PURE__ */ a((e, t) => {
   if (e.clientHeight < e.scrollHeight || e.clientWidth < e.scrollWidth) {

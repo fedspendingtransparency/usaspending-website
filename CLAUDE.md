@@ -40,13 +40,13 @@ Babel's `module-resolver` plugin is rooted at `src/js` (`babel.config.js`). Any 
 - `containers/` — components wired to Redux state/dispatch (classic `connect`-style or hooks into the store) and/or React Router params.
 - `components/` — presentational React components, organized by page/feature (e.g. `components/search/`, `components/award/`).
 - `features/` — a newer pattern for self-contained page features (currently only `features/state`); prefer this structure for net-new large page features over adding to `components/`+`containers/`.
-- `redux/actions/<domain>` and `redux/reducers/<domain>` — one subfolder per domain (search, award, agency, covid19, bulkDownload, etc). All reducers are combined in `redux/reducers/index.js`.
+- `redux/actions/<domain>` and `redux/reducers/<domain>` — one subfolder per domain (search, award, agency, covid19, bulkDownload, etc). All reducers are combined in `redux/reducers/deprecated-index.js`.
 - `apis/` — thin per-domain API modules built on `helpers/apiRequest.js`.
 - `helpers/` — business logic and formatting utilities kept out of components (per `react-testing-library.md`, these should have near-100% test coverage since they're plain JS).
 - `models/`, `propTypes/`, `dataMapping/`, `context/`, `hooks/` — shared model classes, PropTypes shapes, data transformation maps, React context providers, and custom hooks respectively.
 
 ### App bootstrap
-- `src/index.js` → requires static assets/CSS, then `src/js/app.jsx`.
+- `src/deprecated-index.js` → requires static assets/CSS, then `src/js/app.jsx`.
 - `src/js/app.jsx` sets up the React Query `QueryClient` (infinite `staleTime`, no refetch-on-focus/mount) and renders `containers/AppContainer.jsx`.
 - `AppContainer.jsx` creates the Redux store (`createStore`, with `redux-perf-middleware` enabled only when `kGlobalConstants.PERF_LOG` is set) and stores it in `redux/storeSingleton` for non-component access. It wraps the app in `react-router`'s `BrowserRouter`, iterates `routes` from `containers/router/RouterRoutes.jsx`, and wraps each route element in `WithUrlListener`.
 - `containers/router/RouterRoutes.jsx` is the single route table — every top-level page is a `React.lazy` import. When adding a new page, add it here (both the lazy import and a `routes` entry) — there's an in-file comment to also update `scripts/pages.js`.

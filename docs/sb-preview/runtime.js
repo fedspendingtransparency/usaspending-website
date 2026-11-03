@@ -29,7 +29,7 @@ var Ne = (e, t, r) => (r = e != null ? z5(Y5(e)) : {}, pS(
   e
 )), J5 = (e) => pS(xi({}, "__esModule", { value: !0 }), e);
 
-// ../node_modules/@ngard/tiny-isequal/index.js
+// ../node_modules/@ngard/tiny-isequal/deprecated-index.js
 var i_ = y((mg) => {
   Object.defineProperty(mg, "__esModule", { value: !0 }), mg.isEqual = /* @__PURE__ */ function() {
     var e = Object.prototype.toString, t = Object.getPrototypeOf, r = Object.getOwnPropertySymbols ? function(n) {
@@ -90,7 +90,7 @@ var i_ = y((mg) => {
   }();
 });
 
-// ../node_modules/min-indent/index.js
+// ../node_modules/min-indent/deprecated-index.js
 var qP = y((T_e, OP) => {
   "use strict";
   OP.exports = (e) => {
@@ -99,7 +99,7 @@ var qP = y((T_e, OP) => {
   };
 });
 
-// ../node_modules/strip-indent/index.js
+// ../node_modules/strip-indent/deprecated-index.js
 var MP = y((R_e, IP) => {
   "use strict";
   var ZW = qP();
@@ -112,7 +112,7 @@ var MP = y((R_e, IP) => {
   };
 });
 
-// ../node_modules/indent-string/index.js
+// ../node_modules/indent-string/deprecated-index.js
 var jP = y((S_e, NP) => {
   "use strict";
   NP.exports = (e, t = 1, r) => {
@@ -139,7 +139,7 @@ var jP = y((S_e, NP) => {
   };
 });
 
-// ../node_modules/redent/index.js
+// ../node_modules/redent/deprecated-index.js
 var rE = y((__e, kP) => {
   "use strict";
   var e8 = MP(), t8 = jP();
@@ -6315,7 +6315,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }, Yqe = Fd.default = (0, SJ.default)(PE, PE.entries());
 });
 
-// ../node_modules/aria-query/lib/index.js
+// ../node_modules/aria-query/lib/deprecated-index.js
 var AE = y((Ot) => {
   "use strict";
   Object.defineProperty(Ot, "__esModule", {
@@ -6331,7 +6331,7 @@ var AE = y((Ot) => {
   NJ.default;
 });
 
-// ../node_modules/color-name/index.js
+// ../node_modules/color-name/deprecated-index.js
 var cq = y((o1e, uq) => {
   "use strict";
   uq.exports = {
@@ -6871,7 +6871,7 @@ var mq = y((a1e, fq) => {
   };
 });
 
-// ../node_modules/color-convert/index.js
+// ../node_modules/color-convert/deprecated-index.js
 var yq = y((u1e, hq) => {
   var qE = OE(), $J = mq(), Mo = {}, BJ = Object.keys(qE);
   function HJ(e) {
@@ -6908,7 +6908,7 @@ var yq = y((u1e, hq) => {
   hq.exports = Mo;
 });
 
-// ../node_modules/ansi-styles/index.js
+// ../node_modules/ansi-styles/deprecated-index.js
 var wq = y((d1e, xq) => {
   "use strict";
   var bq = /* @__PURE__ */ o((e, t) => (...r) => `\x1B[${e(...r) + t}m`, "wrapAnsi16"), gq = /* @__PURE__ */ o((e, t) => (...r) => {
@@ -7146,7 +7146,7 @@ var qq = y((y1e, Oq) => {
   };
 });
 
-// ../node_modules/@testing-library/jest-dom/node_modules/chalk/source/index.js
+// ../node_modules/@testing-library/jest-dom/node_modules/chalk/source/deprecated-index.js
 var DE = y((g1e, jq) => {
   "use strict";
   var ds = wq(), { stdout: NE, stderr: jE } = Rq(), {
@@ -8416,7 +8416,7 @@ var ax = y((sx, lN) => {
   });
 });
 
-// ../node_modules/pretty-format/node_modules/ansi-styles/index.js
+// ../node_modules/pretty-format/node_modules/ansi-styles/deprecated-index.js
 var fw = y((yje, rj) => {
   "use strict";
   var ej = /* @__PURE__ */ o((e = 0) => (t) => `\x1B[${38 + e};5;${t}m`, "wrapAnsi256"), tj = /* @__PURE__ */ o((e = 0) => (t, r, n) => `\x1B[${38 +
@@ -8648,7 +8648,7 @@ var sj = y((Vr) => {
   Vr.default = bie;
 });
 
-// ../node_modules/pretty-format/node_modules/ansi-regex/index.js
+// ../node_modules/pretty-format/node_modules/ansi-regex/deprecated-index.js
 var lj = y((wje, aj) => {
   "use strict";
   aj.exports = ({ onlyFirst: e = !1 } = {}) => {
@@ -9114,7 +9114,7 @@ react.server.block"), jj = ze("react.fundamental"), kj = ze("react.debug_trace_m
   ge.typeOf = Vt;
 });
 
-// ../node_modules/pretty-format/node_modules/react-is/index.js
+// ../node_modules/pretty-format/node_modules/react-is/deprecated-index.js
 var $j = y((Lje, Dj) => {
   "use strict";
   Dj.exports = Fj();
@@ -9263,7 +9263,7 @@ var Kj = y((Xr) => {
   Xr.default = vse;
 });
 
-// ../node_modules/pretty-format/build/index.js
+// ../node_modules/pretty-format/build/deprecated-index.js
 var dk = y((yr) => {
   "use strict";
   Object.defineProperty(yr, "__esModule", {
@@ -15958,7 +15958,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   Ch.default = Whe;
 });
 
-// ../node_modules/@testing-library/dom/node_modules/aria-query/lib/index.js
+// ../node_modules/@testing-library/dom/node_modules/aria-query/lib/deprecated-index.js
 var FD = y((Mt) => {
   "use strict";
   Object.defineProperty(Mt, "__esModule", {
@@ -16564,7 +16564,7 @@ var VR = y((Py) => {
   o(DU, "stringifyObject");
 });
 
-// ../node_modules/fast-decode-uri-component/index.js
+// ../node_modules/fast-decode-uri-component/deprecated-index.js
 var UU = y((eYe, HU) => {
   "use strict";
   var $U = 12, gxe = 0, zR = [
@@ -17563,7 +17563,7 @@ var tS = y((yt) => {
   o(y5, "getASCIIEncoder");
 });
 
-// ../node_modules/entities/lib/index.js
+// ../node_modules/entities/lib/deprecated-index.js
 var g5 = y((oe) => {
   "use strict";
   Object.defineProperty(oe, "__esModule", { value: !0 });
@@ -18289,7 +18289,7 @@ st(qb, {
   default: () => MG
 });
 
-// ../node_modules/ts-dedent/esm/index.js
+// ../node_modules/ts-dedent/esm/deprecated-index.js
 function Q(e) {
   for (var t = [], r = 1; r < arguments.length; r++)
     t[r - 1] = arguments[r];
@@ -21312,7 +21312,7 @@ o(d_, "p");
 // ../node_modules/tinyrainbow/dist/browser.js
 var Ee = d_();
 
-// ../node_modules/@vitest/pretty-format/dist/index.js
+// ../node_modules/@vitest/pretty-format/dist/deprecated-index.js
 function R_(e, t) {
   return t.forEach(function(r) {
     r && typeof r != "string" && !Array.isArray(r) && Object.keys(r).forEach(function(n) {
@@ -22408,7 +22408,7 @@ function cl(e, t) {
 }
 o(cl, "inspectHTML");
 
-// ../node_modules/loupe/lib/index.js
+// ../node_modules/loupe/lib/deprecated-index.js
 var S6 = typeof Symbol == "function" && typeof Symbol.for == "function", $g = S6 ? Symbol.for("chai/inspect") : "@@chai/inspect", Bg = Symbol.
 for("nodejs.util.inspect.custom"), K_ = /* @__PURE__ */ new WeakMap(), X_ = {}, J_ = {
   undefined: /* @__PURE__ */ o((e, t) => t.stylize("undefined", "undefined"), "undefined"),
@@ -29864,7 +29864,7 @@ o(Mx, "toHaveSelection");
 var xNe = Ne(rE(), 1);
 var RNe = Ne(AE(), 1), SNe = Ne(DE(), 1), _Ne = Ne(ix(), 1), CNe = Ne(ax(), 1);
 
-// ../node_modules/@vitest/utils/dist/index.js
+// ../node_modules/@vitest/utils/dist/deprecated-index.js
 var Dx, SN;
 function boe() {
   if (SN) return Dx;
@@ -30162,7 +30162,7 @@ var _N = {
 }, VNe = new Set(_N.keyword), zNe = new Set(_N.strict);
 var GNe = Symbol("vitest:SAFE_TIMERS");
 
-// ../node_modules/@vitest/spy/node_modules/tinyspy/dist/index.js
+// ../node_modules/@vitest/spy/node_modules/tinyspy/dist/deprecated-index.js
 function sp(e, t) {
   if (!e)
     throw new Error(t);
@@ -30325,7 +30325,7 @@ function Coe(e) {
 }
 o(Coe, "isSpyFunction");
 
-// ../node_modules/@vitest/spy/dist/index.js
+// ../node_modules/@vitest/spy/dist/deprecated-index.js
 var Go = /* @__PURE__ */ new Set();
 function hr(e) {
   return typeof e == "function" && "_isMockFunction" in e && e._isMockFunction;
@@ -30432,7 +30432,7 @@ function Ooe(e, t) {
 }
 o(Ooe, "getDescriptor");
 
-// ../node_modules/@vitest/expect/dist/index.js
+// ../node_modules/@vitest/expect/dist/deprecated-index.js
 var Ps = Symbol.for("matchers-object"), As = Symbol.for("$$jest-matchers-object-storybook"), hp = Symbol.for("expect-global"), Vx = Symbol.for(
 "asymmetric-matchers-object"), $N = {
   toSatisfy(e, t, r) {
@@ -31740,7 +31740,7 @@ Object.defineProperty(globalThis, hp, {
   configurable: !0
 });
 
-// ../node_modules/tinyspy/dist/index.js
+// ../node_modules/tinyspy/dist/deprecated-index.js
 function nie(e, t, r) {
   Object.defineProperty(e, t, r);
 }
@@ -37527,7 +37527,7 @@ Multitouch", !1), Tr(this, "isCancelled", !1), Tr(this, "isDown", !1), Tr(this, 
 o(IT, "Pointer");
 var ty = IT;
 
-// ../node_modules/@testing-library/user-event/dist/esm/system/pointer/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/system/pointer/deprecated-index.js
 function un(e, t, r) {
   return t in e ? Object.defineProperty(e, t, {
     value: r,
@@ -37618,7 +37618,7 @@ var MT = class MT {
 o(MT, "PointerHost");
 var ry = MT;
 
-// ../node_modules/@testing-library/user-event/dist/esm/system/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/system/deprecated-index.js
 function v2(e, t, r) {
   return t in e ? Object.defineProperty(e, t, {
     value: r,
@@ -37807,7 +37807,7 @@ function P2(e, t) {
 }
 o(P2, "parseKeyDef");
 
-// ../node_modules/@testing-library/user-event/dist/esm/keyboard/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/keyboard/deprecated-index.js
 async function A2(e) {
   let t = P2(this.config.keyboardMap, e);
   for (let r = 0; r < t.length; r++)
@@ -37915,7 +37915,7 @@ function kT(e, t) {
 }
 o(kT, "parseKeyDef");
 
-// ../node_modules/@testing-library/user-event/dist/esm/pointer/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/pointer/deprecated-index.js
 async function j2(e) {
   let { pointerMap: t } = this.config, r = [];
   (Array.isArray(e) ? e : [
@@ -38325,7 +38325,7 @@ function Pge(e = {}) {
 }
 o(Pge, "tab");
 
-// ../node_modules/@testing-library/user-event/dist/esm/setup/index.js
+// ../node_modules/@testing-library/user-event/dist/esm/setup/deprecated-index.js
 var ha = {
   ...$T,
   setup: W2
@@ -41565,7 +41565,7 @@ var AU = 1e3, KEe = 1e4, qR = class qR {
 o(qR, "StoryStore");
 var Xn = qR;
 
-// ../node_modules/slash/index.js
+// ../node_modules/slash/deprecated-index.js
 function IR(e) {
   return e.startsWith("\\\\?\\") ? e : e.replace(/\\/g, "/");
 }
