@@ -4,6 +4,7 @@
  **/
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
@@ -22,7 +23,12 @@ const CategoriesSection = ({
     spendingLevel,
     hash
 }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
+    const [searchParams] = useSearchParams();
+    const section = searchParams.get('section');
+    const type = searchParams.get('type');
+    const isValidType = type && (type === 'naics' || type === 'psc');
+    const defaultDropdown = (section && isValidType) ? type : 'awarding_agency';
+    const [selectedDropdown, setSelectedDropdown] = useState(defaultDropdown);
     const { ref, isIntersecting: categoriesHasLoaded } = useIntersectionObserver({
         threshold: 0.1,
         freezeOnceVisible: true
@@ -94,7 +100,6 @@ const CategoriesSection = ({
                     <CategoriesVisualizationWrapperContainer
                         wrapperProps={wrapperProps}
                         selectedDropdown={selectedDropdown}
-                        setSelectedDropdown={setSelectedDropdown}
                         hash={hash}
                         key={selectedDropdown} />
                 ) :
