@@ -68,7 +68,7 @@
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
     "copy-webpack-plugin": "^14.0.0",
-    "css-loader": "^6.5.1",
+    "css-loader": "^7.1.5",
     "css-minimizer-webpack-plugin": "^8.0.0",
     "debug": "^2.6.9",
     "eslint": "^10.4.0",
