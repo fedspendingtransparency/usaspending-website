@@ -69,7 +69,7 @@ export const RecipientPage = ({
     };
     const slug = `recipient/${encodeURIComponent(id)}/${encodeURIComponent(recipient.fy)}`;
     const emailArgs = {
-        subject: encodeURIComponent(`USAspending.gov Recipient Profile: ${recipient.overview.name}`),
+        subject: `USAspending.gov Recipient Profile: ${recipient.overview.name}`,
         body: `View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`
     };
 
