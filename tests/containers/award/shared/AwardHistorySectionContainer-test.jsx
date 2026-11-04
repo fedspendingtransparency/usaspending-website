@@ -25,7 +25,7 @@ describe('setTableTabsAndGetCounts', () => {
         expect(getAwardHistoryCountSpy).toHaveBeenCalledTimes(0)
         render(<AwardHistory {...mockProps}/>);
         expect(getAwardHistoryCountSpy).toHaveBeenCalledTimes(2);
-        expect(getAwardHistoryCountSpy).toReturnWith({ count: 1 })
+        expect(getAwardHistoryCountSpy).toHaveReturnedWith({ count: 1 })
     });
 });
 
