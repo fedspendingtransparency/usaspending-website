@@ -1,13 +1,6 @@
 const presets = [
-    [
-        "@babel/preset-env",
-        {
-            targets: {
-                ie: "10",
-                node: "10"
-            }
-        }
-    ],
+    // targets come from the "browserslist" field in package.json
+    "@babel/preset-env",
     [
         "@babel/preset-react",
         {
@@ -26,8 +19,7 @@ const plugins = [
             root: ["src/js"]
         }
     ],
-    "@babel/plugin-transform-runtime",
-    "react-hot-loader/babel"
+    "@babel/plugin-transform-runtime"
 ];
 
 // Expands `require("core-js")` in the app entry into targeted imports.

@@ -58,12 +58,6 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: "[name].[contenthash].css"
-        }),
-        new webpack.optimize.MinChunkSizePlugin({
-            minChunkSize: 300000
-        }),
         // new BundleAnalyzerPlugin(), // Webpack bundle volume analysis
         new webpack.DefinePlugin({
             'process.env': {
