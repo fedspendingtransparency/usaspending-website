@@ -62,15 +62,20 @@ export const buildResponseState = (data = []) => {
             (existingItem) => existingItem.toolId === toolId
         );
 
-        // Tool complete/error updates the existing item's variant and icon
-        // It keeps the previous label
-        if (itemIndex !== -1) {
-            state.items[itemIndex] = {
-                ...state.items[itemIndex],
-                variant: item.variant,
-                icon: item.icon
-            };
+        if (itemIndex === -1) {
+            return;
         }
+
+        const isError = type === RESPONSE_TYPE.TOOL_ERROR;
+
+        // Tool complete/error updates the existing item's variant and icon
+        // Error replaces the label and complete keeps the previous one
+        state.items[itemIndex] = {
+            ...state.items[itemIndex],
+            variant: item.variant,
+            icon: item.icon,
+            label: isError ? message : state.items[itemIndex].label
+        };
     });
     return state;
 };
