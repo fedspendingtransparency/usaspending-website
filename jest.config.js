@@ -45,8 +45,8 @@ module.exports = {
         "^.+\\.jsx$|js$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))",
-        "node_modules/(?!(react-markdown))/"],
+        "node_modules/(?!(data-transparency-ui|react-markdown))"
+    ],
     modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"],
     moduleFileExtensions: ['js', 'jsx', 'json', 'md', 'mdx']
 };
