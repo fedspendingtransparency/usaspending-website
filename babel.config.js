@@ -8,7 +8,14 @@ const presets = [
             }
         }
     ],
-    "@babel/preset-react"
+    [
+        "@babel/preset-react",
+        {
+            // Babel 8 defaults this to true whenever NODE_ENV is unset (as in `npm run prod`),
+            // emitting jsxDEV calls that don't exist in React's production runtime.
+            development: process.env.NODE_ENV === "development"
+        }
+    ]
 ];
 
 const plugins = [
