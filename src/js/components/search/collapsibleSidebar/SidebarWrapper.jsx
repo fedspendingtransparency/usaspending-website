@@ -21,7 +21,7 @@ import Analytics from '../../../helpers/analytics/Analytics';
 import useRequestNLSearch from './useRequestNLSearch';
 import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
-import { setIsNLSearchComplete, setIsNLSearchError, setNLSearchId } from '../../../redux/actions/sidebar/sidebarActions';
+import { setIsNLSearchComplete, setIsNLSearchError, setNLSearchHash } from '../../../redux/actions/sidebar/sidebarActions';
 import useFetchDataFromHash from './useFetchDataFromHash';
 import useTrackNLFilterEdits from './useTrackNLFilterEdits';
 
@@ -91,7 +91,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             // a fetch to the hash endpoint
             setHash(undefined);
             // filters are no longer smart assist derived until the new results are applied
-            dispatch(setNLSearchId(null));
+            dispatch(setNLSearchHash(null));
             fetchNLSearch();
             dispatch(setIsNLSearchComplete(false));
             dispatch(setIsNLSearchError(false));
@@ -132,7 +132,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
-            dispatch(setNLSearchId(hash));
+            dispatch(setNLSearchHash(hash));
         }
 
         dispatch(setIsNLSearchComplete(!isFetching));

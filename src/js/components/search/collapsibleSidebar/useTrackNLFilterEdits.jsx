@@ -28,24 +28,24 @@ const getChangeType = (prev, next) => {
 
 const useTrackNLFilterEdits = () => {
     const filters = useSelector((state) => state.filters);
-    const nlSearchId = useSelector((state) => state.sidebar.nlSearchId);
+    const nlSearchHash = useSelector((state) => state.sidebar.nlSearchHash);
 
     const baseline = useRef(null);
-    const trackedSearchId = useRef(null);
+    const trackedSearchHash = useRef(null);
     const editSequence = useRef(0);
 
     useEffect(() => {
-        if (!nlSearchId) {
+        if (!nlSearchHash) {
             baseline.current = null;
-            trackedSearchId.current = null;
+            trackedSearchHash.current = null;
             editSequence.current = 0;
             return;
         }
 
         // first render after a smart assist search populated the filters: snapshot them so the
         // programmatic update isn't counted as a manual edit
-        if (trackedSearchId.current !== nlSearchId) {
-            trackedSearchId.current = nlSearchId;
+        if (trackedSearchHash.current !== nlSearchHash) {
+            trackedSearchHash.current = nlSearchHash;
             baseline.current = filters;
             editSequence.current = 0;
             return;
@@ -60,6 +60,7 @@ const useTrackNLFilterEdits = () => {
             .filter((key) => previous[key] !== filters[key])
             .forEach((key) => {
                 editSequence.current += 1;
+                console.debug(editSequence, getChangeType(previous[key], filters[key]), key);
                 Analytics.event({
                     category: 'Smart Assist - Refinement',
                     action: 'Filters Modified Manually',
@@ -67,12 +68,12 @@ const useTrackNLFilterEdits = () => {
                     params: {
                         filter_type: key,
                         change_type: getChangeType(previous[key], filters[key]),
-                        nl_search_id: nlSearchId,
+                        nl_search_hash: nlSearchHash,
                         edit_sequence: editSequence.current
                     }
                 });
             });
-    }, [filters, nlSearchId]);
+    }, [filters, nlSearchHash]);
 };
 
 export default useTrackNLFilterEdits;
