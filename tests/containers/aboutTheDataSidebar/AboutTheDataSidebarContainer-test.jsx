@@ -15,10 +15,9 @@ beforeEach(() => {
     jest.clearAllMocks();
 });
 
-const mockDrilldown = () => <div id="atd-drilldown" />;
-
-
-jest.mock("../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown", () => mockDrilldown);
+// jest.mock is hoisted above the imports, so the mock component must be built inside the factory
+// eslint-disable-next-line react/display-name
+jest.mock("../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown", () => () => <div id="atd-drilldown" />);
 
 describe('About The Data Sidebar Container Test', () => {
     it(`Render ATD Container with appropriate props`, () => {
@@ -69,4 +68,3 @@ describe('About The Data Sidebar Container Test', () => {
         expect(state.termFromUrl).toEqual(standardTerm);
     });
 });
-
