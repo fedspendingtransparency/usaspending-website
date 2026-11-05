@@ -284,7 +284,7 @@
     "mapbox-gl": "^2.11.1",
     "mockdate": "^3.0.5",
     "postcss": "^8.5.23",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.10",
     "prop-types": "^15.7.2",
     "react": "^19.2.7",
     "react-aria-modal": "^5.0.2",
