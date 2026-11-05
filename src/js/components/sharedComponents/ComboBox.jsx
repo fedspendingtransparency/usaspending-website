@@ -113,7 +113,9 @@ const ComboBox = memo(function ComboBox({
         };
     }, [comboRef, openOptions]);
 
-    useEffect(() => setInputValue(defaultValue), [defaultValue]);
+    useEffect(() => {
+        setInputValue(defaultValue);
+    }, [defaultValue]);
 
     return (
         <div
