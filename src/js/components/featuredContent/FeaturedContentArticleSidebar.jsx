@@ -12,7 +12,7 @@ import { transformString } from '../../helpers/featuredContent/featuredContentHe
 const propTypes = { chosenArticle: PropTypes.object.isRequired };
 
 const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
-    const slug = `/featured-content/${transformString(chosenArticle?.content_type)}/${transformString(chosenArticle?.title)}`;
+    const slug = `featured-content/${transformString(chosenArticle?.content_type)}/${transformString(chosenArticle?.title)}`;
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));

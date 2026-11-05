@@ -106,6 +106,6 @@ describe('BulkDownloadBottomBarContainer tests', () => {
             fireEvent(window, new Event('beforeunload'));
         });
 
-        expect(window.removeEventListener).toBeCalled();
+        expect(window.removeEventListener).toHaveBeenCalled();
     });
 });

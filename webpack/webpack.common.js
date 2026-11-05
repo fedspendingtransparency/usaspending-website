@@ -26,7 +26,12 @@ module.exports = {
     context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx", ".md", ".mdx"],
-        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
+        modules: [
+            "node_modules",
+            path.resolve(__dirname, "../src/_scss"),
+            // babel-plugin-module-resolver doesn't rewrite dynamic import() under Babel 8
+            path.resolve(__dirname, "../src/js")
+        ],
         fallback: { querystring: require.resolve("querystring-es3") },
         alias: {
             lodash: 'lodash-es'
@@ -113,12 +118,6 @@ module.exports = {
         // new webpack.HashedModuleIdsPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                {
-                    from: '*.xml',
-                    to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../'),
-                    noErrorOnMissing: true
-                },
                 {
                     from: '*.xml',
                     to: path.resolve(__dirname, "../public"),
