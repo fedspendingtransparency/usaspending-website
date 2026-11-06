@@ -60,7 +60,6 @@ const useTrackNLFilterEdits = () => {
             .filter((key) => previous[key] !== filters[key])
             .forEach((key) => {
                 editSequence.current += 1;
-                console.debug(editSequence, getChangeType(previous[key], filters[key]), key);
                 Analytics.event({
                     category: 'Smart Assist - Refinement',
                     action: 'Filters Modified Manually',
