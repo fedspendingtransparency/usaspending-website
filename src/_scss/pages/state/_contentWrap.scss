@@ -83,6 +83,14 @@
 
       .state__right {
         display: flex;
+
+        .heading {
+          background-color: transparent;
+
+          svg {
+            color: $color-primary;
+          }
+        }
       }
 
       .state__line-div {

@@ -24,10 +24,10 @@ const useFireQueryEvent = () => {
         if (!urlHash) {
             const now = new Date().getTime();
             if (
-                Cookies.get("advanced_search_to_query_time") &&
+                Cookies.get('advanced_search_to_query_time') &&
                 !Cookies.get('has_logged_query_timer')
             ) {
-                const timer = now - Cookies.get("advanced_search_to_query_time");
+                const timer = now - Cookies.get('advanced_search_to_query_time');
                 const timerInSeconds = Math.floor(timer / 1000);
 
                 if (timerInSeconds < 3600) {
@@ -41,11 +41,11 @@ const useFireQueryEvent = () => {
                 }
 
                 // clean up
-                Cookies.remove("advanced_search_to_query_time");
+                Cookies.remove('advanced_search_to_query_time');
             }
 
-            if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
-                const timerHomePage = now - Cookies.get("homepage_to_query_time");
+            if (Cookies.get('homepage_to_query_time') && !Cookies.get('has_logged_query_timer')) {
+                const timerHomePage = now - Cookies.get('homepage_to_query_time');
                 const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
 
                 if (timerHomePageInSeconds < 3600) {
@@ -57,12 +57,12 @@ const useFireQueryEvent = () => {
                     });
                 }
                 // Cleanup
-                Cookies.remove("homepage_to_query_time");
+                Cookies.remove('homepage_to_query_time');
             }
         }
 
         // Sanity check
-        Cookies.set("has_logged_query_timer", true, { expires: 14 });
+        Cookies.set('has_logged_query_timer', true, { expires: 14 });
     };
 };
 

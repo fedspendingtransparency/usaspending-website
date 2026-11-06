@@ -6,6 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useFireQueryEvent from '../../../hooks/useFireQueryEvent';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const DEFAULT_ICON_PATH = '../../../../img/magnifying-glass-white.svg';
 
@@ -29,6 +30,14 @@ const NLSearchButton = ({
     const onClick = () => {
         startNLSearch();
         fireQueryEvent();
+
+        if (text === 'Start a new search') {
+            Analytics.event({
+                category: 'Smart Assist - Refinement',
+                action: 'New Search Started',
+                label: 'side panel'
+            });
+        }
     };
 
     return (

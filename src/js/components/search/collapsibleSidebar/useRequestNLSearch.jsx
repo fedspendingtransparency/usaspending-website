@@ -1,5 +1,6 @@
 import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
+import Analytics from '../../../helpers/analytics/Analytics';
 import { RESPONSE_TYPE } from './NLConstants';
 
 const headers = {
@@ -9,7 +10,13 @@ const headers = {
 
 const LLM_API = GlobalConstants?.API + 'v2/llm/filter-search/';
 
-const useRequestNLSearch = (prompt) => {
+// defined outside the hook so the impure performance.now() call isn't made within render scope
+const startTimer = () => {
+    const start = performance.now();
+    return () => Math.round(performance.now() - start);
+};
+
+const useRequestNLSearch = (prompt, method) => {
     const requestHeader = {
         method: 'POST',
         headers: headers,
@@ -22,30 +29,44 @@ const useRequestNLSearch = (prompt) => {
         retry: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
-                const request = await fetch(LLM_API, { ...requestHeader, signal });
+                const getElapsedTime = startTimer();
 
-                const reader = request.body.getReader();
-                const decoder = new TextDecoder();
-                let buffer = '';
+                try {
+                    const request = await fetch(LLM_API, { ...requestHeader, signal });
 
-                while (true) {
-                    if (signal.aborted) break;
-                    const { value, done } = await reader.read();
-                    if (done) break;
+                    const reader = request.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
 
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
-                    buffer = lines.pop();
-
-                    for (const line of lines) {
-                        if (!line.trim()) continue;
-                        const parsed = JSON.parse(line);
-                        if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
-                            yield parsed;
-                            throw new Error(parsed.message ?? 'Search failed');
+                    while (true) {
+                        if (signal.aborted) {
+                            break;
                         }
-                        yield parsed;
+                        const { value, done } = await reader.read();
+                        if (done) break;
+
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop();
+
+                        for (const line of lines) {
+                            if (!line.trim()) continue;
+                            const parsed = JSON.parse(line);
+                            if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
+                                yield parsed;
+                                throw new Error(parsed.message ?? 'Search failed');
+                            }
+                            yield parsed;
+                        }
                     }
+                }
+                finally {
+                    Analytics.event({
+                        category: 'Smart Assist – Performance',
+                        action: 'Query Processing Time',
+                        label: method,
+                        value: `${getElapsedTime()}(milliseconds)`
+                    });
                 }
             },
             reducer: (acc, parsed) => [...acc, parsed],

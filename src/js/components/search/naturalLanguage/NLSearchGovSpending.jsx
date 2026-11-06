@@ -33,7 +33,7 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { data, refetch, isFetching } = useRequestNLSearch(inputValue);
+    const { data, refetch, isFetching } = useRequestNLSearch(inputValue, 'widget');
     const startNLSearch = () => {
         if (inputValue?.trim() && typeof refetch === 'function') {
             refetch();
@@ -44,10 +44,9 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
 
     const handleSmartAssistClick = () => {
         Analytics.event({
-            event: 'learn-about-smart-assist',
-            category: 'Smart Assist Landing Page',
-            action: 'Link',
-            label: 'smart assist landing page'
+            category: 'Smart Assist - Help',
+            action: 'Learning Resource Clicked',
+            label: 'learn_about_usaspending_ai'
         });
         navigate('/search/smart-assist');
     };
@@ -58,6 +57,11 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
     const handleClear = (event) => {
         event.preventDefault();
         setInputValue('');
+        Analytics.event({
+            category: 'Smart Assist - Query',
+            action: 'Input Cleared',
+            label: 'widget'
+        });
     };
 
     const request = useRef();

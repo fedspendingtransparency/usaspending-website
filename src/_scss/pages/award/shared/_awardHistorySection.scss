@@ -65,30 +65,25 @@
 
     .accordion {
       padding: 0;
-      height: rem(48);
 
-      &.accordion--open {
-        height: unset;
+      .content {
+        padding: rem(16) rem(20);
 
-        .content {
-          padding: rem(16) rem(20);
+        p:first-of-type {
+          margin-top: 0;
+        }
 
-          p:first-of-type {
-            margin-top: 0;
-          }
+        p:last-of-type {
+          margin-bottom: 0;
+        }
 
-          p:last-of-type {
-            margin-bottom: 0;
-          }
+        .label {
+          font-weight: $font-semibold;
+        }
 
-          .label {
-            font-weight: $font-semibold;
-          }
-
-          .accordion-body-copy__action-type {
-            line-height: 1.5;
-            color: $gray-60;
-          }
+        .accordion-body-copy__action-type {
+          line-height: 1.5;
+          color: $gray-60;
         }
       }
     }

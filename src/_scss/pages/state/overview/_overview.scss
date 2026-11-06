@@ -110,6 +110,11 @@
             .accordion {
               .heading {
                 padding-top: rem(10);
+                background-color: transparent;
+              }
+
+              .content {
+                padding: 0;
               }
             }
           }

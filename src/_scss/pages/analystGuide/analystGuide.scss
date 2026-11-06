@@ -70,7 +70,7 @@
   }
 
   .analyst-guide__questionSections {
-    margin: 40px 0px 2px;
+    margin: rem(40) rem(0) rem(2);
     font-size: rem(20);
     font-weight: $font-semibold;
     font-stretch: normal;
@@ -82,19 +82,27 @@
 
   .analyst-guide__answerSection {
     @media (max-width: $medium-screen) {
-      margin: 8px 0;
+      margin: rem(8) 0;
     }
   }
 
   .analyst-guide__questionAnswers {
     @media (max-width: $medium-screen) {
-      margin-top: 4px;
+      margin-top: rem(4);
+    }
+
+    .content {
+      padding: rem(16) rem(20);
+
+      p {
+        margin: rem(16) 0;
+      }
     }
   }
 
   .analyst-guide__questionLine {
-    margin: 2px 0px 20px;
-    border-bottom: 2px solid black;
+    margin: rem(2) rem(0) rem(20);
+    border-bottom: rem(2) solid black;
   }
 
   h4.analyst-guide-citation {

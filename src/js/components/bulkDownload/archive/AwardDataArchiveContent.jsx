@@ -5,14 +5,14 @@
 
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from "lodash-es";
+import { startCase } from 'lodash-es';
 
-import isMobileContext from "context/IsMobileContext";
-import Analytics from "../../../helpers/analytics/Analytics";
+import isMobileContext from 'context/IsMobileContext';
+import Analytics from '../../../helpers/analytics/Analytics';
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
-import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
-import { Link } from "react-router";
+import AwardDataArchiveUserSelections from './AwardDataArchiveUserSelections';
+import { Link } from 'react-router';
 
 const propTypes = {
 
@@ -114,20 +114,20 @@ const AwardDataArchiveContent = ({
                 setSelectedFiles={setSelectedFiles} />
             <div className="note-text">
                 <span>
-                    Note:{" "}
+                    Note:{' '}
                 </span>
                 To download data prior to FY 2008, visit our
-                {" "}
+                {' '}
                 <Link
                     to="/download_center/custom_award_data">
                     Custom Award Data
                 </Link>
-                {" "}
+                {' '}
                 page.
             </div>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results} />}
             <button
-                className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
+                className={`reset-button${isTablet ? ' buttons-tablet' : ''}`}
                 id="reset-button"
                 aria-label="Reset File Selections"
                 title="Reset File Selections"
@@ -135,7 +135,7 @@ const AwardDataArchiveContent = ({
                 Reset
             </button>
             <button
-                className={`download-button${isTablet ? " buttons-tablet" : ""}`}
+                className={`download-button${isTablet ? ' buttons-tablet' : ''}`}
                 id="download-button"
                 aria-label="Download File Selections"
                 title="Download File Selections"

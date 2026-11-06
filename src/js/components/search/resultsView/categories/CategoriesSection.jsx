@@ -3,10 +3,11 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
+import PropTypes from "prop-types";
 
-import Analytics from '../../../../helpers/analytics/Analytics';
+import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
     from '../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer';
 import PlaceholderComponent from '../PlaceholderComponent';
@@ -23,7 +24,12 @@ const CategoriesSection = ({
     spendingLevel,
     hash
 }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
+    const [searchParams] = useSearchParams();
+    const section = searchParams.get('section');
+    const type = searchParams.get('type');
+    const isValidType = type && (type === 'naics' || type === 'psc');
+    const defaultDropdown = (section && isValidType) ? type : 'awarding_agency';
+    const [selectedDropdown, setSelectedDropdown] = useState(defaultDropdown);
     const { ref, isIntersecting: categoriesHasLoaded } = useIntersectionObserver({
         threshold: 0.1,
         freezeOnceVisible: true
@@ -98,7 +104,6 @@ const CategoriesSection = ({
                     <CategoriesVisualizationWrapperContainer
                         wrapperProps={wrapperProps}
                         selectedDropdown={selectedDropdown}
-                        setSelectedDropdown={setSelectedDropdown}
                         hash={hash}
                         key={selectedDropdown} />
                 ) :

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import Accordion from "../../../sharedComponents/accordion/Accordion";
+import Accordion from '../../../sharedComponents/accordion/Accordion';
 
 const propTypes = {
     openAccordion: PropTypes.bool,
@@ -36,6 +36,7 @@ const SearchSectionWrapperAccordion = ({
 
     return (
         <Accordion
+            open={openAccordion}
             setOpen={setOpenAccordion}
             closedIcon="chevron-down"
             openIcon="chevron-up"

@@ -5,15 +5,15 @@
 
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { Picker } from "data-transparency-ui";
+import { Picker } from 'data-transparency-ui';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
-import RoundedToggle from "../../sharedComponents/RoundedToggle";
-import Accordion from "../../sharedComponents/accordion/Accordion";
-import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
-import StatusOfFundsTable from "../visualizations/StatusOfFundsTable";
+import RoundedToggle from '../../sharedComponents/RoundedToggle';
+import Accordion from '../../sharedComponents/accordion/Accordion';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
+import ChartTableToggle from '../../sharedComponents/buttons/ChartTableToggle';
+import StatusOfFundsTable from '../visualizations/StatusOfFundsTable';
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -133,9 +133,9 @@ const VisualizationSection = ({
         <div
             className="status-of-funds__visualization"
             onMouseLeave={() => {
-                const el = document.querySelector("div.tooltip-wrapper.sof_chart-tt");
+                const el = document.querySelector('div.tooltip-wrapper.sof_chart-tt');
                 if (el) {
-                    el.style.display = "none";
+                    el.style.display = 'none';
                 }
             }}>
             {isMobile ?
@@ -147,7 +147,7 @@ const VisualizationSection = ({
                                 <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
                                 {chartTableToggle}
                             </div>
-                            <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
+                            <Accordion open={open} setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
                         </div>
                     </>
                 ) :
@@ -161,7 +161,7 @@ const VisualizationSection = ({
                             <div className="status-of-funds__controls-desktop-row-two">
                                 <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
                                 <div className="status-of-funds__line-div" />
-                                <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                                <Accordion open={open} setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
                             </div>
                         </div>
                     </>

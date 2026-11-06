@@ -3,11 +3,11 @@
  * Created on 12/17/2025 by Josue Aguilar
  */
 
-import React from "react";
+import React from 'react';
 
-import RoundedToggle from "components/sharedComponents/RoundedToggle";
-import Accordion from "components/sharedComponents/accordion/Accordion";
-import PropTypes from "prop-types";
+import RoundedToggle from 'components/sharedComponents/RoundedToggle';
+import Accordion from 'components/sharedComponents/accordion/Accordion';
+import PropTypes from 'prop-types';
 
 const propTypes = {
     outlayToggle: PropTypes.bool,
@@ -27,10 +27,6 @@ const OutlaysToggle = ({
         }
     };
 
-    const setWhatOpen = () => {
-        setOutlayWhatOpen(!outlayWhatOpen);
-    };
-
     return (
         <div className="state__right">
             <RoundedToggle
@@ -41,7 +37,8 @@ const OutlaysToggle = ({
                 id="state__controls-toggle" />
             <div className="state__line-div" />
             <Accordion
-                setOpen={setWhatOpen}
+                open={outlayWhatOpen}
+                setOpen={setOutlayWhatOpen}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 title="What is this?" />
