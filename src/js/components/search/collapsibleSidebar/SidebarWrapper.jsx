@@ -21,8 +21,9 @@ import Analytics from '../../../helpers/analytics/Analytics';
 import useRequestNLSearch from './useRequestNLSearch';
 import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
-import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
+import { setIsNLSearchComplete, setIsNLSearchError, setNLSearchHash } from '../../../redux/actions/sidebar/sidebarActions';
 import useFetchDataFromHash from './useFetchDataFromHash';
+import useTrackNLFilterEdits from './useTrackNLFilterEdits';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -53,6 +54,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
     const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess, clearNLCache } = useRequestNLSearch(text, 'side panel');
+
+    useTrackNLFilterEdits();
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -87,6 +90,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             // reset so an identical hash from a repeated search will trigger
             // a fetch to the hash endpoint
             setHash(undefined);
+            // filters are no longer smart assist derived until the new results are applied
+            dispatch(setNLSearchHash(null));
             fetchNLSearch();
             dispatch(setIsNLSearchComplete(false));
             dispatch(setIsNLSearchError(false));
@@ -127,6 +132,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
+            dispatch(setNLSearchHash(hash));
         }
 
         dispatch(setIsNLSearchComplete(!isFetching));

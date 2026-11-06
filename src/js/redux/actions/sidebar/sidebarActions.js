@@ -8,6 +8,13 @@ export const SET_IS_SEARCH_ACTIVE = 'SET_IS_SEARCH_ACTIVE';
 export const SET_IS_NL_SEARCH_COMPLETE = 'SET_IS_NL_SEARCH_COMPLETE';
 export const SET_IS_NL_SEARCH_ERROR = 'SET_IS_NL_SEARCH_ERROR';
 
+export const SET_NL_SEARCH_HASH = 'SET_NL_SEARCH_HASH';
+
+export const setNLSearchHash = (nlSearchHash) => ({
+    type: SET_NL_SEARCH_HASH,
+    nlSearchHash
+});
+
 export const setSidebarContent = (sidebarContent) => ({
     type: SET_SIDEBAR_CONTENT,
     sidebarContent

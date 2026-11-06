@@ -41,7 +41,9 @@ const Analytics = {
             event_label: args.label || undefined,
             event_value: args.value || undefined,
             event_nonInteraction: args.nonInteraction || undefined,
-            event_time_to_query: args.time_to_query || undefined
+            event_time_to_query: args.time_to_query || undefined,
+            // optional custom parameters (registered as custom dimensions in GA4)
+            ...args.params
         });
 
         this._execute(
