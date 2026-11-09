@@ -1,14 +1,14 @@
 const presets = [
+    // targets come from the "browserslist" field in package.json
+    "@babel/preset-env",
     [
-        "@babel/preset-env",
+        "@babel/preset-react",
         {
-            targets: {
-                ie: "10",
-                node: "10"
-            }
+            // Babel 8 defaults this to true whenever NODE_ENV is unset (as in `npm run prod`),
+            // emitting jsxDEV calls that don't exist in React's production runtime.
+            development: process.env.NODE_ENV === "development"
         }
-    ],
-    "@babel/preset-react"
+    ]
 ];
 
 const plugins = [
@@ -19,8 +19,7 @@ const plugins = [
             root: ["src/js"]
         }
     ],
-    "@babel/plugin-transform-runtime",
-    "react-hot-loader/babel"
+    "@babel/plugin-transform-runtime"
 ];
 
 // Expands `require("core-js")` in the app entry into targeted imports.
