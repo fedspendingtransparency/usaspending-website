@@ -115,7 +115,13 @@ const TreeNodesWrapper = ({
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(getIdOrValue(child)) || getIdOrValue(node) === getIdOrValue(child));
                         const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
 
-                        if (allChildrenChecked) return; // skip parent should stay checked.
+                        if (allChildrenChecked) {
+                            // parent is fully checked, so it can no longer be indeterminate.
+                            if (checkboxRefs.current?.[getIdOrValue(parent)]) {
+                                checkboxRefs.current[getIdOrValue(parent)].indeterminate = false;
+                            }
+                            return;
+                        }
 
                         const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
                         // if all children are checked parent should be checked
@@ -159,10 +165,13 @@ const TreeNodesWrapper = ({
             // ancestors are stored as an array of id and not the complete anscestor node
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
-                ancestorNodes.forEach((parent) => {
+                // ancestors are ordered top-down; walk bottom-up and test against the
+                // running updatedChecked so a newly auto-checked parent can in turn
+                // complete its own parent (grandparent) and so on up the tree.
+                [...ancestorNodes].reverse().forEach((parent) => {
                     const children = parent.children;
                     const allChecked = children.every(
-                        (child) => (newChecked.includes(
+                        (child) => (updatedChecked.includes(
                             removePlaceholderString(getIdOrValue(child))) || (getIdOrValue(node) === getIdOrValue(child))
                         ));
                     if (allChecked && !isChecked) {
