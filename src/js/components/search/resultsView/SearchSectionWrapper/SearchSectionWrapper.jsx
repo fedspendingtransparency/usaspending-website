@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import Analytics from 'helpers/analytics/Analytics';
+import { sectionDSMEvent, searchSectionWrapper } from "containers/search/helpers/searchEvents";
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
 import SearchSectionWrapperContent from "./SearchSectionWrapperContent";
@@ -98,12 +98,7 @@ const SearchSectionWrapper = ({
 
     useEffect(() => {
         if (gaRef.current) {
-            Analytics.event({
-                category: `Section ${sectionName}: ${selectedDropdownOption}`,
-                action: `Viewed ${selectedDropdownOption} ${viewType}`,
-                label: hash,
-                method: isSearchActive ? "Smart Assist" : "Advanced Search"
-            });
+            searchSectionWrapper(sectionName, selectedDropdownOption, viewType, hash, isSearchActive);
         }
         else {
             gaRef.current = true;
@@ -139,12 +134,7 @@ const SearchSectionWrapper = ({
         }
 
         if (trackDSMEvent) {
-            Analytics.event({
-                category: 'Advanced Search - Results View DSM',
-                action,
-                label: `${prefix} DS&M`,
-                method: isSearchActive ? "Smart Assist" : "Advanced Search"
-            });
+            sectionDSMEvent(prefix, action, isSearchActive);
         }
         setTrackDSMEvent(true);
 
