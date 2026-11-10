@@ -1,15 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Text } from "recharts";
-import Analytics from "../../../../helpers/analytics/Analytics";
-
-const onClickHandler = (linkName, scope, hash) => {
-    Analytics.event({
-        category: `Section categories: ${scope}`,
-        action: `Clicked ${linkName}`,
-        label: hash
-    });
-};
+import { useSelector } from 'react-redux';
 
 const tickFormatter = (value, isDesktopSm) => {
     const limit = isDesktopSm ? 34 : 36; // put your maximum character
@@ -33,6 +25,8 @@ const propTypes = {
 };
 
 const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash }) => {
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     const labelWidthVar = isTablet ? 400 : 175;
     const formattedText = tickFormatter(payload.value, isDesktopSm);
     const translateY = () => {
@@ -50,10 +44,11 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
                 (
                     <a
                         href={`${link[payload.index].link}`}
-                        onClick={() => onClickHandler(
+                        onClick={() => logSectionCategoriesFromChartEvent(
                             payload.value,
                             scope,
-                            hash
+                            hash,
+                            isSearchActive
                         )}>
                         <Text
                             textAnchor={isTablet ? "start" : "end"}

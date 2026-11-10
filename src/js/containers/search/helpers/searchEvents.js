@@ -30,7 +30,14 @@ export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearch
     });
 };
 
-
+export const logSectionCategoriesFromChartEvent = (linkName, scope, hash, isNLSearchActive) => {
+    Analytics.event({
+        category: `Section categories: ${scope}`,
+        action: `Clicked ${linkName}`,
+        label: hash,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
 
 export const         Analytics.event({
     category: 'Section Categories',
@@ -101,3 +108,13 @@ export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActi
         method: setSearchOrigin(isNLSearchActive)
     });
 }
+
+export const toggleFilterAccordion = (isOpen, title, isSearchActive) => {
+    Analytics.event({
+        event: 'dap_event',
+        category: 'Advanced Search - Filter',
+        action: isOpen ? 'Filter Open' : 'Filter Close',
+        label: title.concat(' ', isOpen ? 'open' : 'close')
+    });
+}
+

@@ -1,7 +1,9 @@
 import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import Analytics from 'helpers/analytics/Analytics';
+import { useSelector } from "react-redux";
+
 import Accordion from 'components/sharedComponents/accordion/Accordion';
+import { toggleFilterAccordion } from "containers/search/helpers/searchEvents";
 
 const propTypes = {
     title: PropTypes.string,
@@ -15,6 +17,7 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
 }) {
     const [hasOpened, setHasOpened] = useState(!!defaultOpen);
     // browsers fire a toggle event when <details> mounts with open set, skip events that don't change state
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const wasOpen = useRef(!!defaultOpen);
 
@@ -28,13 +31,6 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
         if (isOpen && !hasOpened) setHasOpened(true);
 
         toggleFilterAccordion(isOpen, isSearchActive);
-
-        Analytics.event({
-            event: 'dap_event',
-            category: 'Advanced Search - Filter',
-            action: isOpen ? 'Filter Open' : 'Filter Close',
-            label: title.concat(' ', isOpen ? 'open' : 'close')
-        });
     }, [title, hasOpened]);
 
     return (
