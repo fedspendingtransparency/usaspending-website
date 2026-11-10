@@ -46,6 +46,9 @@ const DEFCheckboxTreeDownload = ({
             dispatch(setDefCodes(type, [...newCheck]));
         }
         else {
+            // value is a single string
+            // api is expecting value to be an array of strings
+            // force value to be an array.
             dispatch(setDefCodes(type, [selection.value]));
         }
     };
