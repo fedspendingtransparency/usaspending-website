@@ -1,6 +1,10 @@
 /**
  * @jest-environment jsdom
- */
+ *
+ * useFetchNaics.jsx
+ * Created by JD House 11/09/2026
+*/
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
