@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { words, upperFirst } from "lodash-es";
 import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { sanitizeUrl, sanitizeBlobUrl } from '../../../../helpers/url';
 
 const propTypes = {
     downloadData: PropTypes.arrayOf(PropTypes.string),
@@ -41,7 +42,7 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
 
     const renderDownloadLink = () => (
         <a
-            href={URL.createObjectURL(downloadBlob())}
+            href={sanitizeBlobUrl(URL.createObjectURL(downloadBlob()))}
             download={`results-over-time-by-${visualizationPeriod}-${today}.csv`}>
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">

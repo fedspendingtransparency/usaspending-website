@@ -12,6 +12,7 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import { showSlideout } from 'helpers/slideoutHelper';
 import IsMobileContext from "context/IsMobileContext";
+import { sanitizeUrl } from '../../../helpers/url';
 import FySummary from './FySummary';
 
 const propTypes = {
@@ -53,7 +54,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                     aria-label="Open the About the Data"
                     onClick={
                         (e) =>
-                            openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')
+                            openAboutTheDataSidebar(e, sanitizeUrl('delay-in-dod-procurement-data'))
                     }>
                     About the Data
                 </Link>

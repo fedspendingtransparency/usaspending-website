@@ -6,6 +6,7 @@
 import React from 'react';
 import kGlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sanitizeUrl } from '../../helpers/url';
 
 const downloadLocation = `${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/USAspending-data-catalog.json`;
 
@@ -19,7 +20,7 @@ const MetadataDownload = () => (
         <div className="metadata-download-button">
             <a
                 rel="noreferrer"
-                href={downloadLocation}
+                href={sanitizeUrl(downloadLocation)}
                 aria-label="Dataset Metadata"
                 download>
                 <button
