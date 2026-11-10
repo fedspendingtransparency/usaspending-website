@@ -11,7 +11,6 @@ import { throttle } from 'lodash-es';
 
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import { measureTableHeader } from 'helpers/textMeasurement';
-import Analytics from 'helpers/analytics/Analytics';
 import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
 import {
     defaultColumns,
@@ -22,6 +21,7 @@ import ResultsTableSection from 'components/search/resultsView/table/ResultsTabl
 import SearchSectionWrapper from
     "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
+import { logAwardIdClickEvent, logResultsTable, logSubAwardIdClickEvent } from "../helpers/searchEvents";
 
 const createColumn = (col) => {
     // create an object that integrates with the expected column data structure used by
@@ -147,13 +147,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             setSort(Object.assign(newState.sort));
         }
         setPage(1);
-        Analytics.event({
-            event: 'search_table_tab',
-            category: 'Advanced Search - Table Tab',
-            action: tab,
-            gtm: true,
-            method: isSearchActive ? "Smart Assist" : "Advanced Search"
-        });
+        logResultsTable(tab, isSearchActive);
     };
 
     const parseTabCounts = () => {
@@ -204,25 +198,11 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     const updateSort = (field, direction) => setSort({ field, direction });
 
     const awardIdClick = (id) => {
-        Analytics.event({
-            event: 'search_award_click',
-            category: 'Advanced Search - Spending by Prime Award',
-            action: `Clicked ${id}`,
-            label: new URLSearchParams(location.search).get('hash'),
-            gtm: true,
-            method: isSearchActive ? "Smart Assist" : "Advanced Search"
-        });
+        logAwardIdClickEvent(id, location, isSearchActive);
     };
 
     const subAwardIdClick = (id) => {
-        Analytics.event({
-            event: 'search_subaward_click',
-            category: 'Advanced Search - Link',
-            action: 'Subaward ID Clicked',
-            label: id,
-            gtm: true,
-            method: isSearchActive ? "Smart Assist" : "Advanced Search"
-        });
+        logSubAwardIdClickEvent(id, isSearchActive);
         dispatch(subAwardIdClicked(true));
     };
 

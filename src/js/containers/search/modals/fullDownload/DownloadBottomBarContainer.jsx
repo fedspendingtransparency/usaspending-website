@@ -6,13 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { isEmpty } from 'lodash-es';
-
-import Analytics from 'helpers/analytics/Analytics';
-import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
 
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
@@ -20,6 +17,7 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
+import {logDownloadButtonBarContainerEvent} from "../../helpers/searchEvents";
 
 const propTypes = {
     download: PropTypes.object,
@@ -136,13 +134,7 @@ export class DownloadBottomBarContainer extends React.Component {
 
         // send an analytic event of action download type and label value with all the filter
         // field names
-        Analytics.event({
-            event: 'advanced_search_download',
-            category: 'Advanced Search - Download',
-            action: this.props.download?.type,
-            label: uniqueFilterFields(filters),
-            gtm: true
-        });
+        logDownloadButtonBarContainerEvent(this.props.download?.type, filters, isSearchActive);
     }
 
     checkStatus() {

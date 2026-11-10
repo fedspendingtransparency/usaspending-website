@@ -1,4 +1,5 @@
 import Analytics from "../../../helpers/analytics/Analytics";
+import { uniqueFilterFields } from "./searchAnalytics";
 
 const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? "Smart Assist" : "Advanced Search";
 
@@ -20,6 +21,15 @@ export const sectionDSMEvent = (action, prefix, isNLSearchActive) => {
         method: setSearchOrigin(isNLSearchActive)
     });
 };
+
+export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearchActive) => {
+    Analytics.event({
+        category: `Section categories: ${selectedDropdown}`,
+        action: `Clicked ${linkName}`,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
+
 
 
 export const         Analytics.event({
@@ -48,3 +58,46 @@ export const logMapScopeEvent = (scope, isNLSearchActive) => {
         method: setSearchOrigin(isNLSearchActive)
     });
 };
+
+export const logResultsTable = (tab, isNLSearchActive) => {
+    Analytics.event({
+        event: 'search_table_tab',
+        category: 'Advanced Search - Table Tab',
+        action: tab,
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
+
+export const logAwardIdClickEvent = (id, location, isNLSearchActive) => {
+    Analytics.event({
+        event: 'search_award_click',
+        category: 'Advanced Search - Spending by Prime Award',
+        action: `Clicked ${id}`,
+        label: new URLSearchParams(location.search).get('hash'),
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
+
+export const logSubAwardIdClickEvent = (id, isNLSearchActive) => {
+    Analytics.event({
+        event: 'search_subaward_click',
+        category: 'Advanced Search - Link',
+        action: 'Subaward ID Clicked',
+        label: id,
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
+
+export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActive) => {
+    Analytics.event({
+        event: 'advanced_search_download',
+        category: 'Advanced Search - Download',
+        action: type,
+        label: uniqueFilterFields(filters),
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+}

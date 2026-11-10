@@ -6,6 +6,8 @@ import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpe
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
 import BaseSpendingByCategoryResult from "../../../models/v2/search/visualizations/rank/BaseSpendingByCategoryResult";
+import { logCategorySelectionEvent } from "../helpers/searchEvents";
+import { useSelector } from "react-redux";
 
 // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
 const getSpendingLevel = (spendingLevel) => {
@@ -15,15 +17,7 @@ const getSpendingLevel = (spendingLevel) => {
     return "transactions";
 };
 
-// TODO: analytics
-const onClickHandler = (linkName, selectedDropdown) => {
-    Analytics.event({
-        category: `Section categories: ${selectedDropdown}`,
-        action: `Clicked ${linkName}`
-    });
-};
-
-const parseData = (data, selectedDropdown, spendingLevel) => {
+const parseData = (data, selectedDropdown, spendingLevel, isSearchActive) => {
     const labelSeries = [];
     const dataSeries = [];
     const descriptions = [];
@@ -77,7 +71,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                         <a
                             href={recipientLink}
                             onClick={() => {
-                                onClickHandler(result.name, selectedDropdown);
+                                logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive);
                             }}>
                             {result.name}
                         </a>
@@ -97,7 +91,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                     <a
                         href={awardingLink}
                         onClick={() => {
-                            onClickHandler(result.name, selectedDropdown);
+                            logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive);
                         }}>
                         {result.name}
                     </a>
@@ -139,6 +133,7 @@ const useCategoriesSearch = (
     page
 ) => {
     const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     // Create Search Operation
     const operation = new SearchAwardsOperation();
@@ -168,7 +163,7 @@ const useCategoriesSearch = (
         enabled: !areFiltersEqual(filters)
     });
 
-    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel);
+    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel, isSearchActive);
 
     return { loading: isLoading, error, ...parsedData };
 };
