@@ -46,11 +46,8 @@ const CategoriesSection = ({
 
     const onClick = (e) => {
         setSelectedDropdown(e);
-        Analytics.event({
-            category: 'Section Categories',
-            action: `View ${e}`,
-            label: hash
-        });
+        viewSectionCategories(e, hash, isSearchActive);
+
     };
 
     const wrapperProps = {

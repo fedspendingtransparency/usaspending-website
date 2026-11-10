@@ -11,7 +11,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import Analytics from 'helpers/analytics/Analytics';
+import { logMapLayerEvent, logMapScopeEvent } from "../helpers/searchEvents";
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from '../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper';
@@ -32,26 +32,6 @@ const propTypes = {
     wrapperProps: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
-};
-
-const logMapLayerEvent = (layer, method) => {
-    Analytics.event({
-        event: 'search_map_layer_event',
-        category: 'Advanced Search - Map - Map Layer',
-        action: layer,
-        gtm: true,
-        method
-    });
-};
-
-const logMapScopeEvent = (scope, method) => {
-    Analytics.event({
-        event: 'search_map_location_type_event',
-        category: 'Advanced Search - Map - Location Type',
-        action: scope,
-        gtm: true,
-        method
-    });
 };
 
 const emptyData = {
@@ -117,7 +97,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
     const stateNameByFipsId = useStateNameByFipsId();
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-    const searchOrigin = isSearchActive ? "Smart Assist" : "Advanced Search";
 
     // Create inverted mapping: FIPS -> Abbreviation
     const stateAbbreviationByFipsId = stateFIPSByAbbreviation ?
@@ -352,7 +331,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerEvent(layer, searchOrigin);
+        logMapLayerEvent(layer, isSearchActive);
     };
 
     const mapScopeLogic = (type) => {
@@ -547,8 +526,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope, searchOrigin);
-        logMapLayerEvent(mapLayer, searchOrigin);
+        logMapScopeEvent(props.scope, isSearchActive);
+        logMapLayerEvent(mapLayer, isSearchActive);
 
         return () => {
             // remove any broadcast listeners

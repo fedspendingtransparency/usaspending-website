@@ -15,6 +15,7 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
 }) {
     const [hasOpened, setHasOpened] = useState(!!defaultOpen);
     // browsers fire a toggle event when <details> mounts with open set, skip events that don't change state
+
     const wasOpen = useRef(!!defaultOpen);
 
     const onToggle = useCallback((e) => {
@@ -25,6 +26,8 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
         wasOpen.current = isOpen;
 
         if (isOpen && !hasOpened) setHasOpened(true);
+
+        toggleFilterAccordion(isOpen, isSearchActive);
 
         Analytics.event({
             event: 'dap_event',

@@ -20,3 +20,31 @@ export const sectionDSMEvent = (action, prefix, isNLSearchActive) => {
         method: setSearchOrigin(isNLSearchActive)
     });
 };
+
+
+export const         Analytics.event({
+    category: 'Section Categories',
+    action: `View ${e}`,
+    label: hash,
+
+});
+
+export const logMapLayerEvent = (layer, isNLSearchActive) => {
+    Analytics.event({
+        event: 'search_map_layer_event',
+        category: 'Advanced Search - Map - Map Layer',
+        action: layer,
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
+
+export const logMapScopeEvent = (scope, isNLSearchActive) => {
+    Analytics.event({
+        event: 'search_map_location_type_event',
+        category: 'Advanced Search - Map - Location Type',
+        action: scope,
+        gtm: true,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
