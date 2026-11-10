@@ -46,7 +46,7 @@ const DEFCheckboxTreeDownload = ({
             dispatch(setDefCodes(type, [...newCheck]));
         }
         else {
-            dispatch(setDefCodes(type, selection.value));
+            dispatch(setDefCodes(type, [selection.value]));
         }
     };
 
