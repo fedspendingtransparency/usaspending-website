@@ -10,7 +10,6 @@ import { restoreUrlHash, parseRemoteFilters } from 'helpers/searchHelper';
 const parseFilters = (res) => parseRemoteFilters(res.data.filter);
 
 const fetchFilters = (hash) => ({ signal }) => {
-    console.log({ hash, signal });
     const { promise, cancel } = restoreUrlHash({ hash });
     // apiRequest uses axios cancel tokens; tie tanstack query AbortSignal to it
     signal?.addEventListener('abort', cancel);
@@ -18,17 +17,14 @@ const fetchFilters = (hash) => ({ signal }) => {
 };
 
 const useFetchSearchFilters = (hash, enabled = true) => {
-    console.log({ hash, enabled });
     const { data, error, isLoading, isSuccess } = useQuery({
         queryKey: ['search-filters-from-hash', hash],
         queryFn: fetchFilters(hash),
         enabled: Boolean(hash) && enabled,
-        staleTime: Infinity, // a hash always maps to the same saved filters
+        staleTime: Infinity, // a hash always maps to the same saved filters so there is never a need to refetch
         retry: false,
         select: parseFilters
     });
-
-    console.log({ data });
 
     return {
         filters: data,
