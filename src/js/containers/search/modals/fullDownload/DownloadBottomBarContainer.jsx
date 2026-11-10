@@ -18,6 +18,7 @@ import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
+import { sanitizeUrl } from '../../../../helpers/url';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
 
@@ -234,7 +235,7 @@ export class DownloadBottomBarContainer extends React.Component {
         window.removeEventListener('beforeunload', this.windowWillClose);
 
         // start the download
-        window.open(fileUrl, '_self');
+        window.open(sanitizeUrl(fileUrl), '_self');
 
         // update redux
         this.props.setDownloadPending(false);
