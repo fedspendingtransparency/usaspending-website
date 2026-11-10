@@ -17,7 +17,7 @@ const fetchFilters = (hash) => ({ signal }) => {
 };
 
 const useFetchSearchFilters = (hash, enabled = true) => {
-    const { data, error, isLoading, isSuccess } = useQuery({
+    const { data, error, isSuccess } = useQuery({
         queryKey: ['search-filters-from-hash', hash],
         queryFn: fetchFilters(hash),
         enabled: Boolean(hash) && enabled,
@@ -29,9 +29,7 @@ const useFetchSearchFilters = (hash, enabled = true) => {
     return {
         filters: data,
         isCorrupt: isSuccess && !data,
-        error,
-        isLoading,
-        isSuccess
+        error
     };
 };
 
