@@ -1,3 +1,8 @@
+/**
+ * useFetchNaics.jsx
+ * Created by JD House 11/09/2026
+*/
+
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { naicsRequest } from 'helpers/searchHelper';
