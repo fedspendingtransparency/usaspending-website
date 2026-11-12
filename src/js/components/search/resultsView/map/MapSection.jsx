@@ -5,13 +5,14 @@
 
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-import Analytics from "../../../../helpers/analytics/Analytics";
-import MapSectionWrapper from "../../../../containers/search/resultsView/MapWrapperContainer";
-import MapDsm from "./MapDsm";
+import MapSectionWrapper from "containers/search/resultsView/MapWrapperContainer";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { logMapViewEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
+
 import PlaceholderComponent from "../PlaceholderComponent";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
+import MapDsm from "./MapDsm";
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -25,19 +26,17 @@ const MapSection = ({ spendingLevel, hash }) => {
         freezeOnceVisible: true
     });
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     useEffect(() => {
         if (mapHasLoaded) {
-            logVisualizationViewEvent("map", hash);
+            logVisualizationViewEvent("map", hash, isSearchActive);
         }
     }, [mapHasLoaded, hash]);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
-        Analytics.event({
-            category: 'Section Map',
-            action: `View ${e}`,
-            label: hash
-        });
+        logMapViewEvent(e, hash, isSearchActive);
     };
 
     const wrapperProps = {

@@ -2,16 +2,9 @@ import { Button } from "data-transparency-ui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import Analytics from "helpers/analytics/Analytics";
-import { useSelector } from "react-redux";
 
-const logExpandEvent = (type, isSearchActive) => {
-    Analytics.event({
-        category: "Advanced Search - Active Filters",
-        action: `${type} Filters`,
-        method: isSearchActive ? "Smart Assist" : "Advanced Search"
-    });
-};
+import { useSelector } from "react-redux";
+import { logExpandEvent } from 'containers/search/helpers/searchEvents';
 
 const propTypes = {
     appliedFilters: PropTypes.object,

@@ -5,8 +5,8 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import Analytics from '../../../../helpers/analytics/Analytics';
 import TimeVisualizationSectionContainer
     from '../../../../containers/search/resultsView/TimeVisualizationSectionContainer';
 import PlaceholderComponent from '../PlaceholderComponent';
@@ -29,20 +29,17 @@ const TimeSection = ({
         threshold: 0.1,
         freezeOnceVisible: true
     });
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     useEffect(() => {
         if (timeHasLoaded) {
-            logVisualizationViewEvent('time', hash);
+            logVisualizationViewEvent('time', hash, isSearchActive);
         }
     }, [timeHasLoaded, hash]);
 
     const onClick = useCallback((e) => {
         setVisualizationPeriod(e);
-        Analytics.event({
-            category: 'Section Time',
-            action: `View ${e}`,
-            label: hash
-        });
+        logResultsOverTimeEvent(e, hash, isSearchActive);
     }, [hash]);
     const wrapperProps = {
         sectionTitle: 'Results Over Time',

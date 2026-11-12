@@ -1,5 +1,6 @@
 import Analytics from "../../../helpers/analytics/Analytics";
 import { uniqueFilterFields } from "./searchAnalytics";
+import PropTypes from "prop-types";
 
 const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? "Smart Assist" : "Advanced Search";
 
@@ -109,12 +110,49 @@ export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActi
     });
 }
 
-export const toggleFilterAccordion = (isOpen, title, isSearchActive) => {
+export const toggleFilterAccordion = (isOpen, title, isNLSearchActive) => {
     Analytics.event({
         event: 'dap_event',
         category: 'Advanced Search - Filter',
         action: isOpen ? 'Filter Open' : 'Filter Close',
-        label: title.concat(' ', isOpen ? 'open' : 'close')
+        label: title.concat(' ', isOpen ? 'open' : 'close'),
+        method: setSearchOrigin(isNLSearchActive)
     });
 }
 
+const logMapViewEvent = (e, hash, isNLSearchActive) => {
+    Analytics.event({
+        category: 'Section Map',
+        action: `View ${e}`,
+        label: hash,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+}
+
+export const logVisualizationViewEvent = (action, label, isNLSearchActive) => window.setTimeout(
+() => Analytics.event({
+    event: 'search_visualization_type',
+    category: 'Advanced Search - Visualization Type',
+    action,
+    gtm: true,
+    label,
+    method: setSearchOrigin(isNLSearchActive)
+}), 15 * 1000);
+
+
+export const logExpandEvent = (type, isSearchActive) => {
+    Analytics.event({
+        category: "Advanced Search - Active Filters",
+        action: `${type} Filters`,
+        method: isSearchActive ? "Smart Assist" : "Advanced Search"
+    });
+};
+
+export const logResultsOverTimeEvent = (e, hash, isSearchActive) => {
+    Analytics.event({
+        category: 'Section Time',
+        action: `View ${e}`,
+        label: hash,
+        method: isSearchActive ? "Smart Assist" : "Advanced Search"
+    });
+};
