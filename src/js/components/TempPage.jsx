@@ -13,7 +13,7 @@ import { mockComboBox, searchTestData, buildSearchTestState } from "../../../tes
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
 import NLSearchSuggestionsIcon from "./search/naturalLanguage/NLSearchSuggestionsIcon";
 
-require("pages/search/searchPage.scss");
+import 'pages/search/searchPage.scss';
 
 const TempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";

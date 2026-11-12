@@ -71,7 +71,7 @@ const sections = [
     }
 ];
 
-require('pages/data-sources/index.scss');
+import 'pages/data-sources/index.scss';
 
 const getDefCValues = (errorMsg, isLoading, codes) => {
     if (isLoading) return "Loading...";

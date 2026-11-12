@@ -16,7 +16,7 @@ import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useJumpToSection from "../../hooks/useJumpToSection";
 
-require('pages/data-sources/index.scss');
+import 'pages/data-sources/index.scss';
 
 const emailData = {
     subject: "Agency Submission Statistics: Data Sources and Methodology",

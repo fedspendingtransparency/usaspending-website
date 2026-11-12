@@ -17,7 +17,7 @@ import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 import useFetchFederalAccount from "./useFetchFederalAccount";
 
-require('pages/account/accountPage.scss');
+import 'pages/account/accountPage.scss';
 
 const propTypes = {
     account: PropTypes.object,

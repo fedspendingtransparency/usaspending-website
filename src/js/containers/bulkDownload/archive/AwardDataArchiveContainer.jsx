@@ -11,7 +11,7 @@ import useRequestAgenciesList from "hooks/useRequestAgenciesList";
 import { sanitizeUrl } from 'helpers/url';
 import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
 
 const propTypes = {
     filters: PropTypes.object,

@@ -6,6 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack serve --node-env development --open --history-api-fallback --progress --config ./webpack/webpack.local.config.js",
+    "vite": "vite",
+    "vite:build": "vite build --mode production",
     "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "jest; exit 0;",
     "lint": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\"; exit 0;",

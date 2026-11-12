@@ -57,12 +57,6 @@ export default defineConfig(({ mode }) => {
             },
             extensions: ['.js', '.jsx', '.json', '.mdx', '.md']
         },
-        // The codebase has JSX inside .js files, which Vite only compiles for .jsx by default.
-        oxc: {
-            lang: 'jsx',
-            include: /\/src\/.*\.(js|jsx)$/,
-            exclude: /node_modules/
-        },
         plugins: [
             localRootsResolver(),
             // MDX must run before the React plugin.
@@ -84,10 +78,10 @@ export default defineConfig(({ mode }) => {
             // Replaces CopyWebpackPlugin.
             viteStaticCopy({
                 targets: [
-                    { src: 'src/img', dest: '' },
-                    { src: 'src/graphics', dest: '' },
-                    { src: 'src/fonts', dest: '' },
-                    { src: 'src/data', dest: '' },
+                    { src: 'src/img/**/*', dest: 'img', rename: { stripBase: 2 } },
+                    { src: 'src/graphics/**/*', dest: 'graphics', rename: { stripBase: 2 } },
+                    { src: 'src/fonts/**/*', dest: 'fonts', rename: { stripBase: 2 } },
+                    { src: 'src/data/**/*', dest: 'data', rename: { stripBase: 2 } },
                     { src: '*.xml', dest: '' },
                     { src: 'robots.txt', dest: '' },
                     { src: 'redirect-config.json', dest: '' }

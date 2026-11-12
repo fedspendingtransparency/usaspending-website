@@ -9,7 +9,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { errorPageMetaTags } from 'helpers/metaTagHelper';
 import PropTypes from 'prop-types';
 
-require('pages/errorPage/errorPage.scss');
+import 'pages/errorPage/errorPage.scss';
 
 const propTypes = {
     title: PropTypes.string,

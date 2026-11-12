@@ -17,8 +17,8 @@ import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptio
 import DownloadDateRange from './DownloadDateRange';
 import BulkDownloadRadioButton from "../../../../sharedComponents/BulkDownloadRadioButton";
 
-const dayjs = require('dayjs');
-const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
+import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 
 dayjs.extend(isSameOrAfter);
 

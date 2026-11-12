@@ -12,7 +12,7 @@ import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
 
-require("pages/search/searchPage.scss");
+import 'pages/search/searchPage.scss';
 
 const propTypes = {
     tabData: PropTypes.object,

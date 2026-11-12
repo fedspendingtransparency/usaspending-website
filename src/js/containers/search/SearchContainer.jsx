@@ -29,7 +29,7 @@ import SearchPage from 'components/search/SearchPage';
 import useRequestDownloadCount from './useRequestDownloadCount';
 import useFetchSearchFilters from './useFetchSearchFilters';
 
-require('pages/search/searchPage.scss');
+import 'pages/search/searchPage.scss';
 
 const SearchContainer = () => {
     const location = useLocation();

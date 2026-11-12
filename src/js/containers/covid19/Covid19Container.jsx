@@ -12,7 +12,7 @@ import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/acti
 import Covid19Page from 'components/covid19/Covid19Page';
 import useAgencySlugs from "../../hooks/useAgencySlugs";
 
-require('pages/covid19/index.scss');
+import 'pages/covid19/index.scss';
 
 const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
