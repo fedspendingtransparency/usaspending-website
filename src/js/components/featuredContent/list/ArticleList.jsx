@@ -10,7 +10,7 @@ import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featu
 import Analytics from "helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
 import dayjs from 'dayjs';
-import { sanitizeUrl } from '../../../helpers/url';
+import { sanitizeUrl, sanitizeRelativeUrl } from '../../../helpers/url';
 
 const propTypes = {
     articles: PropTypes.array
@@ -52,7 +52,7 @@ const ArticleList = ({ articles }) => {
 
     const onClick = (e, newUrl, title) => {
         e.persist();
-        window.open(newUrl, "_self");
+        window.open(sanitizeRelativeUrl(newUrl), "_self");
 
         Analytics.event({
             event: 'dap_event',
