@@ -6,15 +6,15 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
-import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
     from '../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer';
 import PlaceholderComponent from '../PlaceholderComponent';
 import CategoriesDsm from './CategoriesDsm';
 import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
 import logVisualizationViewEvent from '../logVisualizationViewEvent';
-import { useSelector } from 'react-redux';
+import { viewSectionCategories } from "../../../../containers/search/helpers/searchEvents";
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -47,7 +47,6 @@ const CategoriesSection = ({
     const onClick = (e) => {
         setSelectedDropdown(e);
         viewSectionCategories(e, hash, isSearchActive);
-
     };
 
     const wrapperProps = {

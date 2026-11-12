@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import Analytics from "../../../helpers/analytics/Analytics";
 import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpers/searchHelper";
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";

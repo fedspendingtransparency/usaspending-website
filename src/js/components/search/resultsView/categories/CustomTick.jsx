@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Text } from "recharts";
 import { useSelector } from 'react-redux';
+import { logSectionCategoriesFromChartEvent } from "containers/search/helpers/searchEvents";
 
 const tickFormatter = (value, isDesktopSm) => {
     const limit = isDesktopSm ? 34 : 36; // put your maximum character

@@ -1,8 +1,7 @@
-import Analytics from "../../../helpers/analytics/Analytics";
-import { uniqueFilterFields } from "./searchAnalytics";
-import PropTypes from "prop-types";
+import Analytics from '../../../helpers/analytics/Analytics';
+import { uniqueFilterFields } from './searchAnalytics';
 
-const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? "Smart Assist" : "Advanced Search";
+const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
 
 export const searchSectionWrapper = (sectionName, selectedDropdownOption, viewType, hash, isNLSearchActive) => {
     Analytics.event({
@@ -12,7 +11,6 @@ export const searchSectionWrapper = (sectionName, selectedDropdownOption, viewTy
         method: setSearchOrigin(isNLSearchActive)
     });
 };
-
 
 export const sectionDSMEvent = (action, prefix, isNLSearchActive) => {
     Analytics.event({
@@ -40,12 +38,14 @@ export const logSectionCategoriesFromChartEvent = (linkName, scope, hash, isNLSe
     });
 };
 
-export const         Analytics.event({
-    category: 'Section Categories',
-    action: `View ${e}`,
-    label: hash,
-
-});
+export const viewSectionCategories = (e, hash, isNLSearchActive) => {
+    Analytics.event({
+        category: 'Section Categories',
+        action: `View ${e}`,
+        label: hash,
+        method: setSearchOrigin(isNLSearchActive)
+    });
+};
 
 export const logMapLayerEvent = (layer, isNLSearchActive) => {
     Analytics.event({
@@ -108,7 +108,7 @@ export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActi
         gtm: true,
         method: setSearchOrigin(isNLSearchActive)
     });
-}
+};
 
 export const toggleFilterAccordion = (isOpen, title, isNLSearchActive) => {
     Analytics.event({
@@ -118,33 +118,32 @@ export const toggleFilterAccordion = (isOpen, title, isNLSearchActive) => {
         label: title.concat(' ', isOpen ? 'open' : 'close'),
         method: setSearchOrigin(isNLSearchActive)
     });
-}
+};
 
-const logMapViewEvent = (e, hash, isNLSearchActive) => {
+export const logMapViewEvent = (e, hash, isNLSearchActive) => {
     Analytics.event({
         category: 'Section Map',
         action: `View ${e}`,
         label: hash,
         method: setSearchOrigin(isNLSearchActive)
     });
-}
+};
 
 export const logVisualizationViewEvent = (action, label, isNLSearchActive) => window.setTimeout(
-() => Analytics.event({
-    event: 'search_visualization_type',
-    category: 'Advanced Search - Visualization Type',
-    action,
-    gtm: true,
-    label,
-    method: setSearchOrigin(isNLSearchActive)
-}), 15 * 1000);
-
+    () => Analytics.event({
+        event: 'search_visualization_type',
+        category: 'Advanced Search - Visualization Type',
+        action,
+        gtm: true,
+        label,
+        method: setSearchOrigin(isNLSearchActive)
+    }), 15 * 1000);
 
 export const logExpandEvent = (type, isSearchActive) => {
     Analytics.event({
-        category: "Advanced Search - Active Filters",
+        category: 'Advanced Search - Active Filters',
         action: `${type} Filters`,
-        method: isSearchActive ? "Smart Assist" : "Advanced Search"
+        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
     });
 };
 
@@ -153,6 +152,16 @@ export const logResultsOverTimeEvent = (e, hash, isSearchActive) => {
         category: 'Section Time',
         action: `View ${e}`,
         label: hash,
-        method: isSearchActive ? "Smart Assist" : "Advanced Search"
+        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
+    });
+};
+
+export const logViewBySubawardsEvent = (isSearchActive) => {
+    Analytics.event({
+        event: 'search_subaward_dropdown',
+        category: 'Advanced Search - Search Fields',
+        action: 'Subawards Search',
+        gtm: true,
+        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
     });
 };

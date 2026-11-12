@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import TimeVisualizationSectionContainer
-    from '../../../../containers/search/resultsView/TimeVisualizationSectionContainer';
+    from 'containers/search/resultsView/TimeVisualizationSectionContainer';
+import useQueryParams from 'hooks/useQueryParams';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { logResultsOverTimeEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
 import PlaceholderComponent from '../PlaceholderComponent';
 import TimeDsm from './TimeDsm';
-import useQueryParams from '../../../../hooks/useQueryParams';
-import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
-import logVisualizationViewEvent from '../logVisualizationViewEvent';
 
 const propTypes = {
     hash: PropTypes.string,

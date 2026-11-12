@@ -553,7 +553,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope, searchOrigin);
+        logMapScopeEvent(props.scope, isSearchActive);
     }, [props.scope]);
 
     useEffect(() => {
