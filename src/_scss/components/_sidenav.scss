@@ -130,16 +130,54 @@
   margin-left: rem(23);
 }
 
-.nl-info-search-dropdown__button {
-  margin-right: rem(80) !important;
-  border-radius: rem(4) !important;
-  border: 1px solid $color-gray-lighter !important;
-  .filter__dropdown-button-text {
-    color: $gray-90 !important;
-  }
-}
+
 .usa-smart-assist-page {
-  .filter__dropdown-container {
-    margin-left: rem(30);
+  .usda-page__container {
+    .search-info-page__content-section {
+      .filter__dropdown-container {
+        margin-left: rem(30);
+        margin-top: rem(24);
+        .filter__dropdown-button-list-container {
+          .nl-info-search-dropdown__button {
+            margin-right: rem(120);
+            border-radius: rem(4);
+            border: 1px solid $color-gray-lighter;
+            padding-top: rem(12);
+            padding-bottom: rem(12);
+            .filter__dropdown-button-text {
+              color: $gray-90;
+              font-size: rem(16);
+            }
+            .filter__dropdown-chevron {
+              svg {
+                color: $blue-60v;
+              }
+            }
+          }
+          .filter__dropdown__list-info-wrapper {
+            .filter__dropdown-list-md {
+              padding-top: rem(16);
+              padding-bottom: rem(16);  
+              box-shadow: 0 rem(4) rem(8) rem(2) rgba(27, 27, 27, 0.24);
+              .filter__dropdown-list-item {
+                padding: rem(12) rem(24);
+                .filter__dropdown-item {
+                  font-weight: $font-normal;
+                  color: black;
+                }
+              }
+              .active {
+                background-color: white;
+                .filter__dropdown-item {
+                  color: $blue-80v;
+                  font-weight: $font-semibold;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
+  
 }
