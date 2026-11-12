@@ -13,7 +13,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router';
 import { List } from 'immutable';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import * as redux from 'react-redux';
 
 import { waitFor } from 'test-utils';
