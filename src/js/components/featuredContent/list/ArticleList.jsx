@@ -10,7 +10,7 @@ import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featu
 import Analytics from "helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
 import dayjs from 'dayjs';
-import { sanitizeUrl, sanitizeRelativeUrl } from '../../../helpers/url';
+import { sanitizeRelativeUrl } from '../../../helpers/url';
 
 const propTypes = {
     articles: PropTypes.array
