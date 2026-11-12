@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import NLDefaultHint from './NLDefaultHint';
 import NLSearchButton from './NLSearchButton';
 import NLSearchSuggestionsIcon from '../naturalLanguage/NLSearchSuggestionsIcon';
+import QueryAssistantResponse from '../naturalLanguage/QueryAssistantResponse';
 import { setIsSearchActive } from '../../../redux/actions/sidebar/sidebarActions';
 import { buildResponseState } from '../../../helpers/search/naturalLanguage/searchResponseHelper';
 import { sanitizeNLInput } from '../../../helpers/search/naturalLanguage/sanitizeNLInput';
@@ -16,22 +17,37 @@ import { NL_INPUT_MAX_CHARS } from './NLConstants';
 import animatedTour from './NLAnimatedTour';
 import Analytics from '../../../helpers/analytics/Analytics';
 
+const EXAMPLE_PROMPTS = [
+    'Grants to universities in Texas in fiscal year 2024',
+    'Department of Defense contracts over $1 million in Virginia',
+    'Climate research awards from the Department of Energy'
+];
+
 const propTypes = {
-    hintOnClick: PropTypes.func,
     text: PropTypes.string,
     setText: PropTypes.func,
     startNLSearch: PropTypes.func,
     data: PropTypes.array,
-    cancelQuery: PropTypes.func
+    cancelQuery: PropTypes.func,
+    assistantState: PropTypes.shape({
+        status: PropTypes.string,
+        result: PropTypes.object
+    }),
+    onApproveRewrite: PropTypes.func,
+    onEditRewrite: PropTypes.func,
+    onSelectSuggestion: PropTypes.func
 };
 
 const NLSidebarContent = ({
-    hintOnClick,
     text,
     setText,
     startNLSearch,
     data,
-    cancelQuery
+    cancelQuery,
+    assistantState = {},
+    onApproveRewrite,
+    onEditRewrite,
+    onSelectSuggestion
 }) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
@@ -98,6 +114,24 @@ const NLSidebarContent = ({
         setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));
     };
 
+    // Enter submits the search; Shift+Enter still adds a new line. Ignore Enter while an IME is composing text.
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent?.isComposing) {
+            event.preventDefault();
+            if (text.trim()) {
+                handleStartNLSearch(event.target);
+            }
+        }
+    };
+
+    // clicking an example runs it right away instead of filling in the text area (examples are real queries, not templates)
+    const handleExampleClick = (example) => {
+        if (typeof onSelectSuggestion === 'function') {
+            dispatch(setIsSearchActive(true));
+            onSelectSuggestion(example);
+        }
+    };
+
     const handleStartTutorial = () => {
         animatedTour.drive();
     };
@@ -106,40 +140,50 @@ const NLSidebarContent = ({
             {/* eslint-disable-next-line @stylistic/multiline-ternary */}
             { isSearchActive ? (
                 <div className="sidebar-nl-container response">
+                    <span className="sidebar-nl-label">Your search</span>
                     <p className="sidebar-text semibold">{text}</p>
-                    <div className="sidebar-body-row response">
-                        {responseState.items.map((item, index) => (
-                            // eslint-disable-next-line react/no-array-index-key
-                            <div key={`${item.toolId ?? 'search'}-${index}`}>
-                                <NLSearchSuggestionsIcon {...item} />
+                    <QueryAssistantResponse
+                        status={assistantState.status}
+                        result={assistantState.result}
+                        onApprove={onApproveRewrite}
+                        onEdit={onEditRewrite}
+                        onSelectSuggestion={onSelectSuggestion} />
+                    {responseState.items.length > 0 && (
+                        <>
+                            <span className="sidebar-nl-label progress">Progress</span>
+                            <div className="sidebar-body-row response">
+                                {responseState.items.map((item, index) => (
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    <div key={`${item.toolId ?? 'search'}-${index}`}>
+                                        <NLSearchSuggestionsIcon {...item} />
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
                 </div>
             ) : (
-                <div className="sidebar-nl-container">
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin tutorial</button></p>
-                    <div id="animated-tour-step3" className="sidebar-body-row">
-                        <span className="sidebar-example">Example Prompts: </span>
-                        <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
-                        <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
-                        <NLDefaultHint onClick={hintOnClick} hint={<p>What’s the spending on <span tabIndex={-1} className="hint-user-replace">[topic of interest]</span> in <span tabIndex={-1} className="hint-user-replace">[location]</span> over the past decade?</p>} />
-                    </div>
+                <div className="sidebar-nl-container compact start">
+                    <p className="sidebar-text">Describe the spending you want to find and I’ll set up the search filters for you. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin tutorial</button></p>
                     <div className="sidebar-body-row">
-                        <textarea
-                            onChange={handleInput}
-                            id="animated-tour-step2"
-                            name="smart-assist-input"
-                            spellCheck
-                            className="sidebar-textarea"
-                            maxLength={MAX_CHARS}
-                            value={text}
-                            rows="3"
-                            cols="50"
-                            placeholder="Type a question about government spending, or choose an example above." />
-                        <div className="textarea-char-row">
-                            <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>
-                            <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
+                        {/* the counter and Clear Input sit inside the box, at the bottom, like a message composer */}
+                        <div className="sidebar-textarea-wrapper">
+                            <textarea
+                                onChange={handleInput}
+                                onKeyDown={handleKeyDown}
+                                id="animated-tour-step2"
+                                name="smart-assist-input"
+                                spellCheck
+                                className="sidebar-textarea"
+                                maxLength={MAX_CHARS}
+                                value={text}
+                                rows="3"
+                                cols="50"
+                                placeholder="Describe the spending you want to find, or choose an example below." />
+                            <div className="textarea-char-row">
+                                <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>
+                                <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,6 +203,19 @@ const NLSidebarContent = ({
                     classname={searchClass}
                     loadingState={isSearchActive && !isNLSearchComplete} />
             </div>
+            {!isSearchActive && (
+                <div className="sidebar-nl-container compact examples">
+                    <div id="animated-tour-step3" className="sidebar-body-row">
+                        <span className="sidebar-example">Example Prompts: </span>
+                        {EXAMPLE_PROMPTS.map((example) => (
+                            <NLDefaultHint
+                                key={example}
+                                onClick={() => handleExampleClick(example)}
+                                hint={<p>{example}</p>} />
+                        ))}
+                    </div>
+                </div>
+            )}
             <div className="sidebar-body-row">
                 <span className="sidebar-ai-blurb">This is a new AI feature on USAspending.gov. AI can make mistakes, so be sure to check the results.</span>
             </div>

@@ -1,0 +1,104 @@
+// small uppercase labels that name each part of the Smart Assist panel
+.sidebar-nl-label,
+.query-assistant-response__label {
+  display: block;
+  color: $gray-60;
+  font-size: $font-size-12;
+  line-height: 150%;
+  text-transform: uppercase;
+  font-weight: $font-semibold;
+  margin: 0 0 rem(4) 0;
+}
+
+.sidebar-nl-label {
+  padding: 0 rem(16);
+  @media (min-width: $medium-screen) {
+    padding: 0 rem(24);
+  }
+
+  &.progress {
+    margin-top: rem(8);
+    padding-top: rem(12);
+    border-top: rem(1) solid $gray-5;
+  }
+}
+
+.query-assistant-response {
+  margin-bottom: rem(12);
+
+  // text parts are padded individually. The suggestion buttons are not, because they sit in the shared
+  // .sidebar-body-row, which already pads them to match the example prompts on the start page.
+  .query-assistant-response__section {
+    padding: 0 rem(16);
+    @media (min-width: $medium-screen) {
+      padding: 0 rem(24);
+    }
+  }
+
+  p {
+    margin: 0 0 rem(8) 0;
+    font-size: $font-size-14;
+    line-height: 150%;
+    color: $gray-90;
+  }
+
+  // the assistant's explanation and suggested search sit in a tinted card so they read as one unit
+  .query-assistant-response__card {
+    background: $blue-5;
+    border-left: rem(4) solid $blue-60v;
+    border-radius: rem(4);
+    padding: rem(12);
+    margin-bottom: rem(8);
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // why the query was reworded: an aside in italic gray, so it is not mistaken for the user's own question
+  .query-assistant-response__reason {
+    font-style: italic;
+    font-weight: $font-normal;
+    color: $gray-60;
+
+    .query-assistant-response__reason-icon {
+      margin-right: rem(6);
+      font-style: normal;
+    }
+  }
+
+  .query-assistant-response__rewrite {
+    font-weight: $font-semibold;
+  }
+
+  .query-assistant-response__caveat {
+    font-size: $font-size-12;
+    color: $gray-60;
+  }
+
+  .query-assistant-response__actions {
+    display: flex;
+    gap: rem(8);
+    margin-top: rem(12);
+  }
+
+  .query-assistant-response__approve,
+  .query-assistant-response__edit {
+    padding: rem(8) rem(16);
+    border-radius: rem(4);
+    font-size: $font-size-14;
+    cursor: pointer;
+  }
+
+  .query-assistant-response__approve {
+    background: $blue-60v;
+    border: rem(1) solid $blue-60v;
+    color: $color-white;
+  }
+
+  .query-assistant-response__edit {
+    background: $color-white;
+    border: rem(1) solid $blue-60v;
+    color: $blue-60v;
+  }
+}

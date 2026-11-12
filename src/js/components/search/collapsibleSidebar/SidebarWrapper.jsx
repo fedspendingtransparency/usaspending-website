@@ -19,9 +19,10 @@ import NLSidebarContent from './NLSidebarContent';
 import { FILTERS } from './SidebarConstants';
 import Analytics from '../../../helpers/analytics/Analytics';
 import useRequestNLSearch from './useRequestNLSearch';
-import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS, QUERY_ASSISTANT_VERDICT, QUERY_ASSISTANT_STATUS } from './NLConstants';
+import useQueryAssistant from './useQueryAssistant';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
-import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
+import { setIsNLSearchComplete, setIsNLSearchError, setIsSearchActive } from '../../../redux/actions/sidebar/sidebarActions';
 import useFetchDataFromHash from './useFetchDataFromHash';
 
 const propTypes = {
@@ -46,13 +47,17 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const [text, setText] = useState('');
     const [hash, setHash] = useState();
+    // the query sent to filter search: the original text, or the reworded query once the user approves it
+    const [searchQuery, setSearchQuery] = useState();
+    const [assistantState, setAssistantState] = useState({ status: QUERY_ASSISTANT_STATUS.IDLE, result: null });
 
     const dispatch = useDispatch();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess, clearNLCache } = useRequestNLSearch(text, 'side panel');
+    const { checkQuery, cancelCheck } = useQueryAssistant();
+    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess, clearNLCache } = useRequestNLSearch(searchQuery ?? text, 'side panel');
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -74,35 +79,102 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const hintOnClick = (e) => {
-        if (e?.target.textContent) {
-            setText(sanitizeNLInput(e.target.textContent).trim().slice(0, NL_INPUT_MAX_CHARS));
-        }
-    };
+    const request = useRef();
+    const wasCancelled = useRef(false);
 
-    const startNLSearch = () => {
-        if (text?.trim() && typeof fetchNLSearch === 'function') {
-            wasCancelled.current = false;
-            clearNLCache();
-            // reset so an identical hash from a repeated search will trigger
-            // a fetch to the hash endpoint
-            setHash(undefined);
-            fetchNLSearch();
-            dispatch(setIsNLSearchComplete(false));
-            dispatch(setIsNLSearchError(false));
-        }
+    // first ask the query assistant whether the query can be searched; filter search starts from the
+    // searchQuery effect below once the query is answerable (or the user approves the reworded query)
+    const runSearchFor = async (query) => {
         Analytics.event({
             category: 'Smart Assist - Query',
             action: 'Query Submitted',
             label: 'side panel'
         });
+        const trimmed = query?.trim();
+        if (trimmed) {
+            wasCancelled.current = false;
+            clearNLCache();
+            // reset so an identical hash from a repeated search will trigger
+            // a fetch to the hash endpoint
+            setHash(undefined);
+            setSearchQuery(undefined);
+            setAssistantState({ status: QUERY_ASSISTANT_STATUS.CHECKING, result: null });
+            dispatch(setIsNLSearchComplete(false));
+            dispatch(setIsNLSearchError(false));
+
+            let result;
+            try {
+                result = await checkQuery(trimmed);
+            }
+            catch {
+                // a newer check or a cancel replaced this one
+                return;
+            }
+            if (wasCancelled.current) {
+                return;
+            }
+
+            setAssistantState({ status: QUERY_ASSISTANT_STATUS.DONE, result });
+            if (result.verdict === QUERY_ASSISTANT_VERDICT.ANSWERABLE) {
+                setSearchQuery(trimmed);
+            }
+            else {
+                // wait for the user: approve/edit a rewrite, or pick a suggestion
+                dispatch(setIsNLSearchComplete(true));
+            }
+            Analytics.event({
+                category: 'Smart Assist - Query Assistant',
+                action: 'Verdict',
+                label: result.verdict
+            });
+        }
     };
 
-    const request = useRef();
-    const wasCancelled = useRef(false);
+    const startNLSearch = () => runSearchFor(text);
+
+    const approveRewrite = (rewrittenQuery) => {
+        Analytics.event({
+            category: 'Smart Assist - Query Assistant',
+            action: 'Rewrite Approved',
+            label: 'side panel'
+        });
+        setAssistantState((previous) => ({ ...previous, status: QUERY_ASSISTANT_STATUS.APPROVED }));
+        dispatch(setIsNLSearchComplete(false));
+        setSearchQuery(rewrittenQuery);
+    };
+
+    const editRewrite = (rewrittenQuery) => {
+        Analytics.event({
+            category: 'Smart Assist - Query Assistant',
+            action: 'Rewrite Edited',
+            label: 'side panel'
+        });
+        setAssistantState({ status: QUERY_ASSISTANT_STATUS.IDLE, result: null });
+        setText(sanitizeNLInput(rewrittenQuery).trim().slice(0, NL_INPUT_MAX_CHARS));
+        dispatch(setIsSearchActive(false));
+    };
+
+    const selectSuggestion = (suggestion) => {
+        Analytics.event({
+            category: 'Smart Assist - Query Assistant',
+            action: 'Suggestion Selected',
+            label: 'side panel'
+        });
+        setText(suggestion);
+        runSearchFor(suggestion);
+    };
+
+    useEffect(() => {
+        if (searchQuery && typeof fetchNLSearch === 'function') {
+            fetchNLSearch();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchQuery]);
 
     const handleCancelQuery = () => {
         wasCancelled.current = true;
+        cancelCheck();
+        setAssistantState({ status: QUERY_ASSISTANT_STATUS.IDLE, result: null });
         if (request.current) {
             request.current.cancel();
             request.current = null;
@@ -191,12 +263,15 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 ) :
                 (
                     <NLSidebarContent
-                        hintOnClick={hintOnClick}
                         text={text}
                         setText={setText}
                         startNLSearch={startNLSearch}
                         data={parsedData}
-                        cancelQuery={handleCancelQuery} />
+                        cancelQuery={handleCancelQuery}
+                        assistantState={assistantState}
+                        onApproveRewrite={approveRewrite}
+                        onEditRewrite={editRewrite}
+                        onSelectSuggestion={selectSuggestion} />
                 )}
         </div>
     );
@@ -236,12 +311,15 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 ) :
                 (
                     <NLSidebarContent
-                        hintOnClick={hintOnClick}
                         text={text}
                         setText={setText}
                         startNLSearch={startNLSearch}
                         data={parsedData}
-                        cancelQuery={handleCancelQuery} />
+                        cancelQuery={handleCancelQuery}
+                        assistantState={assistantState}
+                        onApproveRewrite={approveRewrite}
+                        onEditRewrite={editRewrite}
+                        onSelectSuggestion={selectSuggestion} />
                 )}
         </div>
     );

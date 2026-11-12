@@ -1,5 +1,6 @@
 @import "searchFilter";
 @import "../../components/checkboxTree/checkboxTree";
+@import "queryAssistantResponse";
 
 @keyframes nl-submit-border-spin {
   to {
@@ -152,6 +153,42 @@
 
       &.response {
         min-height: rem(356);
+      }
+
+      // start view: the prompt and text area, then the button, then the examples, so no tall fixed height
+      &.compact {
+        min-height: 0;
+      }
+
+      // keep the Search button close to the text area, and leave more room between it and the examples.
+      // The character count and Clear Input sit inside the text area, along the bottom edge.
+      &.start {
+        margin-bottom: 0;
+
+        .sidebar-body-row {
+          .sidebar-textarea-wrapper {
+            position: relative;
+            margin-bottom: rem(8);
+          }
+
+          // leave room under the typed text for the row of controls
+          .sidebar-textarea {
+            display: block;
+            padding-bottom: rem(32);
+          }
+
+          .textarea-char-row {
+            position: absolute;
+            left: rem(12);
+            right: rem(12);
+            bottom: rem(8);
+            margin: 0;
+          }
+        }
+      }
+
+      &.examples {
+        margin-top: rem(24);
       }
     }
 
