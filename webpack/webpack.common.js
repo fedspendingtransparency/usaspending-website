@@ -12,6 +12,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
+// default to 'prod' when ENV is not set by the environment
+process.env.ENV = process.env.ENV || 'prod';
+
 module.exports = {
     entry: {
         app: "./index.js"
@@ -159,7 +162,7 @@ module.exports = {
             ]
         }),
         new webpack.DefinePlugin({
-            'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
+            'process.env.ENV': JSON.stringify(process.env.ENV),
             'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
         })
     ]
