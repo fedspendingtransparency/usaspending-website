@@ -7,6 +7,7 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOpportunityTotals';
 import AwardSection from '../shared/AwardSection';
 import ExpandableAwardSection from '../shared/ExpandableAwardSection';
+import { sanitizeUrl } from '../../../helpers/url';
 
 const propTypes = {
     currentCfda: PropTypes.shape({
@@ -72,9 +73,9 @@ const SingleCFDA = ({ currentCfda }) => {
                     <h5>Administrative Agency</h5>
                     <p>{cfdaFederalAgency}</p>
                     <h5>Website</h5>
-                    <a href={cfdaWebsite}>{cfdaWebsite}</a>
+                    <a href={sanitizeUrl(cfdaWebsite)}>{cfdaWebsite}</a>
                     <h5>SAM.gov Page</h5>
-                    <a href={samWebsite}>{samWebsite}</a>
+                    <a href={sanitizeUrl(samWebsite)}>{samWebsite}</a>
                 </ExpandableAwardSection>
             </div>
         </AwardSection>

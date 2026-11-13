@@ -46,9 +46,30 @@ const isBaseURL = (val) => {
     return val.startsWith('https://www.usaspending.gov/');
 };
 
+export const sanitizeBlobUrl = (rawURL, blockRedirect = true) => {
+    let parsed = isRealUrl(rawURL);
+    // not a real url
+    if (!parsed) return null;
+
+    // For blob
+    if (parsed.protocol !== "blob:") return null;
+
+    if (blockRedirect) {
+        const params = [...parsed.searchParams.entries()];
+
+        // remove open-direct query params
+        // allow valid urls.
+        for (const [key, value] of params) {
+            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)) {
+                parsed.searchParams.delete(key);
+            }
+        }
+    }
+
+    return encodeURI(parsed.toString());
+};
 export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
-
     // not a real url
     if (!parsed) return null;
 
@@ -71,6 +92,22 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     }
 
     return encodeURI(parsed.toString());
+};
+export const sanitizeRelativeUrl = (relUrl) => {
+    if (typeof relUrl !== 'string') return '#';
+
+    // Trim whitespace
+    const trimmed = relUrl.trim();
+
+    // Regex to ensure it only starts with '/' or './' followed by alphanumeric or safe symbols.
+    // This explicitly blocks 'javascript:', 'data:', 'http://', and '//' protocol-relative links.
+    const isSafeRelative = /^(\/|\.\/)(?!\/)[a-zA-Z0-9\-._~%!$&'()*+,;=:@/]*$/.test(trimmed);
+
+    if (isSafeRelative) {
+        return trimmed;
+    }
+
+    return '/';
 };
 
 export const sanitizeMailUrl = (rawURL) => {

@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
+import { sanitizeUrl } from '../../../helpers/url';
 
 const propTypes = {
     href: PropTypes.string,
@@ -52,7 +53,7 @@ const SmartLink = ({ href, children }) => {
     // external links should open in a new window
     return (
         <a
-            href={href}
+            href={sanitizeUrl(href)}
             target="_blank"
             rel="noopener noreferrer">
             {children}

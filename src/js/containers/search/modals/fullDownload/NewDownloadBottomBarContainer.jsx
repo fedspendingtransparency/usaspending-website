@@ -19,6 +19,7 @@ import {
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+import { sanitizeUrl } from '../../../../helpers/url';
 
 const propTypes = {
     download: PropTypes.object,
@@ -67,7 +68,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.removeEventListener('beforeunload', windowWillClose);
 
         // start the download
-        window.open(fileUrl, '_self');
+        window.open(sanitizeUrl(fileUrl), '_self');
 
         // update redux
         dispatch(setDownloadPending(false));
