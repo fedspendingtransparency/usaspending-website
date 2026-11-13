@@ -3,8 +3,8 @@
  * Created by JD House 11/10/2026
  */
 
-import { useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useMemo } from 'react';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { fetchLocations } from '../../../../helpers/searchHelper';
 import { getParsedLocations } from '../../../../helpers/search/locationAutocompleteHelper';
@@ -15,7 +15,7 @@ const LIMIT = 5;
 const useFetchLocationAutocomplete = (searchText) => {
     const enabled = searchText.length >= MIN_SEARCH_LENGTH;
 
-    const { data, isFetching, isError } = useQuery({
+    const { data, isFetching, isError, error } = useQuery({
         queryKey: ['locationAutocomplete', searchText],
         queryFn: ({ signal }) => {
             const request = fetchLocations({ search_text: searchText, limit: LIMIT });
@@ -23,8 +23,16 @@ const useFetchLocationAutocomplete = (searchText) => {
             return request.promise.then((res) => res.data);
         },
         enabled,
-        retry: false
+        retry: false,
+        // keep the previous suggestions while a new term loads, and treat results as fresh so
+        // revisiting a cached term doesn't show stale items while it refetches
+        placeholderData: keepPreviousData,
+        staleTime: 60 * 1000
     });
+
+    useEffect(() => {
+        if (isError) console.error(error);
+    }, [isError, error]);
 
     // treat a failed request like an empty result so the user isn't left with a blank dropdown
     const noResults = enabled && !isFetching && (isError || data?.count === 0);

@@ -119,6 +119,63 @@ describe('useFetchLocationAutocomplete', () => {
         expect(getParsedLocations).not.toHaveBeenCalled();
     });
 
+    it('sets noResults and logs the error when the request fails', async () => {
+        const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+        const failure = new Error('boom');
+        fetchLocations.mockReturnValue({ promise: Promise.reject(failure), cancel: jest.fn() });
+
+        const { result } = renderUseFetch('abc');
+
+        await waitFor(() => expect(result.current.noResults).toBe(true));
+        expect(result.current.locations).toEqual([]);
+        expect(consoleError).toHaveBeenCalledWith(failure);
+        consoleError.mockRestore();
+    });
+
+    it('returns no locations when the response has no results object', async () => {
+        fetchLocations.mockReturnValue(mockResponse({ count: 2 }));
+
+        const { result } = renderUseFetch('abc');
+
+        await waitFor(() => expect(result.current.isLoading).toBe(false));
+        expect(result.current.locations).toEqual([]);
+        expect(getParsedLocations).not.toHaveBeenCalled();
+    });
+
+    it('clears locations when the search text shrinks below 3 characters', async () => {
+        fetchLocations.mockReturnValue(mockResponse(mockData));
+
+        const wrapper = createWrapper();
+        const { result, rerender } = renderHook(
+            ({ text }) => useFetchLocationAutocomplete(text),
+            { wrapper, initialProps: { text: 'abc' } }
+        );
+
+        await waitFor(() => expect(result.current.locations.length).toBe(2));
+
+        rerender({ text: 'ab' });
+
+        expect(result.current.locations).toEqual([]);
+        expect(result.current.noResults).toBe(false);
+        expect(result.current.isLoading).toBe(false);
+    });
+
+    it('keeps the previous locations while a new term is loading', async () => {
+        fetchLocations.mockReturnValueOnce(mockResponse(mockData));
+
+        const { result, rerender } = renderHook(
+            ({ text }) => useFetchLocationAutocomplete(text),
+            { wrapper: createWrapper(), initialProps: { text: 'abc' } }
+        );
+        await waitFor(() => expect(result.current.locations.length).toBe(2));
+
+        fetchLocations.mockReturnValueOnce({ promise: new Promise(() => {}), cancel: jest.fn() });
+        rerender({ text: 'abcd' });
+
+        expect(result.current.isLoading).toBe(true);
+        expect(result.current.locations.length).toBe(2);
+    });
+
     it('cancels the request when the query is aborted', async () => {
         const cancel = jest.fn();
         fetchLocations.mockReturnValue({ promise: new Promise(() => {}), cancel });

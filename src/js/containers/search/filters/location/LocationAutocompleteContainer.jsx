@@ -3,7 +3,7 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -34,6 +34,7 @@ const LocationAutocompleteContainer = ({
     const [searchText, setSearchText] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
+    const [isDebouncing, setIsDebouncing] = useState(false);
     const {
         recipientDomesticForeign, locationDomesticForeign
     } = useSelector((state) => state.filters);
@@ -42,9 +43,14 @@ const LocationAutocompleteContainer = ({
 
     const timeoutRef = useRef(null);
 
-    useEffect(() => () => window.clearTimeout(timeoutRef.current), []);
-
     const { locations, noResults, isLoading } = useFetchLocationAutocomplete(searchText);
+
+    // Swapping to [] while the user types and back when the debounce fires gives Autocomplete
+    // a new `values` reference, so the dropdown reopens even when the search text is unchanged.
+    const suggestions = useMemo(
+        () => (isDebouncing ? [] : locations),
+        [isDebouncing, locations]
+    );
 
     const createLocationObjectByType = (location) => {
         if (activeTab === 'recipient') {
@@ -57,6 +63,7 @@ const LocationAutocompleteContainer = ({
 
     const clearAutocompleteSuggestions = useCallback(() => {
         window.clearTimeout(timeoutRef.current);
+        setIsDebouncing(false);
         setSearchText('');
         setReadyToStage(false);
     }, []);
@@ -90,10 +97,13 @@ const LocationAutocompleteContainer = ({
     const handleTextInput = (locationInput) => {
         const input = locationInput.target.value;
         window.clearTimeout(timeoutRef.current);
-        // invalidate any prior selection immediately so Add can't stage a stale item
+        // invalidate any prior selection and hide stale suggestions immediately so the
+        // user can't pick or stage an item that no longer matches the input
         setReadyToStage(false);
+        setIsDebouncing(true);
 
         timeoutRef.current = window.setTimeout(() => {
+            setIsDebouncing(false);
             setSearchText(input);
         }, 1000);
     };
@@ -106,7 +116,7 @@ const LocationAutocompleteContainer = ({
     return (
         <LocationAutocomplete
             activeTab={activeTab}
-            locations={locations}
+            locations={suggestions}
             handleTextInput={handleTextInput}
             selectItem={selectItem}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
