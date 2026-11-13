@@ -44,8 +44,8 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         }
 
         const events = convertFiltersToAnalyticEvents(stagedFilters);
-        const searchOrigin = isSearchActive ? "Smart Assist" : "Advanced Search";
-        sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters", searchOrigin);
+
+        sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters", isSearchActive);
     }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
 
     const onKeyUp = useCallback((e) => {
