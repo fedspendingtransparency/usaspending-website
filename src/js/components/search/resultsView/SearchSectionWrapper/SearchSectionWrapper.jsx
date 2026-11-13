@@ -5,10 +5,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import Analytics from 'helpers/analytics/Analytics';
+import { logSectionDSMEvent, logSectionViewEvent } from "containers/search/helpers/searchEvents";
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
 import SearchSectionWrapperContent from "./SearchSectionWrapperContent";
+import { useSelector } from "react-redux";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -82,6 +83,7 @@ const SearchSectionWrapper = ({
     const [viewType, setViewType] = useState('chart');
 
     const gaRef = useRef(false);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const mobileDropdownOptions = [];
 
@@ -96,11 +98,7 @@ const SearchSectionWrapper = ({
 
     useEffect(() => {
         if (gaRef.current) {
-            Analytics.event({
-                category: `Section ${sectionName}: ${selectedDropdownOption}`,
-                action: `Viewed ${selectedDropdownOption} ${viewType}`,
-                label: hash
-            });
+            logSectionViewEvent(sectionName, selectedDropdownOption, viewType, hash, isSearchActive);
         }
         else {
             gaRef.current = true;
@@ -136,11 +134,7 @@ const SearchSectionWrapper = ({
         }
 
         if (trackDSMEvent) {
-            Analytics.event({
-                category: 'Advanced Search - Results View DSM',
-                action,
-                label: `${prefix} DS&M`
-            });
+            logSectionDSMEvent(prefix, action, isSearchActive);
         }
         setTrackDSMEvent(true);
 

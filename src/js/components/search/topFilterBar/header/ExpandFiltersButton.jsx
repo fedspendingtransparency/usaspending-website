@@ -2,14 +2,9 @@ import { Button } from "data-transparency-ui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import Analytics from "helpers/analytics/Analytics";
 
-const logExpandEvent = (type) => {
-    Analytics.event({
-        category: "Advanced Search - Active Filters",
-        action: `${type} Filters`
-    });
-};
+import { useSelector } from "react-redux";
+import { logExpandEvent } from 'containers/search/helpers/searchEvents';
 
 const propTypes = {
     appliedFilters: PropTypes.object,
@@ -20,12 +15,14 @@ const propTypes = {
 const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilters }) => {
     const [needExpandButton, setNeedExpandButton] = useState(false);
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     const chevronIcon = useMemo(() => (
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);
 
     const onClick = useCallback(() => setExpandedFilters((prevState) => {
-        logExpandEvent(!prevState ? "Expand" : "Collapse");
+        logExpandEvent(!prevState ? "Expand" : "Collapse", isSearchActive);
 
         return !prevState;
     }), [setExpandedFilters]);

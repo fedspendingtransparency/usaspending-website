@@ -2,14 +2,18 @@
  * useFireQueryEvent.jsx
  * Created by Josue Aguilar, 9/10/2026
  */
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import Cookies from 'js-cookie';
-import { useLocation } from 'react-router';
-import { getObjFromQueryParams } from '../helpers/searchHelper';
-import Analytics from '../helpers/analytics/Analytics';
+import { useLocation } from "react-router";
+import { useSelector } from "react-redux";
+
+import { getObjFromQueryParams } from "../helpers/searchHelper";
+import Analytics from "../helpers/analytics/Analytics";
+import { setSearchOrigin } from "../containers/search/helpers/searchEvents";
 
 const useFireQueryEvent = () => {
     const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     useEffect(() => {
         // ok to rewrite with each page reload
@@ -32,7 +36,8 @@ const useFireQueryEvent = () => {
                         category: 'Advanced Search - Time to First Query',
                         action: 'query_submit',
                         label: `${timerInSeconds} seconds`,
-                        time_to_query: timerInSeconds
+                        time_to_query: timerInSeconds,
+                        method: setSearchOrigin(isSearchActive)
                     });
                 }
 

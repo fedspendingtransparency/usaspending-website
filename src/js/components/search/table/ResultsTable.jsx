@@ -6,10 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, Table } from 'data-transparency-ui';
-import ResultsTableRow from '../../../models/v2/search/ResultsTableRow';
+import ResultsTableRow from 'models/v2/search/ResultsTableRow';
 
 const propTypes = {
-    results: PropTypes.array,
     columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
@@ -28,13 +27,29 @@ const propTypes = {
     referenceData: PropTypes.array
 };
 
-const ResultsTable = (props) => {
+const ResultsTable = ({
+    results,
+    columns,
+    spendingLevel,
+    sort,
+    updateSort,
+    page,
+    setPage,
+    setResultLimit,
+    isMobile,
+    federalAccountPage,
+    currentType,
+    columnType,
+    resultsCount,
+    resultsLimit
+}) => {
     // eslint-disable-next-line no-unused-vars
     const [windowHeight, setWindowHeight] = useState(0);
     // eslint-disable-next-line no-unused-vars
     const [tableHeight, setTableHeight] = useState(0);
+
     // eslint-disable-next-line no-unused-vars
-    const [activateRightFade, setActivateRightFade] = useState(!props.isMobile);
+    const [activateRightFade, setActivateRightFade] = useState(!isMobile);
 
     const measureHeight = () => {
         const tableHeightlocal = document.getElementById("advanced-search__table-wrapper").offsetHeight;
@@ -43,8 +58,8 @@ const ResultsTable = (props) => {
     };
 
     const prepareDTUIColumns = () => {
-        const columnOrder = props.columns.visibleOrder;
-        const orderedColumns = columnOrder.map((columnTitle) => props.columns.data[columnTitle]);
+        const columnOrder = columns.visibleOrder;
+        const orderedColumns = columnOrder.map((columnTitle) => columns.data[columnTitle]);
 
         // the columns passed in don't have the right properties, if we
         // don't do this sort won't work
@@ -62,15 +77,15 @@ const ResultsTable = (props) => {
         // page = 2, need 10 - 19 etc
         // (page * limit) - 1 end
         // (page - 1) * limit start
-        const arrayOfObjects = props.results;
+        const arrayOfObjects = results;
         let values;
 
         // check for prime awards && loans
         if (
-            props.spendingLevel === 'awards' ||
-            props.federalAccountPage === true
+            spendingLevel === 'awards' ||
+            federalAccountPage === true
         ) {
-            if (props.currentType === "loans") {
+            if (currentType === "loans") {
                 values = arrayOfObjects.map((obj) => {
                     const loanrow = Object.create(ResultsTableRow);
                     loanrow.populateLoan(obj);
@@ -78,7 +93,7 @@ const ResultsTable = (props) => {
                 });
                 return values;
             }
-            else if (props.currentType === "direct_payments") {
+            else if (currentType === "direct_payments") {
                 values = arrayOfObjects.map((obj) => {
                     const directPaymentRow = Object.create(ResultsTableRow);
                     directPaymentRow.populateDirectPayment(obj);
@@ -88,7 +103,7 @@ const ResultsTable = (props) => {
             }
 
             // grants and other
-            else if (props.currentType === "grants" || props.currentType === "other") {
+            else if (currentType === "grants" || currentType === "other") {
                 values = arrayOfObjects.map((obj) => {
                     const grantRow = Object.create(ResultsTableRow);
                     grantRow.populateGrant(obj);
@@ -108,12 +123,12 @@ const ResultsTable = (props) => {
         }
 
         // check for transactions
-        else if (props.spendingLevel === 'transactions') {
+        else if (spendingLevel === 'transactions') {
             // check for contract or contract idv
             if (
-                props.currentType === "transaction_contracts" ||
-                props.currentType === "transaction_idvs" ||
-                props.currentType === "contracts"
+                currentType === "transaction_contracts" ||
+                currentType === "transaction_idvs" ||
+                currentType === "contracts"
             ) {
                 values = arrayOfObjects.map((obj) => {
                     const transactionContractRow = Object.create(ResultsTableRow);
@@ -136,11 +151,11 @@ const ResultsTable = (props) => {
         // TODO: i have a feeling this will need to be adjusted in the future for some group by options for subawards
         // the same may be true for transactions
         if (
-            props.currentType === "subcontracts" ||
+            currentType === "subcontracts" ||
             (
-                props.columnType === "subawards" &&
+                columnType === "subawards" &&
                 (
-                    props.currentType === "contracts" || props.currentType === "idvs"
+                    currentType === "contracts" || currentType === "idvs"
                 )
             )) {
             values = arrayOfObjects.map((obj) => {
@@ -168,13 +183,13 @@ const ResultsTable = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.isMobile) {
+        if (isMobile) {
             setActivateRightFade(false);
         }
         else {
             setActivateRightFade(true);
         }
-    }, [props.isMobile]);
+    }, [isMobile]);
 
     // for table height take the height of the viewport
     // subtract the sticky header part on the top of the page
@@ -189,20 +204,20 @@ const ResultsTable = (props) => {
                 id="advanced-search__table-wrapper">
                 <Table
                     classNames="table-for-new-search-page award-results-table-dtui"
-                    stickyFirstColumn={!props.isMobile}
+                    stickyFirstColumn={!isMobile}
                     columns={prepareDTUIColumns()}
                     rows={prepareDTUIRows()}
-                    rowHeight={props.isMobile ? null : 58}
+                    rowHeight={isMobile ? null : 58}
                     headerRowHeight={45}
-                    highlightedColumns={props.spendingLevel === 'subawards' ?
+                    highlightedColumns={spendingLevel === 'subawards' ?
                         {
                             standardColumns: 9,
-                            highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
+                            highlightedColumns: currentType === 'subcontracts' ? 7 : 6
                         } :
                         null}
-                    currentSort={props.sort}
-                    updateSort={props.updateSort}
-                    isMobile={props.isMobile}
+                    currentSort={sort}
+                    updateSort={updateSort}
+                    isMobile={isMobile}
                     isStacked
                     newMobileView />
 
@@ -210,12 +225,12 @@ const ResultsTable = (props) => {
             <Pagination
                 resultsText
                 limitSelector
-                hideLast={props.resultsCount >= 50000}
-                currentPage={props.page}
-                pageSize={props.resultsLimit}
-                changePage={props.setPage}
-                changeLimit={props.setResultLimit}
-                totalItems={props.resultsCount} />
+                hideLast={resultsCount >= 50000}
+                currentPage={page}
+                pageSize={resultsLimit}
+                changePage={setPage}
+                changeLimit={setResultLimit}
+                totalItems={resultsCount} />
         </>
     );
 };

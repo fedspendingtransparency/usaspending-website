@@ -5,15 +5,15 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import Analytics from '../../../../helpers/analytics/Analytics';
 import TimeVisualizationSectionContainer
-    from '../../../../containers/search/resultsView/TimeVisualizationSectionContainer';
+    from 'containers/search/resultsView/TimeVisualizationSectionContainer';
+import useQueryParams from 'hooks/useQueryParams';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { logResultsOverTimeEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
 import PlaceholderComponent from '../PlaceholderComponent';
 import TimeDsm from './TimeDsm';
-import useQueryParams from '../../../../hooks/useQueryParams';
-import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
-import logVisualizationViewEvent from '../logVisualizationViewEvent';
 
 const propTypes = {
     hash: PropTypes.string,
@@ -29,20 +29,17 @@ const TimeSection = ({
         threshold: 0.1,
         freezeOnceVisible: true
     });
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     useEffect(() => {
         if (timeHasLoaded) {
-            logVisualizationViewEvent('time', hash);
+            logVisualizationViewEvent('time', hash, isSearchActive);
         }
     }, [timeHasLoaded, hash]);
 
     const onClick = useCallback((e) => {
         setVisualizationPeriod(e);
-        Analytics.event({
-            category: 'Section Time',
-            action: `View ${e}`,
-            label: hash
-        });
+        logResultsOverTimeEvent(e, hash, isSearchActive);
     }, [hash]);
     const wrapperProps = {
         sectionTitle: 'Results Over Time',

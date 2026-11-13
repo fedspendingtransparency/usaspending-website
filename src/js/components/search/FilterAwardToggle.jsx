@@ -5,10 +5,10 @@
 
 import React, { useState, useCallback, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from "react-router";
-import Analytics from 'helpers/analytics/Analytics';
 import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
+import { logViewBySubawardsEvent } from "containers/search/helpers/searchEvents";
 
 const propTypes = {
     selectedValue: PropTypes.string,
@@ -25,6 +25,7 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
     const [selected, setSelected] = useState(selectedValue);
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     useEffect(() => {
         if (window.location.href.includes("subawards") || queryParam) {
@@ -56,13 +57,7 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
             else {
                 // do nothing, subawards in url and setting to subawards
             }
-
-            Analytics.event({
-                event: 'search_subaward_dropdown',
-                category: 'Advanced Search - Search Fields',
-                action: 'Subawards Search',
-                gtm: true
-            });
+            logViewBySubawardsEvent(isSearchActive);
         }
         else if (window.location.href.includes("subawards")) {
             searchParams.delete("subawards");

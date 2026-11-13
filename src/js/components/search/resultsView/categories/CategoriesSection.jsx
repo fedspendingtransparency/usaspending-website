@@ -6,14 +6,15 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
-import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
-    from "../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer";
-import PlaceholderComponent from "../PlaceholderComponent";
-import CategoriesDsm from "./CategoriesDsm";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
+    from 'containers/search/resultsView/CategoriesVisualizationWrapperContainer';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { logCategoriesViewEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
+
+import PlaceholderComponent from '../PlaceholderComponent';
+import CategoriesDsm from './CategoriesDsm';
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -34,19 +35,17 @@ const CategoriesSection = ({
         freezeOnceVisible: true
     });
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     useEffect(() => {
         if (categoriesHasLoaded) {
-            logVisualizationViewEvent("categories", hash);
+            logVisualizationViewEvent('categories', hash, isSearchActive);
         }
     }, [categoriesHasLoaded, hash]);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
-        Analytics.event({
-            category: 'Section Categories',
-            action: `View ${e}`,
-            label: hash
-        });
+        logCategoriesViewEvent(e, hash, isSearchActive);
     };
 
     const wrapperProps = {
