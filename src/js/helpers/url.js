@@ -1,27 +1,27 @@
 export const isRedirectNeeded = (item) => item.externalLink && !item.url.includes('.gov');
 
 const commonAttackParams = new Set([
-    "redirect",
-    "redirect_url",
-    "next",
-    "url",
-    "return",
-    "returnUrl",
-    "return_url",
-    "goto",
-    "destination",
-    "dest",
-    "forward",
-    "user",
-    "userName",
-    "user_name",
-    "password",
-    "login"
+    'redirect',
+    'redirect_url',
+    'next',
+    'url',
+    'return',
+    'returnUrl',
+    'return_url',
+    'goto',
+    'destination',
+    'dest',
+    'forward',
+    'user',
+    'userName',
+    'user_name',
+    'password',
+    'login'
 ]);
 
 const isRealUrl = (rawURL) => {
     // must be non-empty string
-    if (typeof rawURL !== "string" || rawURL.trim() === "") return null;
+    if (typeof rawURL !== 'string' || rawURL.trim() === '') return null;
 
     // strip whitespace + invisible/zero-width unicode characters
     const stripped = rawURL
@@ -53,10 +53,10 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     if (!parsed) return null;
 
     // https only
-    if (parsed.protocol !== "https:") return null;
+    if (parsed.protocol !== 'https:') return null;
 
     // hostname must exist and not just whitespace
-    if (!parsed.hostname || parsed.hostname.trim() === "") return null;
+    if (!parsed.hostname || parsed.hostname.trim() === '') return null;
 
     if (blockRedirect) {
         const params = [...parsed.searchParams.entries()];
