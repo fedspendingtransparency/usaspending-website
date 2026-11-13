@@ -42,6 +42,11 @@ const InPageNav = ({
         threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
+    const inNavClick = (option) => {
+        jumpToSection(option.section);
+        setActiveSection(option.section);
+    };
+
     const initialLoadRef = useRef(true);
     const prefix = `${pageName}-`;
 
@@ -285,8 +290,8 @@ const InPageNav = ({
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
-                                onKeyDown={(e) => (e.key === 'Enter' ? jumpToSection(section.section) : '')}
-                                onClick={() => jumpToSection(section.section)}>
+                                onKeyDown={(e) => (e.key === 'Enter' ? inNavClick(section) : '')}
+                                onClick={() => inNavClick(section)}>
                                 {section.label}
                             </a>
                         </li>
