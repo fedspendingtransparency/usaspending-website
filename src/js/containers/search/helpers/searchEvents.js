@@ -1,7 +1,7 @@
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from './searchAnalytics';
 
-const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
+export const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
 
 export const logSectionViewEvent = (sectionName, selectedDropdownOption, viewType, hash, isNLSearchActive) => {
     Analytics.event({

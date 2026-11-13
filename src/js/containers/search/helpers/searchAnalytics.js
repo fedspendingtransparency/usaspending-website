@@ -18,6 +18,7 @@ import {
 } from 'dataMapping/search/contractFields';
 
 import Analytics from 'helpers/analytics/Analytics';
+import { setSearchOrigin } from './searchEvents';
 
 const eventCategory = 'Advanced Search - Search Filter';
 
@@ -284,7 +285,7 @@ export const sendFieldCombinations = (events, category = 'Advanced Search - Sear
     });
 };
 
-export const sendFieldCombinationsOnUpdate = (events, category, action, method) => {
+export const sendFieldCombinationsOnUpdate = (events, category, action, isNLSearchActive) => {
     // record the filter field combinations that were selected
     // extract the action label from each event and then eliminate duplicates
     const fields = uniq(events.reduce((parsed, event) => {
@@ -300,7 +301,7 @@ export const sendFieldCombinationsOnUpdate = (events, category, action, method) 
         action,
         label: fields.sort().join('|'),
         gtm: true,
-        method: method
+        method: setSearchOrigin(isNLSearchActive)
     });
 };
 
