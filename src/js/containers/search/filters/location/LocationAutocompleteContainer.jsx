@@ -3,7 +3,7 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -41,6 +41,8 @@ const LocationAutocompleteContainer = ({
     const { countries } = useFetchAllCountries();
 
     const timeoutRef = useRef(null);
+
+    useEffect(() => () => window.clearTimeout(timeoutRef.current), []);
 
     const { locations, noResults, isLoading } = useFetchLocationAutocomplete(searchText);
 
@@ -88,9 +90,10 @@ const LocationAutocompleteContainer = ({
     const handleTextInput = (locationInput) => {
         const input = locationInput.target.value;
         window.clearTimeout(timeoutRef.current);
+        // invalidate any prior selection immediately so Add can't stage a stale item
+        setReadyToStage(false);
 
         timeoutRef.current = window.setTimeout(() => {
-            setReadyToStage(false);
             setSearchText(input);
         }, 1000);
     };

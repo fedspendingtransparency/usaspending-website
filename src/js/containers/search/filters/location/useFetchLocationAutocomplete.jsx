@@ -15,20 +15,22 @@ const LIMIT = 5;
 const useFetchLocationAutocomplete = (searchText) => {
     const enabled = searchText.length >= MIN_SEARCH_LENGTH;
 
-    const { data, isFetching } = useQuery({
+    const { data, isFetching, isError } = useQuery({
         queryKey: ['locationAutocomplete', searchText],
         queryFn: ({ signal }) => {
             const request = fetchLocations({ search_text: searchText, limit: LIMIT });
-            signal?.addEventListener('abort', () => request.cancel());
+            signal?.addEventListener('abort', () => request.cancel(), { once: true });
             return request.promise.then((res) => res.data);
         },
-        enabled
+        enabled,
+        retry: false
     });
 
-    const noResults = enabled && !isFetching && data?.count === 0;
+    // treat a failed request like an empty result so the user isn't left with a blank dropdown
+    const noResults = enabled && !isFetching && (isError || data?.count === 0);
 
     const locations = useMemo(() => {
-        if (!enabled || !data || data.count === 0) return [];
+        if (!enabled || !data || data.count === 0 || !data.results) return [];
         const {
             countries,
             states,
