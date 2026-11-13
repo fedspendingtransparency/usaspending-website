@@ -56,7 +56,7 @@ const articles = [
         title: "What is an Award?",
         created_date: "12/03/2026",
         description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold.",
-        feature_sprint: 229,
+        feature_sprint: 230,
         feature_week: 2,
         slug: "what-is-an-award",
         explore_more: [
@@ -125,7 +125,7 @@ const articles = [
         title: "Obligations vs. Outlays",
         created_date: "12/10/2026",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
-        feature_sprint: 229,
+        feature_sprint: 230,
         feature_week: 3,
         slug: "obligations-vs-outlays",
         explore_more: [
@@ -981,7 +981,7 @@ const articles = [
         banner_subtitle: "Discover different ways to explore Social Security-related federal spending on USAspending.gov",
         title: "From Federal Dollars to Retirement Dreams",
         created_date: "11/26/26",
-        feature_sprint: 229,
+        feature_sprint: 230,
         feature_week: 1,
         description: "Maybe it’s traveling across the country, starting a business, spending more time with family or simply having peace of mind about the years ahead. Retirement looks different for everyone.",
         slug: "from-federal-dollars-to-retirement-dreams",
@@ -1021,7 +1021,7 @@ const articles = [
         banner_subtitle: "The Role of the Governmentwide Spending Data Model ",
         title: "Speaking the Same Data Language",
         created_date: "11/26/26",
-        feature_sprint: 229,
+        feature_sprint: 230,
         feature_week: 1,
         description: "When you search for federal spending on USAspending.gov, it’s easy to focus on the numbers. But there’s so much more that happens behind the scenes that you don’t see.",
         slug: "speaking-the-same-data-language",
@@ -1034,7 +1034,7 @@ const articles = [
             {
                 label: "Governmentwide Spending Data Model",
                 slug: "https://tfx.treasury.gov/data-transparency/gsdm",
-                type: "external"
+                type: "internal"
             },
             {
                 label: "Understanding Our Trusted Data",
