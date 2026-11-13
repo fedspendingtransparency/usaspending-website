@@ -631,6 +631,7 @@
         padding: rem(12);
         margin: 0 0 $global-margin $global-margin;
         border-radius: rem(4) 0 0 rem(4);
+        width: calc(100% - #{$global-margin});
 
         &:first-of-type {
           margin-top: 3 * $global-margin;
