@@ -85,6 +85,9 @@
   justify-content: flex-end;
   margin-top: rem(60);
   padding: 0;
+  @media (max-width: $medium-screen) {
+    margin-top: rem(40);
+  }
 
   button:focus {
     box-shadow: none;
