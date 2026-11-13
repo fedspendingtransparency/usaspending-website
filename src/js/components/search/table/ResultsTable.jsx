@@ -5,7 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { Pagination, Table } from 'data-transparency-ui';
 import ResultsTableRow from 'models/v2/search/ResultsTableRow';
 
