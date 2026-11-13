@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpers/searchHelper";
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
 import BaseSpendingByCategoryResult from "../../../models/v2/search/visualizations/rank/BaseSpendingByCategoryResult";
 import { logCategorySelectionEvent } from "../helpers/searchEvents";
-import { useSelector } from "react-redux";
 
 // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
 const getSpendingLevel = (spendingLevel) => {
