@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -10,14 +11,25 @@ import MegaMenuWrapper from '../megaMenu/MegaMenuWrapper';
 import GovBanner from "./GovBanner";
 import InfoBanner from './InfoBanner';
 
+const isBannerInDateRange = (banner) => {
+    const now = dayjs();
+    if (banner.startDate && now.isBefore(dayjs(banner.startDate))) {
+        return false;
+    }
+    if (banner.endDate && now.isAfter(dayjs(banner.endDate))) {
+        return false;
+    }
+    return true;
+};
+
 const Header = () => {
     const location = useLocation();
 
     const siteBannersArray = bannerContent?.filter(
-        (banner) => banner.isActive && banner.page === "site wide"
+        (banner) => banner.isActive && banner.page === "site wide" && isBannerInDateRange(banner)
     );
     const pageBannersArray = bannerContent?.filter(
-        (banner) => banner.isActive && location?.pathname === banner.page
+        (banner) => banner.isActive && location?.pathname === banner.page && isBannerInDateRange(banner)
     );
 
     const [activeSiteBanners, setActiveSiteBanners] = useState([]);
