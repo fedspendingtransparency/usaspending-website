@@ -21,7 +21,7 @@ import ResultsTableSection from 'components/search/resultsView/table/ResultsTabl
 import SearchSectionWrapper from
     "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
-import { logAwardIdClickEvent, logResultsTable, logSubAwardIdClickEvent } from "../helpers/searchEvents";
+import { logAwardIdClickEvent, logResultsTableTabChangeEvent, logSubAwardIdClickEvent } from "../helpers/searchEvents";
 
 const createColumn = (col) => {
     // create an object that integrates with the expected column data structure used by
@@ -147,7 +147,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             setSort(Object.assign(newState.sort));
         }
         setPage(1);
-        logResultsTable(tab, isSearchActive);
+        logResultsTableTabChangeEvent(tab, isSearchActive);
     };
 
     const parseTabCounts = () => {

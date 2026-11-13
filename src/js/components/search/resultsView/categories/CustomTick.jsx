@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Text } from "recharts";
 import { useSelector } from 'react-redux';
-import { logSectionCategoriesFromChartEvent } from "containers/search/helpers/searchEvents";
+import { logCategoriesLinkClickEvent } from "containers/search/helpers/searchEvents";
 
 const tickFormatter = (value, isDesktopSm) => {
     const limit = isDesktopSm ? 34 : 36; // put your maximum character
@@ -45,7 +45,7 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
                 (
                     <a
                         href={`${link[payload.index].link}`}
-                        onClick={() => logSectionCategoriesFromChartEvent(
+                        onClick={() => logCategoriesLinkClickEvent(
                             payload.value,
                             scope,
                             hash,

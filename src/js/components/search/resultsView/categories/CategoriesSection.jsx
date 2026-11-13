@@ -9,12 +9,13 @@ import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
 
 import CategoriesVisualizationWrapperContainer
-    from '../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer';
+    from 'containers/search/resultsView/CategoriesVisualizationWrapperContainer';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { logCategoriesViewEvent } from "containers/search/helpers/searchEvents";
+
+import logVisualizationViewEvent from '../logVisualizationViewEvent';
 import PlaceholderComponent from '../PlaceholderComponent';
 import CategoriesDsm from './CategoriesDsm';
-import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
-import logVisualizationViewEvent from '../logVisualizationViewEvent';
-import { viewSectionCategories } from "../../../../containers/search/helpers/searchEvents";
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -46,7 +47,7 @@ const CategoriesSection = ({
 
     const onClick = (e) => {
         setSelectedDropdown(e);
-        viewSectionCategories(e, hash, isSearchActive);
+        logCategoriesViewEvent(e, hash, isSearchActive);
     };
 
     const wrapperProps = {

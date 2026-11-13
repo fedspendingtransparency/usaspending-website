@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { sectionDSMEvent, searchSectionWrapper } from "containers/search/helpers/searchEvents";
+import { logSectionDSMEvent, logSectionViewEvent } from "containers/search/helpers/searchEvents";
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
 import SearchSectionWrapperContent from "./SearchSectionWrapperContent";
@@ -98,7 +98,7 @@ const SearchSectionWrapper = ({
 
     useEffect(() => {
         if (gaRef.current) {
-            searchSectionWrapper(sectionName, selectedDropdownOption, viewType, hash, isSearchActive);
+            logSectionViewEvent(sectionName, selectedDropdownOption, viewType, hash, isSearchActive);
         }
         else {
             gaRef.current = true;
@@ -134,7 +134,7 @@ const SearchSectionWrapper = ({
         }
 
         if (trackDSMEvent) {
-            sectionDSMEvent(prefix, action, isSearchActive);
+            logSectionDSMEvent(prefix, action, isSearchActive);
         }
         setTrackDSMEvent(true);
 

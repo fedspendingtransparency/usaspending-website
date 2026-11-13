@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 import Accordion from 'components/sharedComponents/accordion/Accordion';
-import { toggleFilterAccordion } from "containers/search/helpers/searchEvents";
+import { logToggleFilterAccordionEvent } from "containers/search/helpers/searchEvents";
 
 const propTypes = {
     title: PropTypes.string,
@@ -30,8 +30,8 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
 
         if (isOpen && !hasOpened) setHasOpened(true);
 
-        toggleFilterAccordion(isOpen, isSearchActive);
-    }, [title, hasOpened]);
+        logToggleFilterAccordionEvent(isOpen, title, isSearchActive);
+    }, [title, hasOpened, isSearchActive]);
 
     return (
         <div className="search-filters-list">

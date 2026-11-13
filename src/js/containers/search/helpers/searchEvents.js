@@ -1,9 +1,9 @@
-import Analytics from '../../../helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from './searchAnalytics';
 
 const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
 
-export const searchSectionWrapper = (sectionName, selectedDropdownOption, viewType, hash, isNLSearchActive) => {
+export const logSectionViewEvent = (sectionName, selectedDropdownOption, viewType, hash, isNLSearchActive) => {
     Analytics.event({
         category: `Section ${sectionName}: ${selectedDropdownOption}`,
         action: `Viewed ${selectedDropdownOption} ${viewType}`,
@@ -12,7 +12,7 @@ export const searchSectionWrapper = (sectionName, selectedDropdownOption, viewTy
     });
 };
 
-export const sectionDSMEvent = (action, prefix, isNLSearchActive) => {
+export const logSectionDSMEvent = (action, prefix, isNLSearchActive) => {
     Analytics.event({
         category: 'Advanced Search - Results View DSM',
         action,
@@ -29,7 +29,7 @@ export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearch
     });
 };
 
-export const logSectionCategoriesFromChartEvent = (linkName, scope, hash, isNLSearchActive) => {
+export const logCategoriesLinkClickEvent = (linkName, scope, hash, isNLSearchActive) => {
     Analytics.event({
         category: `Section categories: ${scope}`,
         action: `Clicked ${linkName}`,
@@ -38,7 +38,7 @@ export const logSectionCategoriesFromChartEvent = (linkName, scope, hash, isNLSe
     });
 };
 
-export const viewSectionCategories = (e, hash, isNLSearchActive) => {
+export const logCategoriesViewEvent = (e, hash, isNLSearchActive) => {
     Analytics.event({
         category: 'Section Categories',
         action: `View ${e}`,
@@ -47,7 +47,7 @@ export const viewSectionCategories = (e, hash, isNLSearchActive) => {
     });
 };
 
-export const logMapLayerEvent = (layer, isNLSearchActive) => {
+export const logMapLayerChangeEvent = (layer, isNLSearchActive) => {
     Analytics.event({
         event: 'search_map_layer_event',
         category: 'Advanced Search - Map - Map Layer',
@@ -67,7 +67,7 @@ export const logMapScopeEvent = (scope, isNLSearchActive) => {
     });
 };
 
-export const logResultsTable = (tab, isNLSearchActive) => {
+export const logResultsTableTabChangeEvent = (tab, isNLSearchActive) => {
     Analytics.event({
         event: 'search_table_tab',
         category: 'Advanced Search - Table Tab',
@@ -110,7 +110,7 @@ export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActi
     });
 };
 
-export const toggleFilterAccordion = (isOpen, title, isNLSearchActive) => {
+export const logToggleFilterAccordionEvent = (isOpen, title, isNLSearchActive) => {
     Analytics.event({
         event: 'dap_event',
         category: 'Advanced Search - Filter',

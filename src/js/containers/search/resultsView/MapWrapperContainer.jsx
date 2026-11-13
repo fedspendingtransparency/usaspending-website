@@ -11,7 +11,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { logMapLayerEvent, logMapScopeEvent } from "../helpers/searchEvents";
+import { logMapLayerChangeEvent, logMapScopeEvent } from "../helpers/searchEvents";
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from '../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper';
@@ -331,7 +331,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerEvent(layer, isSearchActive);
+        logMapLayerChangeEvent(layer, isSearchActive);
     };
 
     const mapScopeLogic = (type) => {
@@ -527,7 +527,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
         // log the initial event
         logMapScopeEvent(props.scope, isSearchActive);
-        logMapLayerEvent(mapLayer, isSearchActive);
+        logMapLayerChangeEvent(mapLayer, isSearchActive);
 
         return () => {
             // remove any broadcast listeners
