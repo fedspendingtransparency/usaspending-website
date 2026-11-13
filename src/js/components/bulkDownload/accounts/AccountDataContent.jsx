@@ -3,12 +3,12 @@
  * Created by Lizzie Salita 4/23/18
  */
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from 'context/IsMobileContext';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
@@ -45,7 +45,13 @@ const AccountDataContent = ({
     budgetSubfunctions
 }) => {
     const { isMedium } = useContext(IsMobileContext);
-    const [validForm, setValidForm] = useState(false);
+    const validForm = (
+        (accounts.budgetFunction.code !== '') &&
+        (accounts.agency.id !== '') &&
+        (accounts.submissionTypes.length !== 0) &&
+        ((accounts.fy !== null) &&
+            (accounts.quarter !== null || accounts.period !== null))
+    );
 
     // prevents submission on enter keydown
     const onKeyDown = (e) => {
@@ -54,16 +60,6 @@ const AccountDataContent = ({
             clearAccountFilters();
         }
     };
-
-    useEffect(() => {
-        setValidForm((
-            (accounts.budgetFunction.code !== '') &&
-            (accounts.agency.id !== '') &&
-            (accounts.submissionTypes.length !== 0) &&
-            (accounts.fy !== '') &&
-            (accounts.quarter !== '' || accounts.period !== '')
-        ));
-    }, [accounts]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => clearAccountFilters, []);
