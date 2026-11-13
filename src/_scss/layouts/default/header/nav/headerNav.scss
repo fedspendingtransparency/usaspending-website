@@ -21,6 +21,7 @@ header.site-header__wrapper {
       @include align-items(center);
       // style the primary menu
       margin: 0 rem(16);
+      max-width: 100%;
     }
 
     .site-navigation__logo {
