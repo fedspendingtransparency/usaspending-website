@@ -115,7 +115,15 @@ const TreeNodesWrapper = ({
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(getIdOrValue(child)) || getIdOrValue(node) === getIdOrValue(child));
                         const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
 
-                        if (allChildrenChecked) return; // skip parent should stay checked.
+                        if (allChildrenChecked) {
+                            // parent was auto-checked, so drop any indeterminate state left over from
+                            // when only some of its children were checked.
+                            const parentRef = checkboxRefs.current?.[getIdOrValue(parent)];
+                            if (parentRef && newChecked.includes(getIdOrValue(parent))) {
+                                parentRef.indeterminate = false;
+                            }
+                            return;
+                        }
 
                         const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
                         // if all children are checked parent should be checked
@@ -159,10 +167,12 @@ const TreeNodesWrapper = ({
             // ancestors are stored as an array of id and not the complete anscestor node
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
-                ancestorNodes.forEach((parent) => {
+                // ancestors are ordered highest first.  walk them nearest first and check against
+                // updatedChecked so an auto-checked parent counts toward its own parent being checked.
+                [...ancestorNodes].reverse().forEach((parent) => {
                     const children = parent.children;
                     const allChecked = children.every(
-                        (child) => (newChecked.includes(
+                        (child) => (updatedChecked.includes(
                             removePlaceholderString(getIdOrValue(child))) || (getIdOrValue(node) === getIdOrValue(child))
                         ));
                     if (allChecked && !isChecked) {
