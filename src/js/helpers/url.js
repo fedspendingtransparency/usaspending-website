@@ -48,7 +48,6 @@ const isBaseURL = (val) => {
 
 export const sanitizeBlobUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
-    console.log(parsed);
     // not a real url
     if (!parsed) return null;
 
@@ -71,7 +70,6 @@ export const sanitizeBlobUrl = (rawURL, blockRedirect = true) => {
 };
 export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
-    console.log(parsed);
     // not a real url
     if (!parsed) return null;
 
