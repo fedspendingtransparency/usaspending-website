@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { debounce, get } from 'lodash-es';
-import { isCancel } from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
 
 import {
     cleanNaicsData,
@@ -32,14 +32,14 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
+import { useFetchNaics } from './useFetchNaics';
 
 const NAICSCheckboxTree = () => {
-    const [isError, setIsError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
-    const [showNoResults, setShowNoResults] = useState(false);
+    const [isPreloading, setIsPreloading] = useState(false);
+    const [isSearchPending, setIsSearchPending] = useState(false);
+    const [preloadError, setPreloadError] = useState(null);
 
     const nodes = useSelector((state) => state.naics.naics.toJS());
     const expanded = useSelector((state) => state.naics.expanded.toJS());
@@ -57,8 +57,33 @@ const NAICSCheckboxTree = () => {
         exclude: uncheckedStaged
     } = useSelector((state) => state.filters.naicsCodes);
 
-    const request = useRef(null);
+    // null = idle. Start with a root fetch only if the store is empty.
+    const [activeRequest, setActiveRequest] = useState(
+        () => (nodes.length ? null : { param: '', searchStr: '', isSearch: false })
+    );
+
     const dispatch = useDispatch();
+    const store = useStore();
+    const queryClient = useQueryClient();
+    const appliedRequestRef = useRef(null);
+    const preloadStartedRef = useRef(false);
+    const isMountedRef = useRef(true);
+
+    const queryParam = activeRequest ?
+        (activeRequest.isSearch ?
+            `?filter=${encodeURIComponent(activeRequest.searchStr.trim())}` :
+            activeRequest.param) :
+        undefined;
+
+    const {
+        naicsNodes, noResults, isSuccess,
+        isLoading: queryIsLoading, isError: queryIsError, error: queryError
+    } = useFetchNaics(queryParam, activeRequest?.isSearch, !!activeRequest);
+
+    const isLoading = queryIsLoading || isPreloading || isSearchPending;
+    const isError = queryIsError || !!preloadError;
+    const errorMessage = preloadError ||
+        (queryError ? get(queryError, 'message', 'Error fetching NAICS.') : '');
 
     const autoCheckResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
         const newChecked = expandedLocal
@@ -79,121 +104,112 @@ const NAICSCheckboxTree = () => {
         return new Set([...checkedLocal, ...newChecked]);
     };
 
-    const fetchNAICS = (param = '', resolveLoading = true) => {
-        if (request.current) request.current.cancel();
+    // shared by the interactive fetch path and the hash-restoration preload
+    const applyFetchedNodes = (param, isSearchFlag, fetchedNodes) => {
+        // read live state; render-time closures go stale inside async loops
+        const { naics } = store.getState();
+        const liveChecked = naics.checked.toJS();
+        const liveUnchecked = naics.unchecked.toJS();
+        const isPartialTree = (param !== '' || isSearchFlag);
 
-        if (showNoResults) setShowNoResults(false);
+        if (!isPartialTree) {
+            dispatch(setNaicsNodes(param, fetchedNodes));
+            return;
+        }
 
-        setIsLoading(true);
-        const queryParam = isSearch ?
-            `?filter=${searchString}` :
+        const key = param.includes('/') ?
+            param.split('/')[1] :
             param;
 
-        request.current = naicsRequest(queryParam);
+        if (isSearchFlag) {
+            dispatch(setSearchedNaics(fetchedNodes));
+            dispatch(setExpandedNaics(
+                expandNaicsAndAllDescendantParents(fetchedNodes, 'naics'),
+                'SET_SEARCHED_EXPANDED'
+            ));
+        }
+        else {
+            dispatch(setNaicsNodes(key, fetchedNodes));
+        }
 
-        const isPartialTree = (param !== '' || isSearch);
+        // we've searched for a specific naics reference;
+        // ie '11' or '1111' and their immediate descendants should be checked.
+        if (!fetchedNodes?.[0]) return;
 
-        return request.current.promise
-            .then(({ data }) => {
-                // dynamically populating tree branches
-                const naicsNodes = cleanNaicsData(data.results);
+        let modChecked = [];
+        if (liveChecked.includes(key) || liveChecked.includes(`children_of_${key}`)) {
+            const filteredChecked = liveChecked.filter((ch) => ch !== `children_of_${key}`);
+            const filteredChildren = fetchedNodes[0].children
+                .filter((child) => !child.isPlaceholder)
+                .map((child) => child.value);
+            modChecked = [...filteredChecked, ...filteredChildren];
 
-                if (isPartialTree) {
-                    const key = param.includes('/') ?
-                        param.split('/')[1] :
-                        param;
+            if (!liveChecked.includes(key)) {
+                // checked had child placeholder checked; parent should be checked
+                modChecked = [...modChecked, key];
+            }
+        }
 
-                    if (isSearch) {
-                        const searchExpandedNodes = expandNaicsAndAllDescendantParents(
-                            naicsNodes,
-                            'naics'
-                        );
-                        dispatch(setSearchedNaics(naicsNodes));
+        const newChecked = modChecked?.length ?
+            autoCheckNaicsAfterExpand(
+                fetchedNodes[0],
+                modChecked,
+                liveUnchecked
+            ) :
+            liveChecked;
+        dispatch(setCheckedNaics(newChecked));
+    };
 
-                        dispatch(setExpandedNaics(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
+    // `searching` is explicit because the debounced caller holds a stale closure of isSearch
+    const triggerFetch = (param = '', searchStr = '', searching = isSearch) => {
+        setIsSearchPending(false);
+        setPreloadError(null);
+        setActiveRequest({ param, searchStr, isSearch: searching });
+    };
 
-                        if (naicsNodes?.length === 0) {
-                            setShowNoResults(true);
-                        }
-                    }
-                    else {
-                        dispatch(setNaicsNodes(key, naicsNodes));
-                    }
-
-                    // we've searched for a specific naics reference;
-                    // ie '11' or '1111' and their immediate descendants should be checked.
-                    let modChecked = [];
-                    if (checked.includes(key) || checked.includes(`children_of_${key}`)) {
-                        // key node is checked.  add children
-                        const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
-                        const filteredChildren = naicsNodes[0].children
-                            .filter((child) => !child.isPlaceholder)
-                            .map((child) => child.value);
-                        modChecked = [...filteredChecked, ...filteredChildren];
-
-                        if (!checked.includes(key)) {
-                            // checked had child placeholder checked
-                            // parent should be checked
-                            modChecked = [...modChecked, key];
-                        }
-                    }
-
-                    const newChecked = modChecked?.length ?
-                        autoCheckNaicsAfterExpand(
-                            naicsNodes[0],
-                            modChecked,
-                            unchecked
-                        ) :
-                        checked;
-                    dispatch(setCheckedNaics(newChecked));
-                }
-                else {
-                    dispatch(setNaicsNodes(param, naicsNodes));
-                }
-
-                setIsLoading(resolveLoading ? false : isLoading);
-                setIsError(false);
-                setErrorMessage('');
-
-                request.current = null;
-            })
-            .catch((e) => {
-                if (!isCancel(e)) {
-                    console.log('Error NAICS Response : ', e);
-                    setIsError(true);
-                    setErrorMessage(e.message);
-                    setIsLoading(false);
-                }
-                request.current = null;
-            });
+    // fetches each ancestor branch one at a time so the tree is fully
+    // populated before the restored checked/unchecked state is applied
+    const preloadAncestors = async (params) => {
+        setIsPreloading(true);
+        try {
+            for (const param of params) {
+                const res = await queryClient.fetchQuery({
+                    queryKey: ['naics', param],
+                    queryFn: () => naicsRequest(param).promise
+                });
+                if (!isMountedRef.current) return;
+                applyFetchedNodes(param, false, cleanNaicsData(res.data.results));
+            }
+        }
+        catch (e) {
+            if (isMountedRef.current) setPreloadError(get(e, 'message', 'Error fetching NAICs.'));
+        }
+        finally {
+            if (isMountedRef.current) setIsPreloading(false);
+        }
     };
 
     const onClear = () => {
-        if (request.current) {
-            request.current.cancel();
-        }
-
+        setActiveRequest(null);
         dispatch(setExpandedNaics([], 'SET_SEARCHED_EXPANDED'));
-        setIsSearch(false);
-        setSearchString('');
-        setIsLoading(false);
-        setShowNoResults(false);
         dispatch(showNaicsTree());
+        setIsSearch(false);
+        setIsSearchPending(false);
+        setSearchString('');
+        setPreloadError(null);
+        preloadStartedRef.current = false;
     };
 
-    // eslint-disable-next-line react-hooks/refs
-    const onSearchChange = debounce(() => {
-        if (!searchString) {
-            onClear();
-        }
-
-        fetchNAICS();
-    }, 500);
+    const onSearchChange = useMemo(
+        () => debounce((text) => triggerFetch('', text, true), 500),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []
+    );
 
     const onCheck = (newChecked) => {
         // prevent double count
         const stateNewChecked = newChecked?.length > 1 ?
-            newChecked.filter((id) => !id.includes("children_of_")) :
+            newChecked.filter((id) => !id.includes('children_of_')) :
             newChecked;
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
             stateNewChecked,
@@ -230,7 +246,7 @@ const NAICSCheckboxTree = () => {
 
     const onExpand = (value, expandedArr, fetch) => {
         if (fetch && !isSearch) {
-            fetchNAICS(value);
+            triggerFetch(value);
         }
         if (isSearch) {
             dispatch(setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED'));
@@ -259,56 +275,45 @@ const NAICSCheckboxTree = () => {
         setSearchString(text);
         if (text.length >= 2) {
             setIsSearch(true);
-            setIsLoading(true);
+            setIsSearchPending(true);
+            onSearchChange(text);
+        }
+        else {
+            onSearchChange.cancel();
+            setIsSearchPending(false);
         }
     };
 
+    // cleanup only; the initial fetch is driven by activeRequest's initial state
     useEffect(() => {
-        if (nodes.length !== 0) {
-            dispatch(showNaicsTree());
-        }
-        else {
-            fetchNAICS()
-                .then(() => {
-                    if (checkedFromHash.length > 0 && checked.length === 0) {
-                        // initial load with hash.  reload or shared hash.
-                        dispatch(setNaicsCounts(countsFromHash));
-                        const allUniqueAncestors = getAllUniqueAncestors([
-                            ...checkedFromHash,
-                            ...uncheckedFromHash
-                        ]);
-
-                        // Sequentially populate tree.
-                        return allUniqueAncestors
-                            .reduce((prevPromise, ancestor) => prevPromise
-                                .then(() => fetchNAICS(ancestor, false)), Promise.resolve()
-                            )
-                            .catch((e) => {
-                                setIsLoading(false);
-                                setIsError(true);
-                                setErrorMessage(get(e, 'message', 'Error fetching NAICs.'));
-                            });
-                    }
-                    // consistent return.
-                    return Promise.resolve();
-                });
-        }
-
+        isMountedRef.current = true;
+        dispatch(showNaicsTree());
         return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
+            isMountedRef.current = false;
+            onSearchChange.cancel();
             dispatch(showNaicsTree());
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch, onSearchChange]);
 
+    // apply successful fetches (root load / expand / search) to Redux
     useEffect(() => {
-        if (isSearch && isLoading) {
-            onSearchChange();
+        if (!activeRequest || !isSuccess) return;
+        if (appliedRequestRef.current === activeRequest) return; // already applied
+        appliedRequestRef.current = activeRequest;
+
+        applyFetchedNodes(activeRequest.param, activeRequest.isSearch, naicsNodes);
+
+        const wasRootFetch = activeRequest.param === '' && !activeRequest.isSearch;
+        if (wasRootFetch && checkedFromHash.length > 0 && checked.length === 0 &&
+            !preloadStartedRef.current) {
+            preloadStartedRef.current = true;
+            // initial load with hash. reload or shared hash.
+            dispatch(setNaicsCounts(countsFromHash));
+            // intentional: start the ancestor preload once the root fetch succeeds
+            preloadAncestors(getAllUniqueAncestors([...checkedFromHash, ...uncheckedFromHash]));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString, isSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [naicsNodes, isSuccess, activeRequest]);
 
     useEffect(() => {
         if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {
@@ -353,7 +358,7 @@ const NAICSCheckboxTree = () => {
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}
-                    noResults={showNoResults}
+                    noResults={noResults}
                     checked={checked}
                     expanded={isSearch ? searchExpanded : expanded}
                     searchString={searchString}
