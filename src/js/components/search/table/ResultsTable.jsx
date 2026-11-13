@@ -3,21 +3,13 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Pagination, Table } from 'data-transparency-ui';
-import BaseLoanRow from 'models/v2/search/resultsTable/BaseLoanRow';
-import BaseDirectPaymentRow from 'models/v2/search/resultsTable/BaseDirectPaymentRow';
-import BaseGrantRow from 'models/v2/search/resultsTable/BaseGrantRow';
-import BaseContractRow from 'models/v2/search/resultsTable/BaseContractRow';
-import BaseTransactionContractRow from 'models/v2/search/resultsTable/BaseTransactionContractRow';
-import BaseTransactionDefaultRow from 'models/v2/search/resultsTable/BaseTransactionDefaultRow';
-import BaseSubcontractRow from 'models/v2/search/resultsTable/BaseSubcontractRow';
-import BaseSubawardDefaultRow from 'models/v2/search/resultsTable/BaseSubawardDefaultRow';
+import ResultsTableRow from 'models/v2/search/ResultsTableRow';
 
 const propTypes = {
-    results: PropTypes.array,
     columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
@@ -32,7 +24,8 @@ const propTypes = {
     setResultLimit: PropTypes.func,
     total: PropTypes.number,
     isMobile: PropTypes.bool,
-    federalAccountPage: PropTypes.bool
+    federalAccountPage: PropTypes.bool,
+    referenceData: PropTypes.array
 };
 
 const ResultsTable = ({
@@ -51,21 +44,19 @@ const ResultsTable = ({
     resultsCount,
     resultsLimit
 }) => {
-    const isNLSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-
-    // // eslint-disable-next-line no-unused-vars
-    // const [windowHeight, setWindowHeight] = useState(0);
-    // // eslint-disable-next-line no-unused-vars
-    // const [tableHeight, setTableHeight] = useState(0);
+    // eslint-disable-next-line no-unused-vars
+    const [windowHeight, setWindowHeight] = useState(0);
+    // eslint-disable-next-line no-unused-vars
+    const [tableHeight, setTableHeight] = useState(0);
 
     // eslint-disable-next-line no-unused-vars
     const [activateRightFade, setActivateRightFade] = useState(!isMobile);
-    //
-    // const measureHeight = () => {
-    //     const tableHeightlocal = document.getElementById('advanced-search__table-wrapper').offsetHeight;
-    //     setTableHeight(tableHeightlocal);
-    //     setWindowHeight(window.innerHeight);
-    // };
+
+    const measureHeight = () => {
+        const tableHeightlocal = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        setTableHeight(tableHeightlocal);
+        setWindowHeight(window.innerHeight);
+    };
 
     const prepareDTUIColumns = () => {
         const columnOrder = columns.visibleOrder;
@@ -81,57 +72,116 @@ const ResultsTable = ({
         }));
     };
 
-    const getRowModel = () => {
-        // prime awards
-        if (spendingLevel === 'awards' || federalAccountPage === true) {
-            if (currentType === 'loans') return BaseLoanRow;
-            if (currentType === 'direct_payments') return BaseDirectPaymentRow;
-            if (currentType === 'grants' || currentType === 'other') return BaseGrantRow;
+    const prepareDTUIRows = () => {
+        // limit = 10
+        // page = 1, need 0-9
+        // page = 2, need 10 - 19 etc
+        // (page * limit) - 1 end
+        // (page - 1) * limit start
+        const arrayOfObjects = results;
+        let values;
+
+        // check for prime awards && loans
+        if (
+            spendingLevel === 'awards' ||
+            federalAccountPage === true
+        ) {
+            if (currentType === "loans") {
+                values = arrayOfObjects.map((obj) => {
+                    const loanrow = Object.create(ResultsTableRow);
+                    loanrow.populateLoan(obj);
+                    return Object.values(loanrow);
+                });
+                return values;
+            }
+            else if (currentType === "direct_payments") {
+                values = arrayOfObjects.map((obj) => {
+                    const directPaymentRow = Object.create(ResultsTableRow);
+                    directPaymentRow.populateDirectPayment(obj);
+                    return Object.values(directPaymentRow);
+                });
+                return values;
+            }
+
+            // grants and other
+            else if (currentType === "grants" || currentType === "other") {
+                values = arrayOfObjects.map((obj) => {
+                    const grantRow = Object.create(ResultsTableRow);
+                    grantRow.populateGrant(obj);
+                    return Object.values(grantRow);
+                });
+
+                return values;
+            }
+
             // contracts and contract idvs
-            return BaseContractRow;
+            values = arrayOfObjects.map((obj) => {
+                const contractRow = Object.create(ResultsTableRow);
+                contractRow.populateContract(obj);
+                return Object.values(contractRow);
+            });
+            return values;
         }
 
-        if (spendingLevel === 'transactions') {
+        // check for transactions
+        else if (spendingLevel === 'transactions') {
+            // check for contract or contract idv
             if (
-                currentType === 'transaction_contracts' ||
-                currentType === 'transaction_idvs' ||
-                currentType === 'contracts'
+                currentType === "transaction_contracts" ||
+                currentType === "transaction_idvs" ||
+                currentType === "contracts"
             ) {
-                return BaseTransactionContractRow;
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    transactionContractRow.populateTransactionContract(obj);
+                    return Object.values(transactionContractRow);
+                });
             }
-            return BaseTransactionDefaultRow;
+            else {
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    transactionContractRow.populateTransactionDefault(obj);
+                    return Object.values(transactionContractRow);
+                });
+            }
+
+            return values;
         }
 
         // subaward
         // TODO: i have a feeling this will need to be adjusted in the future for some group by options for subawards
         // the same may be true for transactions
         if (
-            currentType === 'subcontracts' ||
+            currentType === "subcontracts" ||
             (
-                columnType === 'subawards' &&
-                (currentType === 'contracts' || currentType === 'idvs')
-            )
-        ) {
-            return BaseSubcontractRow;
+                columnType === "subawards" &&
+                (
+                    currentType === "contracts" || currentType === "idvs"
+                )
+            )) {
+            values = arrayOfObjects.map((obj) => {
+                const subcontractRow = Object.create(ResultsTableRow);
+                subcontractRow.populateSubcontract(obj);
+                return Object.values(subcontractRow);
+            });
         }
-        return BaseSubawardDefaultRow;
+
+        else {
+            values = arrayOfObjects.map((obj) => {
+                const defaultRow = Object.create(ResultsTableRow);
+                defaultRow.populateDefault(obj);
+                return Object.values(defaultRow);
+            });
+        }
+
+        return values;
     };
 
-    const rows = useMemo(() => {
-        const RowModel = getRowModel();
-        return results.map((obj) => {
-            const row = Object.create(RowModel);
-            row.populate(obj, isNLSearchActive);
-            return Object.values(row);
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [results, spendingLevel, currentType, columnType, federalAccountPage, isNLSearchActive]);
-
-    // useEffect(() => {
-    //     measureHeight();
-    //     window.addEventListener('resize', measureHeight);
-    //     return () => window.removeEventListener('resize', measureHeight);
-    // }, []);
+    useEffect(() => {
+        measureHeight();
+        window.addEventListener('resize', measureHeight);
+        return () => window.removeEventListener('resize', measureHeight);
+    }, []);
 
     useEffect(() => {
         if (isMobile) {
@@ -157,7 +207,7 @@ const ResultsTable = ({
                     classNames="table-for-new-search-page award-results-table-dtui"
                     stickyFirstColumn={!isMobile}
                     columns={prepareDTUIColumns()}
-                    rows={rows}
+                    rows={prepareDTUIRows()}
                     rowHeight={isMobile ? null : 58}
                     headerRowHeight={45}
                     highlightedColumns={spendingLevel === 'subawards' ?

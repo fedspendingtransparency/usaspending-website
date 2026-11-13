@@ -11,9 +11,8 @@ import { useSelector } from 'react-redux';
 import CategoriesVisualizationWrapperContainer
     from 'containers/search/resultsView/CategoriesVisualizationWrapperContainer';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
-import { logCategoriesViewEvent } from "containers/search/helpers/searchEvents";
+import { logCategoriesViewEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
 
-import logVisualizationViewEvent from '../logVisualizationViewEvent';
 import PlaceholderComponent from '../PlaceholderComponent';
 import CategoriesDsm from './CategoriesDsm';
 
@@ -37,11 +36,10 @@ const CategoriesSection = ({
     });
 
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-    const searchOrigin = isSearchActive ? 'Smart Assist' : 'Advanced Search';
 
     useEffect(() => {
         if (categoriesHasLoaded) {
-            logVisualizationViewEvent('categories', hash, searchOrigin);
+            logVisualizationViewEvent('categories', hash, isSearchActive);
         }
     }, [categoriesHasLoaded, hash]);
 

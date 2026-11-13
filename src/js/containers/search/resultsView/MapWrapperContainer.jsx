@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators, useSelector } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
 
