@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 import { getObjFromQueryParams } from "../helpers/searchHelper";
 import Analytics from "../helpers/analytics/Analytics";
+import { setSearchOrigin } from "../containers/search/helpers/searchEvents";
 
 const useFireQueryEvent = () => {
     const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
@@ -36,7 +37,7 @@ const useFireQueryEvent = () => {
                         action: 'query_submit',
                         label: `${timerInSeconds} seconds`,
                         time_to_query: timerInSeconds,
-                        method: isSearchActive ? "Smart Assist" : "Advanced Search"
+                        method: setSearchOrigin(isSearchActive)
                     });
                 }
 
