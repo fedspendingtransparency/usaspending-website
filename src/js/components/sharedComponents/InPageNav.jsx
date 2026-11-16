@@ -238,8 +238,8 @@ const InPageNav = ({
     }, []);
 
     useEffect(() => {
+        console.log(initialLoadRef.current);
         if (observerSupported && initialLoadRef.current) {
-            initialLoadRef.current = false;
             const targets = document.querySelectorAll(`[id*='${prefix}']`);
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
             targets.forEach((i) => {
