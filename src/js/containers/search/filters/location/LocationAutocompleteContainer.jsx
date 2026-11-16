@@ -3,25 +3,22 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useCallback, useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { fetchLocations } from '../../../../helpers/searchHelper';
 import LocationAutocomplete from
-    "../../../../components/search/filters/location/LocationAutocomplete";
+    '../../../../components/search/filters/location/LocationAutocomplete';
 import {
     addPOPLocationObject,
     addRecipientLocationObject,
     updateDomesticForeignSelection,
     updateRecipientDomesticForeignSelection
-} from "../../../../redux/actions/search/searchFilterActions";
-import {
-    createLocationObject,
-    getParsedLocations
-} from "../../../../helpers/search/locationAutocompleteHelper";
-import { useFipsIdByStateName, useStateFIPSByAbbreviation } from "../../../../hooks/useStateData";
-import useFetchAllCountries from "../../resultsView/useFetchAllCountries";
+} from '../../../../redux/actions/search/searchFilterActions';
+import { createLocationObject } from '../../../../helpers/search/locationAutocompleteHelper';
+import { useFipsIdByStateName, useStateFIPSByAbbreviation } from '../../../../hooks/useStateData';
+import useFetchAllCountries from '../../resultsView/useFetchAllCountries';
+import useFetchLocationAutocomplete from './useFetchLocationAutocomplete';
 
 const propTypes = {
     activeTab: PropTypes.string
@@ -34,18 +31,26 @@ const LocationAutocompleteContainer = ({
     const fipsIdByStateName = useFipsIdByStateName();
     const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
 
-    const [locations, setLocations] = useState([]);
-    const [noResults, setNoResults] = useState(false);
+    const [searchText, setSearchText] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
+    const [isDebouncing, setIsDebouncing] = useState(false);
     const {
         recipientDomesticForeign, locationDomesticForeign
     } = useSelector((state) => state.filters);
-    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const { countries } = useFetchAllCountries();
 
     const timeoutRef = useRef(null);
+
+    const { locations, noResults, isLoading } = useFetchLocationAutocomplete(searchText);
+
+    // Swapping to [] while the user types and back when the debounce fires gives Autocomplete
+    // a new `values` reference, so the dropdown reopens even when the search text is unchanged.
+    const suggestions = useMemo(
+        () => (isDebouncing ? [] : locations),
+        [isDebouncing, locations]
+    );
 
     const createLocationObjectByType = (location) => {
         if (activeTab === 'recipient') {
@@ -57,9 +62,10 @@ const LocationAutocompleteContainer = ({
     };
 
     const clearAutocompleteSuggestions = useCallback(() => {
-        setLocations([]);
+        window.clearTimeout(timeoutRef.current);
+        setIsDebouncing(false);
+        setSearchText('');
         setReadyToStage(false);
-        setIsLoading(false);
     }, []);
 
     const setIsForeign = useCallback(() => {
@@ -88,73 +94,17 @@ const LocationAutocompleteContainer = ({
         clearAutocompleteSuggestions();
     };
 
-    const parseLocations = ({
-        countries,
-        states,
-        counties,
-        cities,
-        zip_codes: zipCodes,
-        districts_current: districtsCurrent,
-        districts_original: districtsOriginal
-    }, count) => {
-        setNoResults(false);
-        clearAutocompleteSuggestions();
-
-        if (count === 0) {
-            setNoResults(true);
-            setIsLoading(false);
-            return;
-        }
-
-        const locationsList = getParsedLocations(
-            countries,
-            states,
-            counties,
-            cities,
-            zipCodes,
-            districtsCurrent,
-            districtsOriginal
-        );
-
-        if (count > 5) {
-            setLocations(locationsList.splice(0, 5));
-        }
-        else {
-            setLocations(locationsList);
-        }
-    };
-
-    const queryAutocompleteLocations = (input) => {
-        let locationSearchRequests;
-        if (input.length >= 3) {
-            const locationSearchParams = {
-                search_text: input,
-                limit: 5
-            };
-
-            locationSearchRequests = fetchLocations(locationSearchParams);
-            setIsLoading(true);
-            locationSearchRequests.promise
-                .then((res) => {
-                    parseLocations(res.data.results, res.data.count);
-                })
-                .catch((err) => {
-                    console.log('error: ', err);
-                    setIsLoading(false);
-                });
-        }
-        else if (locationSearchRequests) {
-            locationSearchRequests.cancel();
-            setIsLoading(false);
-        }
-    };
-
     const handleTextInput = (locationInput) => {
         const input = locationInput.target.value;
         window.clearTimeout(timeoutRef.current);
+        // invalidate any prior selection and hide stale suggestions immediately so the
+        // user can't pick or stage an item that no longer matches the input
+        setReadyToStage(false);
+        setIsDebouncing(true);
 
         timeoutRef.current = window.setTimeout(() => {
-            queryAutocompleteLocations(input);
+            setIsDebouncing(false);
+            setSearchText(input);
         }, 1000);
     };
 
@@ -166,7 +116,7 @@ const LocationAutocompleteContainer = ({
     return (
         <LocationAutocomplete
             activeTab={activeTab}
-            locations={locations}
+            locations={suggestions}
             handleTextInput={handleTextInput}
             selectItem={selectItem}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}

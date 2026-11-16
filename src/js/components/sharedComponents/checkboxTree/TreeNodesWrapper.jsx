@@ -116,11 +116,9 @@ const TreeNodesWrapper = ({
                         const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
 
                         if (allChildrenChecked) {
-                            // parent was auto-checked, so drop any indeterminate state left over from
-                            // when only some of its children were checked.
-                            const parentRef = checkboxRefs.current?.[getIdOrValue(parent)];
-                            if (parentRef && newChecked.includes(getIdOrValue(parent))) {
-                                parentRef.indeterminate = false;
+                            // parent is fully checked, so it can no longer be indeterminate.
+                            if (checkboxRefs.current?.[getIdOrValue(parent)]) {
+                                checkboxRefs.current[getIdOrValue(parent)].indeterminate = false;
                             }
                             return;
                         }
@@ -167,8 +165,9 @@ const TreeNodesWrapper = ({
             // ancestors are stored as an array of id and not the complete anscestor node
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
-                // ancestors are ordered highest first.  walk them nearest first and check against
-                // updatedChecked so an auto-checked parent counts toward its own parent being checked.
+                // ancestors are ordered top-down; walk bottom-up and test against the
+                // running updatedChecked so a newly auto-checked parent can in turn
+                // complete its own parent (grandparent) and so on up the tree.
                 [...ancestorNodes].reverse().forEach((parent) => {
                     const children = parent.children;
                     const allChecked = children.every(
