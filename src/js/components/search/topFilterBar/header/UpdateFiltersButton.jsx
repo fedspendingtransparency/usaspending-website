@@ -23,6 +23,7 @@ const propTypes = { appliedFilters: PropTypes.object };
 const UpdateFiltersButton = ({ appliedFilters }) => {
     const dispatch = useDispatch();
     const stagedFilters = useSelector((state) => state.filters);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
     const emptyFilters = areFiltersEqual(stagedFilters, initialState) ||
@@ -43,8 +44,9 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         }
 
         const events = convertFiltersToAnalyticEvents(stagedFilters);
-        sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters");
-    }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
+
+        sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters", isSearchActive);
+    }, [dispatch, emptyFilters, equalFilters, stagedFilters, isSearchActive]);
 
     const onKeyUp = useCallback((e) => {
         e.persist();
