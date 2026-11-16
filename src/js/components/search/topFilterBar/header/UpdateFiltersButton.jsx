@@ -46,7 +46,7 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         const events = convertFiltersToAnalyticEvents(stagedFilters);
 
         sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters", isSearchActive);
-    }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
+    }, [dispatch, emptyFilters, equalFilters, stagedFilters, isSearchActive]);
 
     const onKeyUp = useCallback((e) => {
         e.persist();

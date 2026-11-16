@@ -52,7 +52,6 @@ const Analytics = {
             args.action,
             args.label || undefined,
             args.value || undefined,
-            args.method || undefined,
             args.nonInteraction || undefined,
             args.time_to_query || undefined
         );

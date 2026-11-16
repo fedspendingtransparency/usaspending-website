@@ -40,7 +40,7 @@ const TimeSection = ({
     const onClick = useCallback((e) => {
         setVisualizationPeriod(e);
         logResultsOverTimeEvent(e, hash, isSearchActive);
-    }, [hash]);
+    }, [hash, isSearchActive]);
     const wrapperProps = {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [

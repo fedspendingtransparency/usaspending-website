@@ -18,7 +18,8 @@ import {
 } from 'dataMapping/search/contractFields';
 
 import Analytics from 'helpers/analytics/Analytics';
-import { setSearchOrigin } from './searchEvents';
+
+export const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
 
 const eventCategory = 'Advanced Search - Search Filter';
 

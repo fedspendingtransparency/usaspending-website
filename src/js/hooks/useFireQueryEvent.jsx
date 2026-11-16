@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 import { getObjFromQueryParams } from "../helpers/searchHelper";
 import Analytics from "../helpers/analytics/Analytics";
-import { setSearchOrigin } from "../containers/search/helpers/searchEvents";
+import { setSearchOrigin } from "../containers/search/helpers/searchAnalytics";
 
 const useFireQueryEvent = () => {
     const { hash: urlHash } = getObjFromQueryParams(useLocation().search);

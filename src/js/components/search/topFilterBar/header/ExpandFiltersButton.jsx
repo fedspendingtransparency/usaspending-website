@@ -25,7 +25,7 @@ const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilte
         logExpandEvent(!prevState ? "Expand" : "Collapse", isSearchActive);
 
         return !prevState;
-    }), [setExpandedFilters]);
+    }), [setExpandedFilters, isSearchActive]);
 
     const onKeyUp = useCallback((e) => {
         e.persist();

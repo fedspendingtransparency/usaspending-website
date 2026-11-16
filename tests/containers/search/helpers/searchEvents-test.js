@@ -6,6 +6,7 @@ jest.mock('helpers/analytics/Analytics', () => ({
 }));
 
 jest.mock('containers/search/helpers/searchAnalytics', () => ({
+    ...jest.requireActual('containers/search/helpers/searchAnalytics'),
     uniqueFilterFields: jest.fn(() => 'Keyword|Time Period')
 }));
 
@@ -61,7 +62,7 @@ describe('searchEvents', () => {
             action: 'loans',
             gtm: true
         }],
-        ['logAwardIdClickEvent', ['AWD1', { search: '?hash=xyz' }], {
+        ['logAwardIdClickEvent', ['AWD1', 'xyz'], {
             event: 'search_award_click',
             category: 'Advanced Search - Spending by Prime Award',
             action: 'Clicked AWD1',

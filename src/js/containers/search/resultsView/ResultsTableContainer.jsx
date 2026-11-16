@@ -4,7 +4,6 @@
  **/
 
 import React, { useState, useEffect, memo } from 'react';
-import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { throttle } from 'lodash-es';
@@ -81,7 +80,6 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     dsmContent,
     sectionName
 }) {
-    const location = useLocation();
     const dispatch = useDispatch();
     const filters = useSelector((state) => state.appliedFilters.filters);
     const [page, setPage] = useState(1);
@@ -198,7 +196,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     const updateSort = (field, direction) => setSort({ field, direction });
 
     const awardIdClick = (id) => {
-        logAwardIdClickEvent(id, location, isSearchActive);
+        logAwardIdClickEvent(id, hash, isSearchActive);
     };
 
     const subAwardIdClick = (id) => {

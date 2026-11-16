@@ -1,7 +1,5 @@
 import Analytics from 'helpers/analytics/Analytics';
-import { uniqueFilterFields } from './searchAnalytics';
-
-export const setSearchOrigin = (isNLSearchActive) => isNLSearchActive ? 'Smart Assist' : 'Advanced Search';
+import { uniqueFilterFields, setSearchOrigin } from './searchAnalytics';
 
 export const logSectionViewEvent = (sectionName, selectedDropdownOption, viewType, hash, isNLSearchActive) => {
     Analytics.event({
@@ -77,12 +75,12 @@ export const logResultsTableTabChangeEvent = (tab, isNLSearchActive) => {
     });
 };
 
-export const logAwardIdClickEvent = (id, location, isNLSearchActive) => {
+export const logAwardIdClickEvent = (id, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_award_click',
         category: 'Advanced Search - Spending by Prime Award',
         action: `Clicked ${id}`,
-        label: new URLSearchParams(location.search).get('hash'),
+        label: hash,
         gtm: true,
         method: setSearchOrigin(isNLSearchActive)
     });
@@ -139,29 +137,29 @@ export const logVisualizationViewEvent = (action, label, isNLSearchActive) => wi
         method: setSearchOrigin(isNLSearchActive)
     }), 15 * 1000);
 
-export const logExpandEvent = (type, isSearchActive) => {
+export const logExpandEvent = (type, isNLSearchActive) => {
     Analytics.event({
         category: 'Advanced Search - Active Filters',
         action: `${type} Filters`,
-        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
+        method: setSearchOrigin(isNLSearchActive)
     });
 };
 
-export const logResultsOverTimeEvent = (e, hash, isSearchActive) => {
+export const logResultsOverTimeEvent = (e, hash, isNLSearchActive) => {
     Analytics.event({
         category: 'Section Time',
         action: `View ${e}`,
         label: hash,
-        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
+        method: setSearchOrigin(isNLSearchActive)
     });
 };
 
-export const logViewBySubawardsEvent = (isSearchActive) => {
+export const logViewBySubawardsEvent = (isNLSearchActive) => {
     Analytics.event({
         event: 'search_subaward_dropdown',
         category: 'Advanced Search - Search Fields',
         action: 'Subawards Search',
         gtm: true,
-        method: isSearchActive ? 'Smart Assist' : 'Advanced Search'
+        method: setSearchOrigin(isNLSearchActive)
     });
 };

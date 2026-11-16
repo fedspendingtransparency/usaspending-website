@@ -63,7 +63,7 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
             searchParams.delete("subawards");
             setSearchParams(searchParams);
         }
-    }, [dispatch, searchParams, setSearchParams]);
+    }, [dispatch, searchParams, setSearchParams, isSearchActive]);
 
     const buttonOptions = [
         {
