@@ -16,7 +16,7 @@ const getSpendingLevel = (spendingLevel) => {
     return "transactions";
 };
 
-const parseData = (data, selectedDropdown, spendingLevel, isSearchActive) => {
+const parseData = (data, selectedDropdown, spendingLevel, isSearchActive, hash) => {
     const labelSeries = [];
     const dataSeries = [];
     const descriptions = [];
@@ -70,7 +70,7 @@ const parseData = (data, selectedDropdown, spendingLevel, isSearchActive) => {
                         <a
                             href={recipientLink}
                             onClick={() => {
-                                logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive);
+                                logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive, hash);
                             }}>
                             {result.name}
                         </a>
@@ -90,7 +90,7 @@ const parseData = (data, selectedDropdown, spendingLevel, isSearchActive) => {
                     <a
                         href={awardingLink}
                         onClick={() => {
-                            logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive);
+                            logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive, hash);
                         }}>
                         {result.name}
                     </a>
@@ -129,7 +129,8 @@ const useCategoriesSearch = (
     filters,
     spendingLevel,
     selectedDropdown,
-    page
+    page,
+    hash
 ) => {
     const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
@@ -162,7 +163,7 @@ const useCategoriesSearch = (
         enabled: !areFiltersEqual(filters)
     });
 
-    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel, isSearchActive);
+    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel, isSearchActive, hash);
 
     return { loading: isLoading, error, ...parsedData };
 };

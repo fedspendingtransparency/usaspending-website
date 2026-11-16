@@ -145,7 +145,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             setSort(Object.assign(newState.sort));
         }
         setPage(1);
-        logResultsTableTabChangeEvent(tab, isSearchActive);
+        logResultsTableTabChangeEvent(tab, isSearchActive, hash);
     };
 
     const parseTabCounts = () => {

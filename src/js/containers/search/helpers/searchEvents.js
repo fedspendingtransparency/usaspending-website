@@ -6,24 +6,27 @@ export const logSectionViewEvent = (sectionName, selectedDropdownOption, viewTyp
         category: `Section ${sectionName}: ${selectedDropdownOption}`,
         action: `Viewed ${selectedDropdownOption} ${viewType}`,
         label: hash,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logSectionDSMEvent = (action, prefix, isNLSearchActive) => {
+export const logSectionDSMEvent = (action, prefix, hash, isNLSearchActive) => {
     Analytics.event({
         category: 'Advanced Search - Results View DSM',
         action,
         label: `${prefix} DS&M`,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearchActive) => {
+export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearchActive, hash) => {
     Analytics.event({
         category: `Section categories: ${selectedDropdown}`,
         action: `Clicked ${linkName}`,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -32,7 +35,8 @@ export const logCategoriesLinkClickEvent = (linkName, scope, hash, isNLSearchAct
         category: `Section categories: ${scope}`,
         action: `Clicked ${linkName}`,
         label: hash,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -41,37 +45,41 @@ export const logCategoriesViewEvent = (e, hash, isNLSearchActive) => {
         category: 'Section Categories',
         action: `View ${e}`,
         label: hash,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logMapLayerChangeEvent = (layer, isNLSearchActive) => {
+export const logMapLayerChangeEvent = (layer, isNLSearchActive, hash) => {
     Analytics.event({
         event: 'search_map_layer_event',
         category: 'Advanced Search - Map - Map Layer',
         action: layer,
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logMapScopeEvent = (scope, isNLSearchActive) => {
+export const logMapScopeEvent = (scope, isNLSearchActive, hash) => {
     Analytics.event({
         event: 'search_map_location_type_event',
         category: 'Advanced Search - Map - Location Type',
         action: scope,
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logResultsTableTabChangeEvent = (tab, isNLSearchActive) => {
+export const logResultsTableTabChangeEvent = (tab, isNLSearchActive, hash) => {
     Analytics.event({
         event: 'search_table_tab',
         category: 'Advanced Search - Table Tab',
         action: tab,
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -82,7 +90,8 @@ export const logAwardIdClickEvent = (id, hash, isNLSearchActive) => {
         action: `Clicked ${id}`,
         label: hash,
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -123,7 +132,8 @@ export const logMapViewEvent = (e, hash, isNLSearchActive) => {
         category: 'Section Map',
         action: `View ${e}`,
         label: hash,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -150,7 +160,8 @@ export const logResultsOverTimeEvent = (e, hash, isNLSearchActive) => {
         category: 'Section Time',
         action: `View ${e}`,
         label: hash,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 

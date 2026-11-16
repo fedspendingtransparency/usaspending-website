@@ -156,7 +156,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const mapToggleDataKey = props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
 
     const parsed = useMemo(
-        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId),
+        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId, props.hash),
         [rawAPIData, mapToggleDataKey, stateNameByFipsId]
     );
 
@@ -331,7 +331,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerChangeEvent(layer, isSearchActive);
+        logMapLayerChangeEvent(layer, isSearchActive, props.hash);
     };
 
     const mapScopeLogic = (type) => {
@@ -526,8 +526,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope, isSearchActive);
-        logMapLayerChangeEvent(mapLayer, isSearchActive);
+        logMapScopeEvent(props.scope, isSearchActive, props.hash);
+        logMapLayerChangeEvent(mapLayer, isSearchActive, props.hash);
 
         return () => {
             // remove any broadcast listeners
@@ -553,7 +553,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope, isSearchActive);
+        logMapScopeEvent(props.scope, isSearchActive, props.hash);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.scope]);
 
     useEffect(() => {
