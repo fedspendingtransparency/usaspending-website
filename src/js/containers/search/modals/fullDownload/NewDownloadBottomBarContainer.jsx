@@ -19,7 +19,10 @@ import {
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+<<<<<<< HEAD
 import { logDownloadButtonBarContainerEvent } from "../../helpers/searchEvents";
+=======
+>>>>>>> 640e1e1acd5f8dc23c4959ceee3dc555c7ee14f9
 import { sanitizeUrl } from '../../../../helpers/url';
 
 const propTypes = {
