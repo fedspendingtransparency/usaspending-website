@@ -21,7 +21,7 @@ export const logSectionDSMEvent = (action, prefix, hash, isNLSearchActive) => {
     });
 };
 
-export const logCategorySelectionEvent = (linkName, selectedDropdown, isNLSearchActive, hash) => {
+export const logCategorySelectionEvent = (linkName, selectedDropdown, hash, isNLSearchActive) => {
     Analytics.event({
         category: `Section categories: ${selectedDropdown}`,
         action: `Clicked ${linkName}`,
@@ -50,7 +50,7 @@ export const logCategoriesViewEvent = (e, hash, isNLSearchActive) => {
     });
 };
 
-export const logMapLayerChangeEvent = (layer, isNLSearchActive, hash) => {
+export const logMapLayerChangeEvent = (layer, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_map_layer_event',
         category: 'Advanced Search - Map - Map Layer',
@@ -61,7 +61,7 @@ export const logMapLayerChangeEvent = (layer, isNLSearchActive, hash) => {
     });
 };
 
-export const logMapScopeEvent = (scope, isNLSearchActive, hash) => {
+export const logMapScopeEvent = (scope, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_map_location_type_event',
         category: 'Advanced Search - Map - Location Type',
@@ -72,7 +72,7 @@ export const logMapScopeEvent = (scope, isNLSearchActive, hash) => {
     });
 };
 
-export const logResultsTableTabChangeEvent = (tab, isNLSearchActive, hash) => {
+export const logResultsTableTabChangeEvent = (tab, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_table_tab',
         category: 'Advanced Search - Table Tab',
@@ -95,7 +95,7 @@ export const logAwardIdClickEvent = (id, hash, isNLSearchActive) => {
     });
 };
 
-export const logSubAwardIdClickEvent = (id, isNLSearchActive, hash) => {
+export const logSubAwardIdClickEvent = (id, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_subaward_click',
         category: 'Advanced Search - Link',
@@ -107,24 +107,26 @@ export const logSubAwardIdClickEvent = (id, isNLSearchActive, hash) => {
     });
 };
 
-export const logDownloadButtonBarContainerEvent = (type, filters, isNLSearchActive) => {
+export const logDownloadButtonBarContainerEvent = (type, filters, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'advanced_search_download',
         category: 'Advanced Search - Download',
         action: type,
         label: uniqueFilterFields(filters),
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
-export const logToggleFilterAccordionEvent = (isOpen, title, isNLSearchActive) => {
+export const logToggleFilterAccordionEvent = (isOpen, title, hash, isNLSearchActive) => {
     Analytics.event({
         event: 'dap_event',
         category: 'Advanced Search - Filter',
         action: isOpen ? 'Filter Open' : 'Filter Close',
         label: title.concat(' ', isOpen ? 'open' : 'close'),
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 
@@ -138,21 +140,24 @@ export const logMapViewEvent = (e, hash, isNLSearchActive) => {
     });
 };
 
-export const logVisualizationViewEvent = (action, label, isNLSearchActive) => window.setTimeout(
+export const logVisualizationViewEvent = (action, hash, isNLSearchActive) => window.setTimeout(
     () => Analytics.event({
         event: 'search_visualization_type',
         category: 'Advanced Search - Visualization Type',
         action,
         gtm: true,
-        label,
-        method: setSearchOrigin(isNLSearchActive)
+        label: hash,
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     }), 15 * 1000);
 
-export const logExpandEvent = (type, isNLSearchActive) => {
+export const logExpandEvent = (type, hash, isNLSearchActive) => {
     Analytics.event({
         category: 'Advanced Search - Active Filters',
         action: `${type} Filters`,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        label: hash,
+        form_id: hash
     });
 };
 
@@ -166,12 +171,14 @@ export const logResultsOverTimeEvent = (e, hash, isNLSearchActive) => {
     });
 };
 
-export const logViewBySubawardsEvent = (isNLSearchActive) => {
+export const logViewBySubawardsEvent = (hash, isNLSearchActive) => {
     Analytics.event({
         event: 'search_subaward_dropdown',
         category: 'Advanced Search - Search Fields',
         action: 'Subawards Search',
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        label: hash,
+        form_id: hash
     });
 };

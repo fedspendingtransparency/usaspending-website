@@ -18,6 +18,7 @@ import {
 } from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
+import { getUrlHash } from 'helpers/searchHelper';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
 import { logDownloadButtonBarContainerEvent } from "../../helpers/searchEvents";
 
@@ -218,7 +219,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         }
                     }
                 });
-            logDownloadButtonBarContainerEvent(download?.type, filters, isSearchActive);
+            logDownloadButtonBarContainerEvent(download?.type, filters, getUrlHash(), isSearchActive);
         };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {

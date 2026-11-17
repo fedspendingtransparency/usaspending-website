@@ -285,6 +285,9 @@ export const getObjFromQueryParams = (str) => {
     return obj;
 };
 
+// read at call time so analytics events get the hash of the search currently in the URL
+export const getUrlHash = () => getObjFromQueryParams(window.location.search).hash;
+
 export const convertToTitleCase = (str) => {
     if (!str) {
         return "";

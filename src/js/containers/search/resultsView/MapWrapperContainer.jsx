@@ -331,7 +331,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerChangeEvent(layer, isSearchActive, props.hash);
+        logMapLayerChangeEvent(layer, props.hash, isSearchActive);
     };
 
     const mapScopeLogic = (type) => {
@@ -526,8 +526,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope, isSearchActive, props.hash);
-        logMapLayerChangeEvent(mapLayer, isSearchActive, props.hash);
+        logMapScopeEvent(props.scope, props.hash, isSearchActive);
+        logMapLayerChangeEvent(mapLayer, props.hash, isSearchActive);
 
         return () => {
             // remove any broadcast listeners
@@ -553,7 +553,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope, isSearchActive, props.hash);
+        logMapScopeEvent(props.scope, props.hash, isSearchActive);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.scope]);
 

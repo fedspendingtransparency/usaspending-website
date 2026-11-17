@@ -70,7 +70,7 @@ const parseData = (data, selectedDropdown, spendingLevel, isSearchActive, hash) 
                         <a
                             href={recipientLink}
                             onClick={() => {
-                                logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive, hash);
+                                logCategorySelectionEvent(result.name, selectedDropdown, hash, isSearchActive);
                             }}>
                             {result.name}
                         </a>
@@ -90,7 +90,7 @@ const parseData = (data, selectedDropdown, spendingLevel, isSearchActive, hash) 
                     <a
                         href={awardingLink}
                         onClick={() => {
-                            logCategorySelectionEvent(result.name, selectedDropdown, isSearchActive, hash);
+                            logCategorySelectionEvent(result.name, selectedDropdown, hash, isSearchActive);
                         }}>
                         {result.name}
                     </a>
