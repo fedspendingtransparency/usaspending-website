@@ -8,17 +8,16 @@
 import React from 'react';
 import { mockData, standardTerm } from '../../components/aboutTheDataSidebar/mockAboutTheDataSidebarFn';
 import { render, screen } from '../../testResources/test-utils';
-import aboutTheDataReducer from "../../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
-import slideoutReducer from "../../../src/js/redux/reducers/slideouts/slideoutReducer";
+import aboutTheDataReducer from '../../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
+import slideoutReducer from '../../../src/js/redux/reducers/slideouts/slideoutReducer';
 import AboutTheDataContainer from '../../../src/js/containers/aboutTheDataSidebar/AboutTheDataContainer';
 beforeEach(() => {
     jest.clearAllMocks();
 });
 
-const mockDrilldown = () => <div id="atd-drilldown" />;
-
-
-jest.mock("../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown", () => mockDrilldown);
+// jest.mock is hoisted above the imports, so the mock component must be built inside the factory
+// eslint-disable-next-line react/display-name
+jest.mock('../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown', () => () => <div id="atd-drilldown" />);
 
 describe('About The Data Sidebar Container Test', () => {
     it(`Render ATD Container with appropriate props`, () => {
@@ -69,4 +68,3 @@ describe('About The Data Sidebar Container Test', () => {
         expect(state.termFromUrl).toEqual(standardTerm);
     });
 });
-

@@ -22,12 +22,12 @@ import {
     areFiltersDifferent,
     areFiltersEmpty, areFiltersEqual,
     areFiltersSelected,
-    generateUrlHash, getObjFromQueryParams,
-    restoreUrlHash, parseRemoteFilters
+    generateUrlHash, getObjFromQueryParams
 } from 'helpers/searchHelper';
 import useQueryParams from 'hooks/useQueryParams';
 import SearchPage from 'components/search/SearchPage';
 import useRequestDownloadCount from './useRequestDownloadCount';
+import useFetchSearchFilters from './useFetchSearchFilters';
 
 require('pages/search/searchPage.scss');
 
@@ -64,6 +64,21 @@ const SearchContainer = () => {
         appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
     );
 
+    const {
+        filters: remoteFilters,
+        isCorrupt,
+        error: fetchFiltersError
+    } = useFetchSearchFilters(urlHash, areFiltersEqual(stagedFilters, initialState));
+
+    useEffect(() => {
+        if (remoteFilters) {
+            // apply the filters to both staged and applied redux stores
+            dispatch(restoreHashedFilters(remoteFilters));
+            dispatch(setAppliedFilterEmptiness(false));
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [remoteFilters]);
+
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
@@ -79,49 +94,20 @@ const SearchContainer = () => {
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
     useEffect(() => {
-        // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
             urlHash &&
             areFiltersEqual(stagedFilters, initialState)
         );
-        if (shouldFetchRemoteFilters) {
-            if (request.current) {
-                request.current.cancel();
+
+        // when shouldFetchRemoteFilters is set to true, useFetchSearchFilters does the fetch
+        if (!shouldFetchRemoteFilters) {
+            if (areFiltersSelected(appliedFilters) && areFiltersEmpty(stagedFilters)) {
+                dispatch(restoreHashedFilters(appliedFilters));
             }
-            request.current = restoreUrlHash({
-                hash: urlHash
-            });
-            request.current.promise
-                .then((res) => {
-                    const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-                    if (filtersInImmutableStructure) {
-                        // apply the filters to both the staged and applied stores
-                        dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                        dispatch(setAppliedFilterEmptiness(false));
-                    }
-                    else {
-                        console.error('Error fetching filters from hash');
-                        // corrupt hash redirect to error page.
-                        navigate('/hash-error', { replace: true });
-                    }
-                    request.current = null;
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.error('Error fetching filters from hash: ', err);
-                        // remove hash since corresponding filter selections aren't retrievable.
-                        searchURLParams.delete('hash');
-                        setSearchURLParams(searchURLParams);
-                        request.current = null;
-                    }
-                });
-        }
-        else if (areFiltersSelected(appliedFilters) && areFiltersEmpty(stagedFilters)) {
-            dispatch(restoreHashedFilters(appliedFilters));
-        }
-        else if (!urlHash) {
-            dispatch(resetAppliedFilters());
-            dispatch(clearAllFilters());
+            else if (!urlHash) {
+                dispatch(resetAppliedFilters());
+                dispatch(clearAllFilters());
+            }
         }
 
         return () => {
@@ -136,6 +122,25 @@ const SearchContainer = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (isCorrupt) {
+            console.error('Error fetching filters from hash');
+            // corrupt hash redirect to error page
+            navigate('/hash-error', { replace: true });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isCorrupt]);
+
+    useEffect(() => {
+        if (fetchFiltersError) {
+            console.error('Error fetching filters from hash: ', fetchFiltersError);
+            // remove hash since corresponding filter selections are not retrievable
+            searchURLParams.delete('hash');
+            setSearchURLParams(searchURLParams);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fetchFiltersError]);
 
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {

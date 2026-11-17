@@ -19,6 +19,10 @@ import {
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+<<<<<<< HEAD
+import { logDownloadButtonBarContainerEvent } from "../../helpers/searchEvents";
+=======
+>>>>>>> 640e1e1acd5f8dc23c4959ceee3dc555c7ee14f9
 import { sanitizeUrl } from '../../../../helpers/url';
 
 const propTypes = {
@@ -45,6 +49,8 @@ const NewDownloadBottomBarContainer = ({
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
     const statusTimer = useRef(null);
+
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const windowWillClose = (e) => {
     // we need to modify the browser event to trigger a warning message
@@ -216,6 +222,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         }
                     }
                 });
+            logDownloadButtonBarContainerEvent(download?.type, filters, isSearchActive);
         };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {

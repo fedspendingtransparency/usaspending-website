@@ -6,7 +6,7 @@
 * */
 
 import { mapSlugToTopTierCode, mapTopTierCodeToSlug, mapIdToSlug, mapTopTierCodeToOutlay } from 'containers/agency/WithAgencySlugs';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import * as redux from 'react-redux';
 import * as api from 'apis/agency';
 import * as actions from 'redux/actions/agency/agencyActions';

@@ -40,6 +40,7 @@ const Analytics = {
             event_action: args.action,
             event_label: args.label || undefined,
             event_value: args.value || undefined,
+            event_method: args.method || undefined,
             event_nonInteraction: args.nonInteraction || undefined,
             event_time_to_query: args.time_to_query || undefined
         });

@@ -47,19 +47,22 @@ export const fetchProgramActivity = (req) => apiRequest({
     data: req
 });
 
+// id paths (agency/federalAccount/...) need a trailing '/', but search query strings
+// (?depth=-1&filter=...) must not have one or it becomes part of the filter value.
+const filterTreeUrl = (base, param) => {
+    if (param.length === 0) return base;
+    return param.startsWith('?') ? `${base}${param}` : `${base}${param}/`;
+};
+
 // TAS search
 export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
-    url: idString.length === 0 ?
-        `/v2/references/filter_tree/tas/` :
-        `/v2/references/filter_tree/tas/${idString}/`
+    url: filterTreeUrl('/v2/references/filter_tree/tas/', idString)
 });
 
 // PSC search
 export const fetchPsc = (paramString = '') => apiRequest({
-    url: paramString === '' ?
-        `/v2/references/filter_tree/psc/` :
-        `/v2/references/filter_tree/psc/${paramString}/`
+    url: filterTreeUrl('/v2/references/filter_tree/psc/', paramString)
 });
 
 // CFDA search for autocomplete
@@ -78,7 +81,7 @@ export const fetchNAICS = (req) => apiRequest({
 
 // perform search is a cancellable promise
 export const naicsRequest = (param) => apiRequest({
-    url: `v2/references/naics/${param && !param.startsWith('?') ? `${param}/` : param || ''}`
+    url: filterTreeUrl('v2/references/naics/', param)
 });
 
 // PSC search for autocomplete
