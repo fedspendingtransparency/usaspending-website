@@ -35,7 +35,7 @@ const InPageNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-    const visibleSections = new Set();
+    const visibleSections = useRef(new Set());
 
     const observerOptions = {
         rootMargin: rootMargin || `-140px 0px 0px 0px`,
