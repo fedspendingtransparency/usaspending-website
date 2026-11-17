@@ -5,19 +5,21 @@
  **/
 
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { is } from 'immutable';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { unifyDateFields } from 'containers/search/helpers/searchAnalytics';
 
 import { getLastActionType } from 'redux/middleware/lastActionMiddleware';
+import { setIsSearchActive } from 'redux/actions/sidebar/sidebarActions';
 
 const category = 'Smart Assist - Refinement';
 
 const ignoredActions = ['RESTORE_HASHED_FILTERS', 'CLEAR_SEARCH_FILTER_ALL'];
 
 const useFilterChangeAnalytics = () => {
+    const dispatch = useDispatch();
     const filters = useSelector((state) => state.filters);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
@@ -44,6 +46,9 @@ const useFilterChangeAnalytics = () => {
             action: 'Filters Modified Manually',
             label: 'side panel'
         });
+
+        // only the first manual modification is tracked
+        dispatch(setIsSearchActive(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters]);
 };
