@@ -49,8 +49,8 @@ const AccountDataContent = ({
         (accounts.budgetFunction.code !== '') &&
         (accounts.agency.id !== '') &&
         (accounts.submissionTypes.length !== 0) &&
-        ((accounts.fy !== null) &&
-            (accounts.quarter !== null || accounts.period !== null))
+        (accounts.fy !== null) &&
+        (accounts.quarter !== null || accounts.period !== null)
     );
 
     // prevents submission on enter keydown
@@ -62,7 +62,7 @@ const AccountDataContent = ({
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => () => clearAccountFilters, []);
+    useEffect(() => () => clearAccountFilters(), []);
 
     return (
         <div className="download-center">
