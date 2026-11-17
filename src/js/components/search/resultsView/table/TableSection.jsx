@@ -4,11 +4,12 @@
 
 import React, { useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 import ResultsTableContainer from "containers/search/resultsView/ResultsTableContainer";
+import { logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 import TableDsm from "./TableDsm";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
 
 const propTypes = {
     tabData: PropTypes.object,
@@ -23,10 +24,11 @@ const TableSection = ({
 
     const dsmContent = useMemo(() => <TableDsm spendingLevel={spendingLevel} />, [spendingLevel]);
     const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.1 });
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     useEffect(() => {
         if (isIntersecting) {
-            logVisualizationViewEvent("awards", hash);
+            logVisualizationViewEvent("awards", hash, isSearchActive);
         }
     }, [isIntersecting, hash]);
 

@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
+import { sanitizeUrl } from '../../../helpers/url';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
@@ -159,7 +160,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
         window.removeEventListener('beforeunload', this.windowWillClose);
 
         // start the download
-        window.open(url, '_self');
+        window.open(sanitizeUrl(url), '_self');
 
         // update redux
         this.props.setDownloadPending(false);
