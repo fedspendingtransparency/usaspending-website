@@ -95,14 +95,15 @@ export const logAwardIdClickEvent = (id, hash, isNLSearchActive) => {
     });
 };
 
-export const logSubAwardIdClickEvent = (id, isNLSearchActive) => {
+export const logSubAwardIdClickEvent = (id, isNLSearchActive, hash) => {
     Analytics.event({
         event: 'search_subaward_click',
         category: 'Advanced Search - Link',
         action: 'Subaward ID Clicked',
         label: id,
         gtm: true,
-        method: setSearchOrigin(isNLSearchActive)
+        method: setSearchOrigin(isNLSearchActive),
+        form_id: hash
     });
 };
 

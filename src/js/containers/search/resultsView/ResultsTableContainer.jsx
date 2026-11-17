@@ -200,7 +200,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     };
 
     const subAwardIdClick = (id) => {
-        logSubAwardIdClickEvent(id, isSearchActive);
+        logSubAwardIdClickEvent(id, isSearchActive, hash);
         dispatch(subAwardIdClicked(true));
     };
 
