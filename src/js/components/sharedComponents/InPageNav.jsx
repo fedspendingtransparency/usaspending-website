@@ -69,7 +69,7 @@ const InPageNav = ({
                 setActiveSection(section);
             }
         });
-    });
+    }, []);
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
         const ulEl = navBar?.current?.querySelector('ul');
@@ -227,6 +227,27 @@ const InPageNav = ({
         setSectionPositions(newSectionPositions);
     }, 100);
 
+    // Function to wait for sections that may render later.
+    function waitForElements(selector) {
+        return new Promise((resolve) => {
+            const existing = document.querySelectorAll(selector);
+            if (existing.length > 0) {
+                return resolve(existing);
+            }
+            const observer = new MutationObserver(() => {
+                const elements = document.querySelectorAll(selector);
+                if (elements.length > 0) {
+                    observer.disconnect();
+                    resolve(elements);
+                }
+            });
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
     useEffect(() => {
         getInitialElements();
         handleResize();
@@ -238,17 +259,22 @@ const InPageNav = ({
     }, []);
 
     useEffect(() => {
-        if (observerSupported && initialLoadRef.current) {
-            const targets = document.querySelectorAll(`[id*='${prefix}']`);
-            const observer = new IntersectionObserver(callbackFunction, observerOptions);
-            targets.forEach((i) => {
-                if (i) {
-                    observer.observe(i);
-                }
-            });
+        async function loadIntersectionObserver() {
+            if (observerSupported && initialLoadRef.current) {
+                initialLoadRef.current = false;
+                await waitForElements(`[id*='${prefix}']`);
+                const targets = document.querySelectorAll(`[id*='${prefix}']`);
+                const observer = new IntersectionObserver(callbackFunction, observerOptions);
+                targets.forEach((i) => {
+                    if (i) {
+                        observer.observe(i);
+                    }
+                });
 
-            return () => observer.disconnect();
+                return () => observer.disconnect();
+            }
         }
+        loadIntersectionObserver();
     }, [observerSupported, loading]);
 
     useEffect(() => {
