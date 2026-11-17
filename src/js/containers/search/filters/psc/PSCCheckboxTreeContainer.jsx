@@ -14,7 +14,7 @@ const PSCCheckboxTreeContainer = () => {
         <div className="search-option">
             <div className="psc-search-container">
                 <EntityDropdownAutocomplete
-                    placeholder="Type at least 2 letters..."
+                    placeholder={`Type at least ${pscTreeConfig.minSearchLength} letters...`}
                     searchString={searchString}
                     enabled
                     handleTextInputChange={handleTextInputChange}

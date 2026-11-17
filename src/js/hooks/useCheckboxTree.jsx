@@ -3,8 +3,8 @@
  * Created by JD House 11/05/2026
 */
 
-import { useEffect, useMemo, useState } from 'react';
-import { debounce, get } from 'lodash-es';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { cloneDeep, debounce, get } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -15,7 +15,7 @@ import {
     trimCheckedToCommonAncestors,
     stateEqualityCheck
 } from 'helpers/checkboxTreeHelper';
-import { useFetchCheckboxTree } from 'hooks/useFetchCheckboxTree';
+import { useFetchCheckboxTree, cancellableQueryFn } from 'hooks/useFetchCheckboxTree';
 
 // the last segment of an api path like "agencyCode/federalAccountCode"
 const lastSegment = (path) => (path.includes('/') ? path.split('/').pop() : path);
@@ -43,12 +43,20 @@ export const useCheckboxTree = ({
     stateKey, filterKey, label, fetchFn, cleanFn, buildSearchQuery, minSearchLength,
     actions, updateFilter, helpers, sortNodes
 }) => {
-    const nodes = useSelector((state) => state[stateKey][stateKey].toJS());
-    const expanded = useSelector((state) => state[stateKey].expanded.toJS());
-    const searchExpanded = useSelector((state) => state[stateKey].searchExpanded.toJS());
-    const checked = useSelector((state) => state[stateKey].checked.toJS());
-    const unchecked = useSelector((state) => state[stateKey].unchecked.toJS());
-    const counts = useSelector((state) => state[stateKey].counts.toJS());
+    // select the (referentially stable) immutable values and convert in useMemo, so the
+    // component only re-renders when the slice actually changes
+    const nodesImm = useSelector((state) => state[stateKey][stateKey]);
+    const expandedImm = useSelector((state) => state[stateKey].expanded);
+    const searchExpandedImm = useSelector((state) => state[stateKey].searchExpanded);
+    const checkedImm = useSelector((state) => state[stateKey].checked);
+    const uncheckedImm = useSelector((state) => state[stateKey].unchecked);
+    const countsImm = useSelector((state) => state[stateKey].counts);
+    const nodes = useMemo(() => nodesImm.toJS(), [nodesImm]);
+    const expanded = useMemo(() => expandedImm.toJS(), [expandedImm]);
+    const searchExpanded = useMemo(() => searchExpandedImm.toJS(), [searchExpandedImm]);
+    const checked = useMemo(() => checkedImm.toJS(), [checkedImm]);
+    const unchecked = useMemo(() => uncheckedImm.toJS(), [uncheckedImm]);
+    const counts = useMemo(() => countsImm.toJS(), [countsImm]);
     const {
         require: checkedFromHash,
         exclude: uncheckedFromHash,
@@ -71,6 +79,16 @@ export const useCheckboxTree = ({
     const [activeRequest, setActiveRequest] = useState(
         () => (nodes.length ? null : { id: '', searchStr: '', isSearch: false })
     );
+
+    // bumped on clear/unmount to abandon an in-progress ancestor preload
+    const preloadRunId = useRef(0);
+    // the last activeRequest whose result was applied, so a background refetch
+    // of the same request can't re-apply (and reset) the tree
+    const appliedRequest = useRef(null);
+    const checkedRef = useRef(checked);
+    useEffect(() => {
+        checkedRef.current = checked;
+    }, [checked]);
 
     const queryParam = activeRequest ?
         (activeRequest.isSearch ? buildSearchQuery(activeRequest.searchStr) : activeRequest.id) :
@@ -112,13 +130,18 @@ export const useCheckboxTree = ({
     };
 
     // shared by the interactive fetch path and the hash-restoration preload batch
-    const applyFetchedNodes = (id, isSearchFlag, newNodes) => {
+    // `checked` can be passed in so a batch of applications builds on the previous
+    // result instead of the (stale) value from the render that started the batch.
+    // Returns the resulting checked array.
+    const applyFetchedNodes = (id, isSearchFlag, fetchedNodesIn, checkedIn = checked) => {
+        // clone: the fetched nodes may be react-query cache objects that reducers must not mutate
+        const newNodes = cloneDeep(fetchedNodesIn);
         const isPartialTree = (id !== '' || isSearchFlag);
 
         if (!isPartialTree) {
             // populating tree trunk
             dispatch(actions.setNodes('', newNodes));
-            return;
+            return checkedIn;
         }
 
         // ids are prefixed with their ancestors (ancestor/ancestor/node)
@@ -135,12 +158,12 @@ export const useCheckboxTree = ({
 
         let modChecked = [];
 
-        if (checked.includes(key) || checked.includes(`children_of_${key}`)) {
+        if (checkedIn.includes(key) || checkedIn.includes(`children_of_${key}`)) {
             // key node is checked.  add children
-            const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
+            const filteredChecked = checkedIn.filter((ch) => ch !== `children_of_${key}`);
             modChecked = [...filteredChecked, ...newNodes.map((child) => child.value)];
 
-            if (!checked.includes(key)) {
+            if (!checkedIn.includes(key)) {
                 // checked had child placeholder checked
                 // parent should be checked
                 modChecked = [...modChecked, key];
@@ -153,29 +176,39 @@ export const useCheckboxTree = ({
                 modChecked,
                 unchecked
             ) :
-            checked;
+            checkedIn;
 
         dispatch(actions.setChecked(newChecked));
+        return newChecked;
     };
 
     // fetches each ancestor branch one at a time so the tree is fully
     // populated before the restored checked/unchecked state is applied
     const preloadAncestors = async (params) => {
+        preloadRunId.current += 1;
+        const runId = preloadRunId.current;
+        const isStale = () => runId !== preloadRunId.current;
+
         setIsPreloading(true);
+        let runningChecked = checkedRef.current;
         try {
             for (const param of params) {
-                const { data } = await queryClient.fetchQuery({
+                // reuse anything already cached rather than refetching
+                const { data } = await queryClient.ensureQueryData({
                     queryKey: [stateKey, param],
-                    queryFn: () => fetchFn(param).promise
+                    queryFn: cancellableQueryFn(fetchFn, param)
                 });
-                applyFetchedNodes(param, false, cleanFn(data.results));
+                if (isStale()) return;
+                runningChecked = applyFetchedNodes(
+                    param, false, cleanFn(data.results), runningChecked
+                );
             }
         }
         catch (e) {
-            setPreloadError(get(e, 'message', `Error fetching ${label}.`));
+            if (!isStale()) setPreloadError(get(e, 'message', `Error fetching ${label}.`));
         }
         finally {
-            setIsPreloading(false);
+            if (!isStale()) setIsPreloading(false);
         }
     };
 
@@ -246,6 +279,8 @@ export const useCheckboxTree = ({
     };
 
     const onClear = () => {
+        preloadRunId.current += 1;
+        setIsPreloading(false);
         debouncedSearch.cancel();
         setActiveRequest(null);
         dispatch(actions.setExpanded([], 'SET_SEARCHED_EXPANDED'));
@@ -270,12 +305,23 @@ export const useCheckboxTree = ({
             setIsSearchPending(true);
             debouncedSearch(text);
         }
+        else {
+            // below the minimum: drop any pending/active search and show the full tree,
+            // keeping the typed text in the box
+            debouncedSearch.cancel();
+            setIsSearchPending(false);
+            setIsSearch(false);
+            setActiveRequest(null);
+            dispatch(actions.setExpanded([], 'SET_SEARCHED_EXPANDED'));
+            dispatch(actions.showTree());
+        }
     };
 
     useEffect(() => {
         if (!isLoading) dispatch(actions.showTree());
 
         return () => {
+            preloadRunId.current += 1;
             debouncedSearch.cancel();
             dispatch(actions.showTree());
         };
@@ -285,6 +331,9 @@ export const useCheckboxTree = ({
     // reacts to the hook-driven fetch (root load / expand / search) succeeding
     useEffect(() => {
         if (!activeRequest || !isSuccess) return;
+        // apply each request once; ignore background refetches of the same request
+        if (appliedRequest.current === activeRequest) return;
+        appliedRequest.current = activeRequest;
 
         applyFetchedNodes(activeRequest.id, activeRequest.isSearch, fetchedNodes);
 
@@ -337,13 +386,18 @@ export const useCheckboxTree = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nodes, checkedFromHash, checkedStaged, checked]);
 
+    const sortedNodes = useMemo(
+        () => (sortNodes ? [...nodes].sort(sortNodes) : nodes),
+        [nodes, sortNodes]
+    );
+
     return {
         searchString,
         onClear,
         handleTextInputChange,
         // spread onto <CheckboxTree />
         treeProps: {
-            data: sortNodes ? [...nodes].sort(sortNodes) : nodes,
+            data: sortedNodes,
             checked,
             expanded: isSearch ? searchExpanded : expanded,
             isSearch,

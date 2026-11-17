@@ -6,6 +6,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
+// wires react-query's AbortSignal to the `cancel` handle returned by fetchFn, so
+// superseded or unobserved requests are actually cancelled
+export const cancellableQueryFn = (fetchFn, param) => ({ signal }) => {
+    const request = fetchFn(param);
+    if (signal && request.cancel) {
+        signal.addEventListener('abort', () => request.cancel());
+    }
+    return request.promise;
+};
+
 /**
  * Generic TanStack Query hook for lazily-loaded checkbox trees (TAS, PSC, ...).
  *
@@ -31,7 +41,7 @@ export const useFetchCheckboxTree = ({
         data: nodes, isSuccess, isLoading, isError, error
     } = useQuery({
         queryKey: [queryKeyPrefix, queryParam],
-        queryFn: () => fetchFn(queryParam).promise,
+        queryFn: cancellableQueryFn(fetchFn, queryParam),
         select,
         enabled: enabled && queryParam !== undefined
     });
