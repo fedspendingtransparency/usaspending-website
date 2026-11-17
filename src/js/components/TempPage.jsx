@@ -103,7 +103,7 @@ const TempPage = () => {
                     <h1>Fontawesome Pro Icons</h1>
                     <FontAwesomeIcon icon="bluetooth" />
                     <FontAwesomeIcon icon="lightbulb-cfl" />
-                    <FontAwesomeIcon icon={['fal', 'lightbulb']} />
+                    <FontAwesomeIcon icon="lightbulb" />
 
                     <h1>{"<Alert />"}</h1>
                     <div
