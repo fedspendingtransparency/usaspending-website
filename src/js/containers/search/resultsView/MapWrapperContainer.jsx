@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
 
@@ -11,7 +11,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import Analytics from 'helpers/analytics/Analytics';
+import { logMapLayerChangeEvent, logMapScopeEvent } from "../helpers/searchEvents";
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from '../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper';
@@ -32,24 +32,6 @@ const propTypes = {
     wrapperProps: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
-};
-
-const logMapLayerEvent = (layer) => {
-    Analytics.event({
-        event: 'search_map_layer_event',
-        category: 'Advanced Search - Map - Map Layer',
-        action: layer,
-        gtm: true
-    });
-};
-
-const logMapScopeEvent = (scope) => {
-    Analytics.event({
-        event: 'search_map_location_type_event',
-        category: 'Advanced Search - Map - Location Type',
-        action: scope,
-        gtm: true
-    });
 };
 
 const emptyData = {
@@ -114,6 +96,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
     const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
     const stateNameByFipsId = useStateNameByFipsId();
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     // Create inverted mapping: FIPS -> Abbreviation
     const stateAbbreviationByFipsId = stateFIPSByAbbreviation ?
@@ -348,7 +331,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerEvent(layer);
+        logMapLayerChangeEvent(layer, isSearchActive);
     };
 
     const mapScopeLogic = (type) => {
@@ -543,8 +526,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope);
-        logMapLayerEvent(mapLayer);
+        logMapScopeEvent(props.scope, isSearchActive);
+        logMapLayerChangeEvent(mapLayer, isSearchActive);
 
         return () => {
             // remove any broadcast listeners
@@ -570,7 +553,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope);
+        logMapScopeEvent(props.scope, isSearchActive);
     }, [props.scope]);
 
     useEffect(() => {

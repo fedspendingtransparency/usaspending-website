@@ -19,6 +19,7 @@ import {
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+import { logDownloadButtonBarContainerEvent } from "../../helpers/searchEvents";
 
 const propTypes = {
     download: PropTypes.object,
@@ -44,6 +45,8 @@ const NewDownloadBottomBarContainer = ({
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
     const statusTimer = useRef(null);
+
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const windowWillClose = (e) => {
     // we need to modify the browser event to trigger a warning message
@@ -215,6 +218,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         }
                     }
                 });
+            logDownloadButtonBarContainerEvent(download?.type, filters, isSearchActive);
         };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {
