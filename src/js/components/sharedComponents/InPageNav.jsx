@@ -42,10 +42,10 @@ const InPageNav = ({
         threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
-    const inNavClick = (option) => {
+    const inNavClick = useCallback((option) => {
         jumpToSection(option.section);
         setActiveSection(option.section);
-    };
+    }, []);
 
     const initialLoadRef = useRef(true);
     const prefix = `${pageName}-`;
