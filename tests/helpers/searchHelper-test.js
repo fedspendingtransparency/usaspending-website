@@ -3,7 +3,7 @@
  */
 import { Set } from 'immutable';
 import { initialState, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { areFiltersEqual, isSearchHashReady, parseRemoteFilters, restoreUrlHash, generateUrlHash  } from 'helpers/searchHelper';
+import { areFiltersEqual, isSearchHashReady, parseRemoteFilters, restoreUrlHash, generateUrlHash, getUrlHash } from 'helpers/searchHelper';
 import { mockFilters, mockRedux } from '../containers/search/mockSearchHashes';
 
 test.each([
@@ -97,4 +97,36 @@ test('parseRemoteFilters should return an immutable data structure when versions
         }
     };
     expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
+});
+
+describe('getUrlHash', () => {
+    afterEach(() => {
+        window.history.replaceState({}, '', '/');
+    });
+
+    it('returns the hash query param from the current URL', () => {
+        window.history.replaceState({}, '', '/search?hash=abc123');
+
+        expect(getUrlHash()).toEqual('abc123');
+    });
+
+    it('finds the hash among other query params', () => {
+        window.history.replaceState({}, '', '/search?subawards=true&hash=abc123');
+
+        expect(getUrlHash()).toEqual('abc123');
+    });
+
+    it('returns undefined when there is no hash param', () => {
+        window.history.replaceState({}, '', '/search?subawards=true');
+
+        expect(getUrlHash()).toBeUndefined();
+    });
+
+    it('reads the URL at call time, not import time', () => {
+        window.history.replaceState({}, '', '/search?hash=first');
+        expect(getUrlHash()).toEqual('first');
+
+        window.history.replaceState({}, '', '/search?hash=second');
+        expect(getUrlHash()).toEqual('second');
+    });
 });
