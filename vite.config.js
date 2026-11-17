@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
         define: {
             // webpack 5 maps Node's `global` to globalThis; Vite doesn't (redux-perf-middleware needs it).
             'global': 'globalThis',
-            'process.env.ENV': JSON.stringify(env.ENV || 'qat'),
+            'process.env.ENV': JSON.stringify(env.ENV || 'prod'),
             'process.env.USASPENDING_API': JSON.stringify(env.USASPENDING_API || 'https://api.usaspending.gov/api/'),
             'process.env.MAPBOX_TOKEN': JSON.stringify(env.MAPBOX_TOKEN || ''),
             'process.env.X_LLM_API_KEY': JSON.stringify(env.X_LLM_API_KEY || ''),
