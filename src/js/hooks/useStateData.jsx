@@ -34,13 +34,14 @@ export const useStateList = () => {
 // 01: AL
 export const useStateFIPSByAbbreviation = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.code] = element.fips;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // 01: ALABAMA
@@ -59,25 +60,27 @@ export const useStateNameByFipsId = () => {
 // alabama: 01
 export const useFipsIdByStateName = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[normalizeStateName(element.name)] = element.fips;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // alabama: al
 export const useCodeByStateName = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.name] = element.code;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // al: alabama
