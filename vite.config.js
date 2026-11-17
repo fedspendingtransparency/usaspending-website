@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
@@ -42,6 +41,8 @@ export default defineConfig(({ mode }) => {
         // Replaces the webpack DefinePlugin blocks. Source code (GlobalConstants.js) still reads
         // process.env.*, so it works under both webpack and vite during the migration.
         define: {
+            // webpack 5 maps Node's `global` to globalThis; Vite doesn't (redux-perf-middleware needs it).
+            'global': 'globalThis',
             'process.env.ENV': JSON.stringify(env.ENV || 'qat'),
             'process.env.USASPENDING_API': JSON.stringify(env.USASPENDING_API || 'https://api.usaspending.gov/api/'),
             'process.env.MAPBOX_TOKEN': JSON.stringify(env.MAPBOX_TOKEN || ''),
