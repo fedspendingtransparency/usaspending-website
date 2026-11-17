@@ -143,7 +143,7 @@ const NLSearchInfoPage = () => {
                 <FlexGridCol className="search-info-page__download-group">
                     <ShareDownloadButtonGroup
                         url=""
-                        showDownloadBtn
+                        hideDownload={true}
                         onDownloadClick={() => {}}
                         downloadInFlight={false}
                         downloadIcon="file-download"

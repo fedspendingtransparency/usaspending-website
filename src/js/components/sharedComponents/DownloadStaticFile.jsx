@@ -6,7 +6,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-
+import { sanitizeUrl } from '../../helpers/url';
 const propTypes = {
     path: PropTypes.string
 };
@@ -14,7 +14,7 @@ const propTypes = {
 const DownloadStaticFile = ({ path }) => (
     <div className="download_static-file__container usa-download-icon">
         <a
-            href={path}
+            href={sanitizeUrl(path)}
             target="_blank"
             aria-label="Download"
             title="Download"
