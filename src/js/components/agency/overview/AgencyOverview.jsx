@@ -54,7 +54,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                     aria-label="Open the About the Data"
                     onClick={
                         (e) =>
-                            openAboutTheDataSidebar(e, sanitizeUrl('delay-in-dod-procurement-data'))
+                            openAboutTheDataSidebar(e, ('delay-in-dod-procurement-data'))
                     }>
                     About the Data
                 </Link>
@@ -75,7 +75,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                     (
                         <a
                             className="usa-bold-link"
-                            href={website}
+                            href={sanitizeUrl(website)}
                             target="_blank"
                             rel="noreferrer">
                             {website}
@@ -93,7 +93,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                 (
                     <a
                         className="usa-bold-link"
-                        href={congressionalJustification}
+                        href={sanitizeUrl(congressionalJustification)}
                         target="_blank"
                         rel="noreferrer">
                         {congressionalJustification}
