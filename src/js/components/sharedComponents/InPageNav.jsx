@@ -53,13 +53,13 @@ const InPageNav = ({
     const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                visibleSections.add(entry.target);
+                visibleSections.current.add(entry.target);
             }
             else {
-                visibleSections.delete(entry.target);
+                visibleSections.current.delete(entry.target);
             }
 
-            const visible = [...visibleSections];
+            const visible = [...visibleSections.current];
 
             if (visible.length) {
                 const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
