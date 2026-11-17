@@ -11,6 +11,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
+import { getUrlHash } from "helpers/searchHelper";
 import { logMapLayerChangeEvent, logMapScopeEvent } from "../helpers/searchEvents";
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
@@ -156,7 +157,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const mapToggleDataKey = props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
 
     const parsed = useMemo(
-        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId, props.hash),
+        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId),
         [rawAPIData, mapToggleDataKey, stateNameByFipsId]
     );
 
@@ -331,7 +332,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerChangeEvent(layer, props.hash, isSearchActive);
+        logMapLayerChangeEvent(layer, getUrlHash(), isSearchActive);
     };
 
     const mapScopeLogic = (type) => {
@@ -526,8 +527,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope, props.hash, isSearchActive);
-        logMapLayerChangeEvent(mapLayer, props.hash, isSearchActive);
+        logMapScopeEvent(props.scope, getUrlHash(), isSearchActive);
+        logMapLayerChangeEvent(mapLayer, getUrlHash(), isSearchActive);
 
         return () => {
             // remove any broadcast listeners
@@ -553,7 +554,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope, props.hash, isSearchActive);
+        logMapScopeEvent(props.scope, getUrlHash(), isSearchActive);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.scope]);
 

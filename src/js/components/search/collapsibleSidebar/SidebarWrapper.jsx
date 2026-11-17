@@ -94,8 +94,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         Analytics.event({
             category: 'Smart Assist - Query',
             action: 'Query Submitted',
-            label: 'side panel',
-            form_id: hash
+            label: 'side panel'
         });
     };
 
