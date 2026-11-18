@@ -9,12 +9,13 @@ import { generateUrlHash } from 'helpers/searchHelper';
 
 /* Counterpart to useFetchSearchFilters: saves a set of filters and returns the hash that restores them */
 const useGenerateSearchHash = ({ onSuccess, onError } = {}) => {
-    const cancelRef = useRef(null);
+    // every request still in flight, so unmount can cancel all of them
+    const pendingCancels = useRef(new Set());
 
     const postFilters = useCallback(({ filters, version }) => {
         const { promise, cancel } = generateUrlHash({ filters, version });
-        cancelRef.current = cancel;
-        return promise;
+        pendingCancels.current.add(cancel);
+        return promise.finally(() => pendingCancels.current.delete(cancel));
     }, []);
 
     const { mutate, isPending } = useMutation({
@@ -28,7 +29,10 @@ const useGenerateSearchHash = ({ onSuccess, onError } = {}) => {
 
     // mutations have no abort signal, so cancel the request on unmount so a late
     // response can't fire onSuccess (e.g. navigate) after the caller is gone
-    useEffect(() => () => cancelRef.current?.(), []);
+    useEffect(() => {
+        const pending = pendingCancels.current;
+        return () => pending.forEach((cancel) => cancel());
+    }, []);
 
     // generateHash({ filters, version })
     return { generateHash: mutate, isGenerating: isPending };
