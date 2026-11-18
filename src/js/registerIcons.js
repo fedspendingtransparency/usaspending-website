@@ -7,8 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faXmark, faCircleCheck, faCircleXmark
 } from '@fortawesome/pro-regular-svg-icons';
-import { faWandMagicSparkles } from '@fortawesome/pro-regular-svg-icons';
-import { faLightbulb as faLightbulbLight } from '@fortawesome/pro-light-svg-icons';
+import { faWandMagicSparkles, faLightbulb as faLightbulbReg } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDoubleDown,
     faAngleDown,
@@ -213,7 +212,7 @@ export default function registerIcons() {
         faLevelUpAlt,
         faLightbulb,
         faLightbulbCfl,
-        faLightbulbLight,
+        faLightbulbReg,
         faLink,
         faLinkedin,
         faList,
