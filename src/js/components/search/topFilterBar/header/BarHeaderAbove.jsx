@@ -44,7 +44,7 @@ const BarHeaderAbove = memo(function BarHeaderAbove({ resultsView }) {
             </div>
             {resultsView && (
                 <h2 className="subtitle">
-                    <FontAwesomeIcon icon="lightbulb" />
+                    <FontAwesomeIcon icon={['fal', 'lightbulb']} />
                     To
                     {' '}
                     <span>remove active filters</span>
