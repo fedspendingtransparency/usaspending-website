@@ -1,6 +1,5 @@
 /**
  * useGenerateSearchHash.jsx
- * Counterpart to useFetchSearchFilters: saves a set of filters and returns the hash that restores them
  */
 
 import { useCallback, useEffect, useRef } from 'react';
@@ -8,11 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { isCancel } from 'axios';
 import { generateUrlHash } from 'helpers/searchHelper';
 
-/**
- * @param {Object} [options]
- * @param {(hash: string) => void} [options.onSuccess] called with the new hash
- * @param {(error: Error) => void} [options.onError] not called for cancelled requests
- */
+/* Counterpart to useFetchSearchFilters: saves a set of filters and returns the hash that restores them */
 const useGenerateSearchHash = ({ onSuccess, onError } = {}) => {
     const cancelRef = useRef(null);
 
