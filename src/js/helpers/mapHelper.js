@@ -8,7 +8,6 @@ import { scaleQuantize } from 'd3-scale';
 import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
 import * as MoneyFormatter from './moneyFormatter';
-import { useStatebyCode, useCodeByStateName } from "../hooks/useStateData";
 
 const stateCenters = {
     "10": [
@@ -245,20 +244,6 @@ export const visualizationColors = [
     '#2e8367',
     '#286846'
 ];
-
-export const stateNameFromCode = (code) => {
-    if ({}.hasOwnProperty.call(useStatebyCode, code)) {
-        return useStatebyCode[code];
-    }
-    return null;
-};
-
-export const stateCodeFromName = (name) => {
-    if ({}.hasOwnProperty.call(useCodeByStateName, name)) {
-        return useCodeByStateName[name];
-    }
-    return null;
-};
 
 // Used for the state profile pages
 export const stateCenterFromFips = (fips) => {

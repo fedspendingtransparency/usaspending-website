@@ -3,6 +3,7 @@
  * Created on 9/3/26 Nick Torres
  */
 
+import { useMemo } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "../helpers/apiRequest";
 import { normalizeStateName } from "../features/state/stateHelper";
@@ -33,61 +34,66 @@ export const useStateList = () => {
 // 01: AL
 export const useStateFIPSByAbbreviation = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.code] = element.fips;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // 01: ALABAMA
 export const useStateNameByFipsId = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.fips] = element.name;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // alabama: 01
 export const useFipsIdByStateName = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[normalizeStateName(element.name)] = element.fips;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // alabama: al
 export const useCodeByStateName = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.name] = element.code;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 // al: alabama
 export const useStatebyCode = () => {
     const results = useStateList();
-    if (results) {
+    return useMemo(() => {
+        if (!results) return undefined;
         const obj = {};
         results.forEach((element) => {
             obj[element.code] = element.name;
         });
         return obj;
-    }
+    }, [results]);
 };
 
 export const useStateNameFromFips = (fips) => {

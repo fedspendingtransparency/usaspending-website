@@ -9,14 +9,14 @@ import { counties, congressionalDistricts } from 'dataMapping/search/geoTable';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
+import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { logMapLayerChangeEvent, logMapScopeEvent } from "../helpers/searchEvents";
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from '../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper';
 import * as MoneyFormatter from '../../../helpers/moneyFormatter';
-import { useStateFIPSByAbbreviation, useStateNameByFipsId } from '../../../hooks/useStateData';
+import { useStateFIPSByAbbreviation, useStateNameByFipsId, useStatebyCode } from '../../../hooks/useStateData';
 import useFetchAllCountries from './useFetchAllCountries';
 import useFetchSpendingByGeography, { apiScopes } from './useFetchSpendingByGeography';
 
@@ -45,7 +45,7 @@ const emptyData = {
  * - creates locations, values, labels and table rows from api data
  * @returns {Object} - object with locations, values, labels and rows properties
  */
-const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId) => {
+const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId, stateNameFromCode) => {
     const values = [];
     const locations = [];
     const labels = {};
@@ -60,7 +60,6 @@ const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId) => {
                 label: item.display_name,
                 value: parseFloat(item[dataKey])
             };
-
             // for new search table
             const row = [];
             const stateCheck = item.shape_code.length < 3;
@@ -72,7 +71,7 @@ const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId) => {
             }
             else if (congressionalDistrictCheck) {
                 row.d_district = item.display_name;
-                row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
+                row.state_territory = stateNameFromCode?.[item.display_name.substring(0, 2)];
             }
             else if (countyCheck) {
                 row.county = item.display_name;
@@ -96,6 +95,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
     const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
     const stateNameByFipsId = useStateNameByFipsId();
+    const stateNameFromCode = useStatebyCode();
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     // Create inverted mapping: FIPS -> Abbreviation
@@ -156,8 +156,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const mapToggleDataKey = props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
 
     const parsed = useMemo(
-        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId),
-        [rawAPIData, mapToggleDataKey, stateNameByFipsId]
+        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId, stateNameFromCode),
+        [rawAPIData, mapToggleDataKey, stateNameByFipsId, stateNameFromCode]
     );
 
     const calculateCenterPoint = (location) => {

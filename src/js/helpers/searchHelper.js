@@ -54,7 +54,6 @@ const filterTreeUrl = (base, param) => {
     return param.startsWith('?') ? `${base}${param}` : `${base}${param}/`;
 };
 
-// TAS search
 export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
     url: filterTreeUrl('/v2/references/filter_tree/tas/', idString)

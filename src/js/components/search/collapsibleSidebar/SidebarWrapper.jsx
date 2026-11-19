@@ -23,6 +23,7 @@ import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
 import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
 import useFetchDataFromHash from './useFetchDataFromHash';
+import useFilterChangeAnalytics from './useFilterChangeAnalytics';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -43,6 +44,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+
+    useFilterChangeAnalytics();
 
     const [text, setText] = useState('');
     const [hash, setHash] = useState();
