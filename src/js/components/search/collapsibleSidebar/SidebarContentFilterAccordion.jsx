@@ -2,6 +2,7 @@ import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
+import { getUrlHash } from 'helpers/searchHelper';
 import Accordion from 'components/sharedComponents/accordion/Accordion';
 import { logToggleFilterAccordionEvent } from "containers/search/helpers/searchEvents";
 
@@ -30,7 +31,7 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
 
         if (isOpen && !hasOpened) setHasOpened(true);
 
-        logToggleFilterAccordionEvent(isOpen, title, isSearchActive);
+        logToggleFilterAccordionEvent(isOpen, title, getUrlHash(), isSearchActive);
     }, [title, hasOpened, isSearchActive]);
 
     return (

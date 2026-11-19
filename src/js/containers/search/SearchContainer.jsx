@@ -3,9 +3,8 @@
  * Created by Kevin Li 5/30/17
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { QAT, LLM_HEADER_VALUE } from 'GlobalConstants';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -23,12 +22,13 @@ import {
     areFiltersDifferent,
     areFiltersEmpty, areFiltersEqual,
     areFiltersSelected,
-    generateUrlHash, getObjFromQueryParams
+    getObjFromQueryParams
 } from 'helpers/searchHelper';
 import useQueryParams from 'hooks/useQueryParams';
 import SearchPage from 'components/search/SearchPage';
 import useRequestDownloadCount from './useRequestDownloadCount';
 import useFetchSearchFilters from './useFetchSearchFilters';
+import useGenerateSearchHash from './useGenerateSearchHash';
 
 require('pages/search/searchPage.scss');
 
@@ -49,9 +49,7 @@ const SearchContainer = () => {
         spending_level
     } = useSelector((state) => state);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
-    const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
-    const request = useRef(null);
     const areAppliedFiltersEmptyRef = useRef(null);
     const prevAppliedFiltersRef = useRef(null);
 
@@ -112,9 +110,6 @@ const SearchContainer = () => {
         }
 
         return () => {
-            if (request.current) {
-                request.current.cancel();
-            }
             // clear selected filters so we don't fetch previous search
             // only when query hash is defined b/c if it's a urlHash, we can't know if
             // we're remounting w/ the query hash or going somewhere else
@@ -156,34 +151,26 @@ const SearchContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
 
+    const { generateHash: requestHash, isGenerating: generateHashInFlight } = useGenerateSearchHash({
+        onSuccess: (newHash) => {
+            // update the URL with the received hash
+            const newQueryParams = combineQueryParams(query, { hash: newHash });
+            navigate(`${'/search'}${getQueryParamString(newQueryParams)}`, { replace: true });
+        },
+        onError: (err) => console.error(err)
+    });
+
     const generateHash = useCallback(() => {
-    // POST an API request to retrieve the Redux state
         if (generateHashInFlight) {
             return;
         }
-        setGenerateHashInFlight(true);
         // this triggers the loading indicator
         dispatch(setAppliedFilterEmptiness(false));
 
-        request.current = generateUrlHash({
+        requestHash({
             filters: appliedFilters,
             version: filterStoreVersion
         });
-        request.current.promise
-            .then((res) => {
-                // update the URL with the received hash
-                const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                navigate(`${'/search'}${getQueryParamString(newQueryParams)}`, { replace: true });
-
-                setGenerateHashInFlight(false);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.error(err);
-                    setGenerateHashInFlight(false);
-                    request.current = null;
-                }
-            });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, generateHashInFlight]);
 

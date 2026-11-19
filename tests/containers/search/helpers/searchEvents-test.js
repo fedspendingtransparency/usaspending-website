@@ -23,85 +23,102 @@ describe('searchEvents', () => {
         ['logSectionViewEvent', ['Map', 'Spending', 'table', 'abc'], {
             category: 'Section Map: Spending',
             action: 'Viewed Spending table',
-            label: 'abc'
+            label: 'abc',
+            form_id: 'abc'
         }],
-        ['logSectionDSMEvent', ['Open', 'Map'], {
+        ['logSectionDSMEvent', ['Open', 'Map', 'abc'], {
             category: 'Advanced Search - Results View DSM',
             action: 'Open',
-            label: 'Map DS&M'
+            label: 'Map DS&M',
+            form_id: 'abc'
         }],
-        ['logCategorySelectionEvent', ['Agency', 'Awards'], {
+        ['logCategorySelectionEvent', ['Agency', 'Awards', 'abc'], {
             category: 'Section categories: Awards',
-            action: 'Clicked Agency'
+            action: 'Clicked Agency',
+            form_id: 'abc'
         }],
         ['logCategoriesLinkClickEvent', ['Agency', 'Awards', 'abc'], {
             category: 'Section categories: Awards',
             action: 'Clicked Agency',
-            label: 'abc'
+            label: 'abc',
+            form_id: 'abc'
         }],
         ['logCategoriesViewEvent', ['Agency', 'abc'], {
             category: 'Section Categories',
             action: 'View Agency',
-            label: 'abc'
+            label: 'abc',
+            form_id: 'abc'
         }],
-        ['logMapLayerChangeEvent', ['county'], {
+        ['logMapLayerChangeEvent', ['county', 'abc'], {
             event: 'search_map_layer_event',
             category: 'Advanced Search - Map - Map Layer',
             action: 'county',
-            gtm: true
+            gtm: true,
+            form_id: 'abc'
         }],
-        ['logMapScopeEvent', ['place_of_performance'], {
+        ['logMapScopeEvent', ['place_of_performance', 'abc'], {
             event: 'search_map_location_type_event',
             category: 'Advanced Search - Map - Location Type',
             action: 'place_of_performance',
-            gtm: true
+            gtm: true,
+            form_id: 'abc'
         }],
-        ['logResultsTableTabChangeEvent', ['loans'], {
+        ['logResultsTableTabChangeEvent', ['loans', 'abc'], {
             event: 'search_table_tab',
             category: 'Advanced Search - Table Tab',
             action: 'loans',
-            gtm: true
+            gtm: true,
+            form_id: 'abc'
         }],
         ['logAwardIdClickEvent', ['AWD1', 'xyz'], {
             event: 'search_award_click',
             category: 'Advanced Search - Spending by Prime Award',
             action: 'Clicked AWD1',
             label: 'xyz',
-            gtm: true
+            gtm: true,
+            form_id: 'xyz'
         }],
-        ['logSubAwardIdClickEvent', ['SUB1'], {
+        ['logSubAwardIdClickEvent', ['SUB1', 'abc'], {
             event: 'search_subaward_click',
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
             label: 'SUB1',
-            gtm: true
+            gtm: true,
+            form_id: 'abc'
         }],
-        ['logDownloadButtonBarContainerEvent', ['award', {}], {
+        ['logDownloadButtonBarContainerEvent', ['award', {}, 'abc'], {
             event: 'advanced_search_download',
             category: 'Advanced Search - Download',
             action: 'award',
             label: 'Keyword|Time Period',
-            gtm: true
+            gtm: true,
+            form_id: 'abc'
         }],
         ['logMapViewEvent', ['county', 'abc'], {
             category: 'Section Map',
             action: 'View county',
-            label: 'abc'
+            label: 'abc',
+            form_id: 'abc'
         }],
-        ['logExpandEvent', ['Expand'], {
+        ['logExpandEvent', ['Expand', 'abc'], {
             category: 'Advanced Search - Active Filters',
-            action: 'Expand Filters'
+            action: 'Expand Filters',
+            label: 'abc',
+            form_id: 'abc'
         }],
         ['logResultsOverTimeEvent', ['monthly', 'abc'], {
             category: 'Section Time',
             action: 'View monthly',
-            label: 'abc'
+            label: 'abc',
+            form_id: 'abc'
         }],
-        ['logViewBySubawardsEvent', [], {
+        ['logViewBySubawardsEvent', ['abc'], {
             event: 'search_subaward_dropdown',
             category: 'Advanced Search - Search Fields',
             action: 'Subawards Search',
-            gtm: true
+            gtm: true,
+            label: 'abc',
+            form_id: 'abc'
         }]
     ];
 
@@ -123,26 +140,28 @@ describe('searchEvents', () => {
 
     describe('logToggleFilterAccordionEvent', () => {
         it('logs an open event', () => {
-            events.logToggleFilterAccordionEvent(true, 'Location', false);
+            events.logToggleFilterAccordionEvent(true, 'Location', 'abc', false);
 
             expect(Analytics.event).toHaveBeenCalledWith({
                 event: 'dap_event',
                 category: 'Advanced Search - Filter',
                 action: 'Filter Open',
                 label: 'Location open',
-                method: ADVANCED
+                method: ADVANCED,
+                form_id: 'abc'
             });
         });
 
         it('logs a close event', () => {
-            events.logToggleFilterAccordionEvent(false, 'Location', true);
+            events.logToggleFilterAccordionEvent(false, 'Location', 'abc', true);
 
             expect(Analytics.event).toHaveBeenCalledWith({
                 event: 'dap_event',
                 category: 'Advanced Search - Filter',
                 action: 'Filter Close',
                 label: 'Location close',
-                method: SMART
+                method: SMART,
+                form_id: 'abc'
             });
         });
     });
@@ -165,7 +184,8 @@ describe('searchEvents', () => {
                 action: 'treemap',
                 gtm: true,
                 label: 'Awards',
-                method: SMART
+                method: SMART,
+                form_id: 'Awards'
             });
         });
     });

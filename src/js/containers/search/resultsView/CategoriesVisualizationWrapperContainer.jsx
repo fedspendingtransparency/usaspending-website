@@ -135,7 +135,8 @@ const CategoriesVisualizationWrapperContainer = ({
         filters,
         spendingLevel,
         selectedDropdown,
-        page
+        page,
+        hash
     );
 
     // TODO: Does this error actually work?

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import { useSelector } from "react-redux";
+import { getUrlHash } from 'helpers/searchHelper';
 import { logExpandEvent } from 'containers/search/helpers/searchEvents';
 
 const propTypes = {
@@ -22,7 +23,7 @@ const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilte
     ), [expandedFilters]);
 
     const onClick = useCallback(() => setExpandedFilters((prevState) => {
-        logExpandEvent(!prevState ? "Expand" : "Collapse", isSearchActive);
+        logExpandEvent(!prevState ? "Expand" : "Collapse", getUrlHash(), isSearchActive);
 
         return !prevState;
     }), [setExpandedFilters, isSearchActive]);
