@@ -18,7 +18,10 @@ import {
 } from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
+import { getUrlHash } from 'helpers/searchHelper';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+import { logDownloadButtonBarContainerEvent } from "../../helpers/searchEvents";
+import { sanitizeUrl } from '../../../../helpers/url';
 
 const propTypes = {
     download: PropTypes.object,
@@ -45,6 +48,8 @@ const NewDownloadBottomBarContainer = ({
     const dispatch = useDispatch();
     const statusTimer = useRef(null);
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     const windowWillClose = (e) => {
     // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
@@ -67,7 +72,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.removeEventListener('beforeunload', windowWillClose);
 
         // start the download
-        window.open(fileUrl, '_self');
+        window.open(sanitizeUrl(fileUrl), '_self');
 
         // update redux
         dispatch(setDownloadPending(false));
@@ -215,6 +220,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         }
                     }
                 });
+            logDownloadButtonBarContainerEvent(download?.type, filters, getUrlHash(), isSearchActive);
         };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {

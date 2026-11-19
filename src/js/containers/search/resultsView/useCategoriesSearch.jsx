@@ -1,11 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
-import Analytics from "../../../helpers/analytics/Analytics";
 import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpers/searchHelper";
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
 import BaseSpendingByCategoryResult from "../../../models/v2/search/visualizations/rank/BaseSpendingByCategoryResult";
+import { logCategorySelectionEvent } from "../helpers/searchEvents";
 
 // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
 const getSpendingLevel = (spendingLevel) => {
@@ -15,15 +16,7 @@ const getSpendingLevel = (spendingLevel) => {
     return "transactions";
 };
 
-// TODO: analytics
-const onClickHandler = (linkName, selectedDropdown) => {
-    Analytics.event({
-        category: `Section categories: ${selectedDropdown}`,
-        action: `Clicked ${linkName}`
-    });
-};
-
-const parseData = (data, selectedDropdown, spendingLevel) => {
+const parseData = (data, selectedDropdown, spendingLevel, isSearchActive, hash) => {
     const labelSeries = [];
     const dataSeries = [];
     const descriptions = [];
@@ -77,7 +70,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                         <a
                             href={recipientLink}
                             onClick={() => {
-                                onClickHandler(result.name, selectedDropdown);
+                                logCategorySelectionEvent(result.name, selectedDropdown, hash, isSearchActive);
                             }}>
                             {result.name}
                         </a>
@@ -97,7 +90,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                     <a
                         href={awardingLink}
                         onClick={() => {
-                            onClickHandler(result.name, selectedDropdown);
+                            logCategorySelectionEvent(result.name, selectedDropdown, hash, isSearchActive);
                         }}>
                         {result.name}
                     </a>
@@ -136,9 +129,11 @@ const useCategoriesSearch = (
     filters,
     spendingLevel,
     selectedDropdown,
-    page
+    page,
+    hash
 ) => {
     const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     // Create Search Operation
     const operation = new SearchAwardsOperation();
@@ -168,7 +163,7 @@ const useCategoriesSearch = (
         enabled: !areFiltersEqual(filters)
     });
 
-    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel);
+    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel, isSearchActive, hash);
 
     return { loading: isLoading, error, ...parsedData };
 };

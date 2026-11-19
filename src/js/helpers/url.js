@@ -1,27 +1,27 @@
 export const isRedirectNeeded = (item) => item.externalLink && !item.url.includes('.gov');
 
 const commonAttackParams = new Set([
-    "redirect",
-    "redirect_url",
-    "next",
-    "url",
-    "return",
-    "returnUrl",
-    "return_url",
-    "goto",
-    "destination",
-    "dest",
-    "forward",
-    "user",
-    "userName",
-    "user_name",
-    "password",
-    "login"
+    'redirect',
+    'redirect_url',
+    'next',
+    'url',
+    'return',
+    'returnUrl',
+    'return_url',
+    'goto',
+    'destination',
+    'dest',
+    'forward',
+    'user',
+    'userName',
+    'user_name',
+    'password',
+    'login'
 ]);
 
 const isRealUrl = (rawURL) => {
     // must be non-empty string
-    if (typeof rawURL !== "string" || rawURL.trim() === "") return null;
+    if (typeof rawURL !== 'string' || rawURL.trim() === '') return null;
 
     // strip whitespace + invisible/zero-width unicode characters
     const stripped = rawURL
@@ -46,17 +46,13 @@ const isBaseURL = (val) => {
     return val.startsWith('https://www.usaspending.gov/');
 };
 
-export const sanitizeUrl = (rawURL, blockRedirect = true) => {
+export const sanitizeBlobUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
-
     // not a real url
     if (!parsed) return null;
 
-    // https only
-    if (parsed.protocol !== "https:") return null;
-
-    // hostname must exist and not just whitespace
-    if (!parsed.hostname || parsed.hostname.trim() === "") return null;
+    // For blob
+    if (parsed.protocol !== "blob:") return null;
 
     if (blockRedirect) {
         const params = [...parsed.searchParams.entries()];
@@ -71,6 +67,47 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     }
 
     return encodeURI(parsed.toString());
+};
+export const sanitizeUrl = (rawURL, blockRedirect = true) => {
+    let parsed = isRealUrl(rawURL);
+    // not a real url
+    if (!parsed) return null;
+
+    // https only
+    if (parsed.protocol !== 'https:') return null;
+
+    // hostname must exist and not just whitespace
+    if (!parsed.hostname || parsed.hostname.trim() === '') return null;
+
+    if (blockRedirect) {
+        const params = [...parsed.searchParams.entries()];
+
+        // remove open-direct query params
+        // allow valid urls.
+        for (const [key, value] of params) {
+            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)) {
+                parsed.searchParams.delete(key);
+            }
+        }
+    }
+
+    return encodeURI(parsed.toString());
+};
+export const sanitizeRelativeUrl = (relUrl) => {
+    if (typeof relUrl !== 'string') return '#';
+
+    // Trim whitespace
+    const trimmed = relUrl.trim();
+
+    // Regex to ensure it only starts with '/' or './' followed by alphanumeric or safe symbols.
+    // This explicitly blocks 'javascript:', 'data:', 'http://', and '//' protocol-relative links.
+    const isSafeRelative = /^(\/|\.\/)(?!\/)[a-zA-Z0-9\-._~%!$&'()*+,;=:@/]*$/.test(trimmed);
+
+    if (isSafeRelative) {
+        return trimmed;
+    }
+
+    return '/';
 };
 
 export const sanitizeMailUrl = (rawURL) => {

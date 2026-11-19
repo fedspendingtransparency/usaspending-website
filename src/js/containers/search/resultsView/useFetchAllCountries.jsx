@@ -8,7 +8,7 @@ import { apiRequest } from '../../../helpers/apiRequest';
 
 // perform search is a cancellable promise
 const fetchAllCountries = () => apiRequest({
-    url: 'v2/references/countries'
+    url: 'v2/references/countries/'
 });
 
 const useFetchAllCountries = () => {

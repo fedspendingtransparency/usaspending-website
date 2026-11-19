@@ -179,16 +179,17 @@ details {
       line-height: 1.2;
       max-height: 100%;
       visibility: visible;
-      transition: ease-in-out max-height 50ms,
-      visibility 50ms;
+      transition:
+        ease-in-out max-height 50ms,
+        visibility 50ms;
     }
   }
 }
 
 // searchV2
 .collapsible-sidebar--search-filters-list,
-  .search-filters-list,
-  .accordion-container:last-of-type,
-  .accordion {
+.search-filters-list,
+.accordion-container:last-of-type,
+.accordion {
   padding-bottom: 0;
 }

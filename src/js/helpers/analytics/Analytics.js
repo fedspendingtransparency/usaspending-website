@@ -40,8 +40,10 @@ const Analytics = {
             event_action: args.action,
             event_label: args.label || undefined,
             event_value: args.value || undefined,
+            event_method: args.method || undefined,
             event_nonInteraction: args.nonInteraction || undefined,
-            event_time_to_query: args.time_to_query || undefined
+            event_time_to_query: args.time_to_query || undefined,
+            event_form_id: args.form_id
         });
 
         this._execute(
@@ -52,7 +54,9 @@ const Analytics = {
             args.label || undefined,
             args.value || undefined,
             args.nonInteraction || undefined,
-            args.time_to_query || undefined
+            args.time_to_query || undefined,
+            args.method || undefined,
+            args.form_id || undefined
         );
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
