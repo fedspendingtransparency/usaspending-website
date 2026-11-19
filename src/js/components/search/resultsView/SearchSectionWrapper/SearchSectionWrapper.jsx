@@ -134,7 +134,7 @@ const SearchSectionWrapper = ({
         }
 
         if (trackDSMEvent) {
-            logSectionDSMEvent(action, prefix, isSearchActive);
+            logSectionDSMEvent(action, prefix, hash, isSearchActive);
         }
         setTrackDSMEvent(true);
 

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from "react-router";
 import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
+import { getUrlHash } from "helpers/searchHelper";
 import { logViewBySubawardsEvent } from "containers/search/helpers/searchEvents";
 
 const propTypes = {
@@ -57,7 +58,7 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
             else {
                 // do nothing, subawards in url and setting to subawards
             }
-            logViewBySubawardsEvent(isSearchActive);
+            logViewBySubawardsEvent(getUrlHash(), isSearchActive);
         }
         else if (window.location.href.includes("subawards")) {
             searchParams.delete("subawards");

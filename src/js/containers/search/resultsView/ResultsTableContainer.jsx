@@ -145,7 +145,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             setSort(Object.assign(newState.sort));
         }
         setPage(1);
-        logResultsTableTabChangeEvent(tab, isSearchActive);
+        logResultsTableTabChangeEvent(tab, hash, isSearchActive);
     };
 
     const parseTabCounts = () => {
@@ -200,7 +200,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     };
 
     const subAwardIdClick = (id) => {
-        logSubAwardIdClickEvent(id, isSearchActive);
+        logSubAwardIdClickEvent(id, hash, isSearchActive);
         dispatch(subAwardIdClicked(true));
     };
 
