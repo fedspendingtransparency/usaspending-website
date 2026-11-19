@@ -69,6 +69,22 @@ describe('AccountDataContent validForm', () => {
         expect(screen.getByText('Download')).toHaveProperty('disabled', true);
     });
 
+    it('keeps the Download button disabled when fy has been cleared to an empty string', () => {
+        const clearedFy = { ...validAccounts, fy: '', quarter: null, period: null };
+
+        render(<AccountDataContent {...defaultProps} accounts={clearedFy} />);
+
+        expect(screen.getByText('Download')).toHaveProperty('disabled', true);
+    });
+
+    it('keeps the Download button disabled when fy is cleared but a stale quarter remains', () => {
+        const clearedFy = { ...validAccounts, fy: '' };
+
+        render(<AccountDataContent {...defaultProps} accounts={clearedFy} />);
+
+        expect(screen.getByText('Download')).toHaveProperty('disabled', true);
+    });
+
     it('keeps the Download button disabled when both quarter and period are null', () => {
         const missingTimeInterval = { ...validAccounts, quarter: null, period: null };
 
