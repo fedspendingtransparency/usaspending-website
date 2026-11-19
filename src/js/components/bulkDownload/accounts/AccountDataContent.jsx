@@ -49,8 +49,8 @@ const AccountDataContent = ({
         (accounts.budgetFunction.code !== '') &&
         (accounts.agency.id !== '') &&
         (accounts.submissionTypes.length !== 0) &&
-        (accounts.fy !== null) &&
-        (accounts.quarter !== null || accounts.period !== null)
+        (accounts.fy) &&
+        (accounts.quarter || accounts.period)
     );
 
     // prevents submission on enter keydown
