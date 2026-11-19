@@ -19,7 +19,7 @@ import { defCodeGroups } from '../../../dataMapping/search/defCodes';
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:';
 const id = crypto.randomUUID();
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
 
 const { dispatch } = storeSingleton.store || {};
 

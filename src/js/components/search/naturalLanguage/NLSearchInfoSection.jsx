@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { FlexGridCol } from 'data-transparency-ui';
 import Accordion from '../../sharedComponents/accordion/Accordion';
 
-require('pages/search/naturalLanguage/searchInfoPage.scss');
+import 'pages/search/naturalLanguage/searchInfoPage.scss';
 
 const propTypes = {
     anchor: PropTypes.string,

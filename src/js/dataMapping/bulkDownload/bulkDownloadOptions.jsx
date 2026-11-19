@@ -6,7 +6,7 @@ import React from "react";
 import { Link } from 'react-router';
 import { bulkDownloadAwardTypeGroups } from "../search/awardType";
 
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
 
 export const awardDownloadOptions = {
     awardLevels: [

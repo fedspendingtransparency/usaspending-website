@@ -15,7 +15,7 @@ import {
 import schema from "../../../config/aboutTheData/aboutTheDataSchema";
 import AboutTheData from "../../components/aboutTheDataSidebar/AboutTheData";
 
-require('components/aboutTheDataSidebar/aboutTheData.scss');
+import 'components/aboutTheDataSidebar/aboutTheData.scss';
 
 export const AboutTheDataContainer = () => {
     const dispatch = useDispatch();

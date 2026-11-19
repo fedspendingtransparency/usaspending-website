@@ -35,7 +35,7 @@ import { getAwardHistoryCounts } from "helpers/awardHistoryHelper";
 import Analytics from "helpers/analytics/Analytics";
 import { fetchAwardV2 } from "../../helpers/searchHelper";
 
-require('pages/award/awardPage.scss');
+import 'pages/award/awardPage.scss';
 
 const propTypes = {
     subAwardIdClicked: PropTypes.func,

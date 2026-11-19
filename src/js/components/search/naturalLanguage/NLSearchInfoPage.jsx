@@ -25,7 +25,7 @@ import { Keyboard, A11y, FreeMode } from 'swiper/modules';
 import 'swiper/css/bundle';
 import 'swiper/css';
 
-require('pages/search/naturalLanguage/searchInfoPage.scss');
+import 'pages/search/naturalLanguage/searchInfoPage.scss';
 
 const graphicLabel = (
     <>

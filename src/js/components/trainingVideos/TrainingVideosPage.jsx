@@ -28,7 +28,7 @@ const getEmailSocialShareData = {
     subject: "USAspending.gov Training Videos",
     body: "View the training videos on USAspending.gov: https://www.usaspending.gov/training-videos"
 };
-require('pages/trainingVideos/trainingVideos.scss');
+import 'pages/trainingVideos/trainingVideos.scss';
 
 const TrainingVideosPage = ({ featuredVideo, videos }) => {
     const dispatch = useDispatch();

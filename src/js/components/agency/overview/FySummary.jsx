@@ -19,7 +19,7 @@ import ObligationsByAwardTypeContainer from 'containers/agency/visualizations/Ob
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
 
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
 
 const propTypes = {
     fy: PropTypes.string,
