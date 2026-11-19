@@ -35,12 +35,17 @@ const InPageNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-    const visibleSections = new Set();
+    const visibleSections = useRef(new Set());
 
     const observerOptions = {
         rootMargin: rootMargin || `-140px 0px 0px 0px`,
         threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
+
+    const inNavClick = useCallback((option) => {
+        jumpToSection(option.section);
+        setActiveSection(option.section);
+    }, []);
 
     const initialLoadRef = useRef(true);
     const prefix = `${pageName}-`;
@@ -48,13 +53,13 @@ const InPageNav = ({
     const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                visibleSections.add(entry.target);
+                visibleSections.current.add(entry.target);
             }
             else {
-                visibleSections.delete(entry.target);
+                visibleSections.current.delete(entry.target);
             }
 
-            const visible = [...visibleSections];
+            const visible = [...visibleSections.current];
 
             if (visible.length) {
                 const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
@@ -64,7 +69,7 @@ const InPageNav = ({
                 setActiveSection(section);
             }
         });
-    });
+    }, []);
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
         const ulEl = navBar?.current?.querySelector('ul');
@@ -222,6 +227,27 @@ const InPageNav = ({
         setSectionPositions(newSectionPositions);
     }, 100);
 
+    // Function to wait for sections that may render later.
+    function waitForElements(selector) {
+        return new Promise((resolve) => {
+            const existing = document.querySelectorAll(selector);
+            if (existing.length > 0) {
+                return resolve(existing);
+            }
+            const observer = new MutationObserver(() => {
+                const elements = document.querySelectorAll(selector);
+                if (elements.length > 0) {
+                    observer.disconnect();
+                    resolve(elements);
+                }
+            });
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
     useEffect(() => {
         getInitialElements();
         handleResize();
@@ -233,18 +259,22 @@ const InPageNav = ({
     }, []);
 
     useEffect(() => {
-        if (observerSupported && initialLoadRef.current) {
-            initialLoadRef.current = false;
-            const targets = document.querySelectorAll(`[id*='${prefix}']`);
-            const observer = new IntersectionObserver(callbackFunction, observerOptions);
-            targets.forEach((i) => {
-                if (i) {
-                    observer.observe(i);
-                }
-            });
+        async function loadIntersectionObserver() {
+            if (observerSupported && initialLoadRef.current) {
+                initialLoadRef.current = false;
+                await waitForElements(`[id*='${prefix}']`);
+                const targets = document.querySelectorAll(`[id*='${prefix}']`);
+                const observer = new IntersectionObserver(callbackFunction, observerOptions);
+                targets.forEach((i) => {
+                    if (i) {
+                        observer.observe(i);
+                    }
+                });
 
-            return () => observer.disconnect();
+                return () => observer.disconnect();
+            }
         }
+        loadIntersectionObserver();
     }, [observerSupported, loading]);
 
     useEffect(() => {
@@ -285,8 +315,8 @@ const InPageNav = ({
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
-                                onKeyDown={(e) => (e.key === 'Enter' ? jumpToSection(section.section) : '')}
-                                onClick={() => jumpToSection(section.section)}>
+                                onKeyDown={(e) => (e.key === 'Enter' ? inNavClick(section) : '')}
+                                onClick={() => inNavClick(section)}>
                                 {section.label}
                             </a>
                         </li>
