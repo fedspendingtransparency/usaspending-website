@@ -77,6 +77,8 @@ const GeoVisualizationSection = (props) => {
         // convert state code to full string name
         // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
         const label = dataRef.current.labels[geoId];
+        if (!label) return;
+
         setShowHover(true);
         setSelectedItem({
             label: label.label,

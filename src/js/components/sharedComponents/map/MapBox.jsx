@@ -178,9 +178,13 @@ const MapBox = ({
 
         return () => {
             mounted = false;
-            setMapReady(false);
         };
     }, [map, calculateMapZoom, center, resizeMap, mountMap, isTablet, setMapReady]);
+
+    // only set the map as not ready when MapBox actually unmounts
+    useEffect(() => {
+        return () => setMapReady(false);
+    }, [setMapReady]);
 
     return (
         <div className="mapbox-item" ref={mapDiv}>
