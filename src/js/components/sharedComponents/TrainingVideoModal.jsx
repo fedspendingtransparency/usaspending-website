@@ -42,8 +42,8 @@ const TrainingVideoModal = (props) => {
     };
 
     useEffect(() => {
-        setParsedDescription(parseChapters(props.description, updatePlayerChapter));
-    }, [props.description]);
+        setParsedDescription(parseChapters(props.description, props.id));
+    }, [props.description, props.id]);
 
     const youTubeOnReady = (e) => {
         let elem = document.getElementById("usa-dt-modal__body");
