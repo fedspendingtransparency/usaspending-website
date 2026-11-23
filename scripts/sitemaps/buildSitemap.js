@@ -49,11 +49,15 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
     return pageData
         .map((page) => ({ value: page[accessor], name: page.name }))
         .filter((page) => {
+            // skip pages missing an id, otherwise they'd produce urls like /award/undefined
+            if (page.value === undefined || page.value === null) return false;
             if (typeof page.value === 'string') {
+                // skip blank ids, otherwise they'd produce urls like /award/
+                if (page.value.trim() === '') return false;
                 return page.value
                     .split('')
                     // id inside url can't contain one of these characters cause they have to be entity-escaped
-                    .some((letter) => forbiddenChars.indexOf(letter) === -1);
+                    .every((letter) => forbiddenChars.indexOf(letter) === -1);
             }
             return true;
         })
@@ -214,17 +218,38 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     createIndexedSitemap(xml);
 };
 
+// resolved from __dirname (like the file writes above) so cleanup never depends on the cwd
+const sitemapDirectory = path.resolve(__dirname, './sitemapFiles');
+
 const createSitemapDirectory = () => new Promise(
     (resolve, reject) => fs.mkdir(
-        path.resolve('./sitemapFiles'), {}, (e) => {
+        sitemapDirectory, { recursive: true }, (e) => {
             if (e) {
                 reject(e);
+                return;
             }
             resolve();
         })
 );
 
+// remove generated *.xml files from a previous run so stale sitemaps don't linger;
+// robots.txt is tracked in git and always overwritten, so it is left alone
+const removeExistingSitemaps = () => new Promise(
+    (resolve, reject) => fs.readdir(sitemapDirectory, (e, files) => {
+        if (e) {
+            reject(e);
+            return;
+        }
+        Promise.all(
+            files
+                .filter((file) => path.extname(file) === '.xml')
+                .map((file) => fs.promises.rm(path.join(sitemapDirectory, file), { force: true }))
+        ).then(resolve, reject);
+    })
+);
+
 createSitemapDirectory()
+    .then(() => removeExistingSitemaps())
     .then(() => buildIndividualSitemaps())
     .then((individalSiteMaps) => {
         buildIndexedSitemap(individalSiteMaps);
