@@ -46,7 +46,7 @@
     "@babel/preset-env": "^8.0.7",
     "@babel/runtime": "^8.0.10",
     "@eslint/js": "^10.0.1",
-    "@lhci/cli": "^0.14.0",
+    "@lhci/cli": "^0.16.1",
     "@lhci/server": "^0.14.0",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
