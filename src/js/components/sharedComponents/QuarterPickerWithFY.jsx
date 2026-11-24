@@ -84,6 +84,8 @@ const QuarterPickerWithFY = ({
             }));
     }, [defaultFy]);
 
+    const defaultFyValue = selectedFy ? `FY ${selectedFy}` : '';
+
     if (newPicker) return (
         <div className="download-filter__fy">
             <ComboBox
@@ -93,6 +95,7 @@ const QuarterPickerWithFY = ({
                 formName="download-filter__fy"
                 onClearSelect={onClearSelect}
                 placeholder="Select a FY"
+                defaultValue={defaultFyValue}
                 disabled={!latestFy} />
             <NewQuarterPicker
                 showPeriods

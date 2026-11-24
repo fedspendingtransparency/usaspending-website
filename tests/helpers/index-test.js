@@ -5,7 +5,7 @@
  * index-test.js
  * Created by Max Kendall 04/26/2021
 * */
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import useStateWithPrevious from "../../src/js/hooks/useStateWithPrevious";
 import { waitFor } from "@testing-library/react";
 

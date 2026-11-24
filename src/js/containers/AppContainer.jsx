@@ -14,6 +14,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import storeSingleton from 'redux/storeSingleton';
 import WithUrlListener from 'containers/WithUrlListener';
 import reducers from 'redux/reducers/index';
+import lastActionMiddleware from 'redux/middleware/lastActionMiddleware';
 
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
 import MobileMessage from 'components/sharedComponents/MobileMessage';
@@ -32,11 +33,12 @@ if (kGlobalConstants.QAT) {
 
 if (kGlobalConstants.PERF_LOG) {
     // enable performance logging
-    const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
+    const createStoreWithMiddleware = applyMiddleware(lastActionMiddleware, perflogger)(createStore);
     store = createStoreWithMiddleware(reducers, devExtension);
 }
 else {
-    store = createStore(reducers, {}, devExtension);
+    const createStoreWithMiddleware = applyMiddleware(lastActionMiddleware)(createStore);
+    store = createStoreWithMiddleware(reducers, {}, devExtension);
 }
 
 // hold a reference to the store from the store singleton

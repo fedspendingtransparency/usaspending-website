@@ -23,6 +23,7 @@ import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
 import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
 import useFetchDataFromHash from './useFetchDataFromHash';
+import useFilterChangeAnalytics from './useFilterChangeAnalytics';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -43,6 +44,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+
+    useFilterChangeAnalytics();
 
     const [text, setText] = useState('');
     const [hash, setHash] = useState();
@@ -124,12 +127,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             dispatch(setIsNLSearchError(true));
         }
 
+        dispatch(setIsNLSearchComplete(!isFetching));
+
+        // keep this as the last dispatch: useFilterChangeAnalytics treats any filter change as a manual
+        // edit unless the most recent action is RESTORE_HASHED_FILTERS, and a manual edit ends the NL search
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
         }
-
-        dispatch(setIsNLSearchComplete(!isFetching));
     }, [filterResults, hashSuccess, hashError, fetchingError]);
 
     useEffect(() => {
@@ -156,7 +161,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             dispatch(setIsNLSearchComplete(!isFetching));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [parsedData, isSuccess]);
+    }, [parsedData, isSuccess, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">

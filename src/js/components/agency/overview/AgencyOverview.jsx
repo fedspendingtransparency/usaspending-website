@@ -12,6 +12,7 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import { showSlideout } from 'helpers/slideoutHelper';
 import IsMobileContext from "context/IsMobileContext";
+import { sanitizeUrl } from '../../../helpers/url';
 import FySummary from './FySummary';
 
 const propTypes = {
@@ -74,7 +75,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                     (
                         <a
                             className="usa-bold-link"
-                            href={website}
+                            href={sanitizeUrl(website)}
                             target="_blank"
                             rel="noreferrer">
                             {website}
@@ -92,7 +93,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                 (
                     <a
                         className="usa-bold-link"
-                        href={congressionalJustification}
+                        href={sanitizeUrl(congressionalJustification)}
                         target="_blank"
                         rel="noreferrer">
                         {congressionalJustification}

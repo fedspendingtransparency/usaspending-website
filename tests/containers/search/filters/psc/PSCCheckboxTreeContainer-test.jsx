@@ -6,17 +6,27 @@
  */
 
 import React from 'react';
-import { expect } from "@jest/globals";
-import { waitFor } from "@testing-library/react";
+import { expect } from '@jest/globals';
+import { waitFor } from '@testing-library/react';
 
-import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import { render, screen, act, fireEvent } from '../../../../testResources/test-utils';
 import { initialMockResponse, agriMockResponse, accordionOpenMockResponse } from './mockPSC';
-import * as searchHelper from "../../../../../src/js/helpers/searchHelper";
+import { fetchPsc } from 'helpers/searchHelper';
+
+// jest hoists this above the imports, so pscTreeConfig captures the mock
+jest.mock('helpers/searchHelper', () => ({
+    ...jest.requireActual('helpers/searchHelper'),
+    fetchPsc: jest.fn()
+}));
 
 describe('PSCCheckboxTreeContainer', () => {
+    afterEach(() => {
+        fetchPsc.mockReset();
+    });
+
     it('should populate the checkbox tree with all psc groups', async () => {
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
@@ -27,7 +37,7 @@ describe('PSCCheckboxTreeContainer', () => {
     });
 
     it('should populate the checkbox tree search results and clear', async () => {
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
@@ -36,7 +46,7 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(rAndDElement).toBeInTheDocument();
         });
 
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(agriMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(agriMockResponse) });
 
         act(() => {
             const searchBar = screen.getByPlaceholderText('Type at least 2 letters...');
@@ -61,7 +71,7 @@ describe('PSCCheckboxTreeContainer', () => {
     });
 
     it('should open/close accordion', async () => {
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
@@ -70,7 +80,7 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(rAndDTest).toBeInTheDocument();
         });
 
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
 
         act(() => {
             const accordionChevron = screen.getAllByRole('button', 'Toggle');
@@ -94,7 +104,7 @@ describe('PSCCheckboxTreeContainer', () => {
     });
 
     xit('check/uncheck based on parent child relationship', async () => {
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
@@ -103,7 +113,7 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(rAndDTest).toBeInTheDocument();
         });
 
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
+        fetchPsc.mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
 
         act(() => {
             const accordionChevron = screen.getAllByRole('button', 'Toggle');

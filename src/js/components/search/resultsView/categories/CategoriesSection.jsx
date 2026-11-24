@@ -4,15 +4,17 @@
  **/
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
-import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
-    from "../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer";
-import PlaceholderComponent from "../PlaceholderComponent";
-import CategoriesDsm from "./CategoriesDsm";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
+    from 'containers/search/resultsView/CategoriesVisualizationWrapperContainer';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { logCategoriesViewEvent, logVisualizationViewEvent } from "containers/search/helpers/searchEvents";
+
+import PlaceholderComponent from '../PlaceholderComponent';
+import CategoriesDsm from './CategoriesDsm';
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -22,25 +24,28 @@ const CategoriesSection = ({
     spendingLevel,
     hash
 }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
+    const [searchParams] = useSearchParams();
+    const section = searchParams.get('section');
+    const type = searchParams.get('type');
+    const isValidType = type && (type === 'naics' || type === 'psc');
+    const defaultDropdown = (section && isValidType) ? type : 'awarding_agency';
+    const [selectedDropdown, setSelectedDropdown] = useState(defaultDropdown);
     const { ref, isIntersecting: categoriesHasLoaded } = useIntersectionObserver({
         threshold: 0.1,
         freezeOnceVisible: true
     });
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     useEffect(() => {
         if (categoriesHasLoaded) {
-            logVisualizationViewEvent("categories", hash);
+            logVisualizationViewEvent('categories', hash, isSearchActive);
         }
     }, [categoriesHasLoaded, hash]);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
-        Analytics.event({
-            category: 'Section Categories',
-            action: `View ${e}`,
-            label: hash
-        });
+        logCategoriesViewEvent(e, hash, isSearchActive);
     };
 
     const wrapperProps = {
@@ -94,7 +99,6 @@ const CategoriesSection = ({
                     <CategoriesVisualizationWrapperContainer
                         wrapperProps={wrapperProps}
                         selectedDropdown={selectedDropdown}
-                        setSelectedDropdown={setSelectedDropdown}
                         hash={hash}
                         key={selectedDropdown} />
                 ) :
