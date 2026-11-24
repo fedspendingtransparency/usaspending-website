@@ -11,7 +11,6 @@ import CategoriesPagination from '../categories/CategoriesPagination';
 
 const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
-    const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
@@ -20,9 +19,13 @@ const SectionDataTable = (props) => {
     const maxRows = props.rows;
     const columns = props.columns;
 
+    // derive the visible page from the props so re-sorted or new data always shows up
+    const rows = props.manualSort ?
+        maxRows.slice((currentPage - 1) * pageSize, currentPage * pageSize) :
+        [];
+
     const changePage = (page) => {
         if (props.manualSort) {
-            setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
             setCurrentPage(page);
         }
     };
@@ -43,15 +46,6 @@ const SectionDataTable = (props) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
-
-    useEffect(() => {
-        if (pageSize) {
-            if (props.manualSort) {
-                setRows(maxRows.slice(currentPage - 1, pageSize));
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <>

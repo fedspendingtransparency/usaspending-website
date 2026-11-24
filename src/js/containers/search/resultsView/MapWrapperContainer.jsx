@@ -71,7 +71,7 @@ const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId, stateNameFromCode)
                 row.state_territory = item.display_name;
             }
             else if (congressionalDistrictCheck) {
-                row.d_district = item.display_name;
+                row.congressional_district = item.display_name;
                 row.state_territory = stateNameFromCode?.[item.display_name.substring(0, 2)];
             }
             else if (countyCheck) {
