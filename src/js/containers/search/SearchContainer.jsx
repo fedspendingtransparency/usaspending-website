@@ -17,7 +17,6 @@ import {
     setAppliedFilterEmptiness, resetAppliedFilters
 } from 'redux/actions/search/appliedFilterActions';
 import { setSmartAssistIsVisible } from 'redux/actions/search/searchViewActions';
-import { setIsSearchActive } from 'redux/actions/sidebar/sidebarActions';
 import {
     areFiltersDifferent,
     areFiltersEmpty, areFiltersEqual,
@@ -145,8 +144,6 @@ const SearchContainer = () => {
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
-            // no filters left, so there is no Smart Assist session to show
-            dispatch(setIsSearchActive(false));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
