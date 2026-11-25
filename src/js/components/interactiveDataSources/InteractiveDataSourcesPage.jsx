@@ -25,7 +25,7 @@ import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
 import useJumpToSection from "../../hooks/useJumpToSection";
 
-require('pages/interactiveDataSources/index.scss');
+import 'pages/interactiveDataSources/index.scss';
 
 const InteractiveDataSourcesPage = () => {
     const dispatch = useDispatch();

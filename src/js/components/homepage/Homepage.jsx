@@ -15,7 +15,7 @@ import ReadyToGetStarted from './ReadyToGetStarted/ReadyToGetStarted';
 import HomepageFirstRow from './HomepageFirstRow/HomepageFirstRow';
 import NLPreSearchButtonGroup from '../search/naturalLanguage/NLPreSearchButtonGroup';
 
-require('pages/homepage/homepage.scss');
+import 'pages/homepage/homepage.scss';
 
 const Homepage = () => {
     useEffect(() => {

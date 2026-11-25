@@ -26,7 +26,7 @@ import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import PageTitle from './overview/PageTitle';
 import useJumpToSection from "../../hooks/useJumpToSection";
 
-require('pages/agency/index.scss');
+import 'pages/agency/index.scss';
 
 const propTypes = {
     selectedFy: PropTypes.string,

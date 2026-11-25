@@ -25,7 +25,7 @@ import useFetchOverview from "./useFetchOverview";
 import TopFiveSection from "../topFive/TopFiveSection";
 import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
-require('pages/state/statePage.scss');
+import 'pages/state/statePage.scss';
 
 const StatePageContainer = () => {
     const dispatch = useDispatch();

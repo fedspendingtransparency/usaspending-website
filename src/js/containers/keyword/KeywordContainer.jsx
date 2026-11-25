@@ -20,7 +20,7 @@ import * as KeywordHelper from 'helpers/keywordHelper';
 
 import KeywordPage from 'components/keyword/KeywordPage';
 
-require('pages/keyword/keywordPage.scss');
+import 'pages/keyword/keywordPage.scss';
 
 const KeywordContainer = () => {
     const [keyword, setKeyword] = useState('');

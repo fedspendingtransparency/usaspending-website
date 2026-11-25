@@ -15,7 +15,7 @@ import SectionsContent from "./SectionsContent";
 import SearchLanding from "./SearchLanding";
 import LoadingSpinner from '../../sharedComponents/LoadingSpinner';
 
-require("pages/search/searchPage.scss");
+import 'pages/search/searchPage.scss';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,

@@ -36,7 +36,7 @@ const getColumns = (year) => {
     return columnsArray;
 };
 
-require('pages/accountLanding/accountLandingPage.scss');
+import 'pages/accountLanding/accountLandingPage.scss';
 
 const AccountLandingContainer = ({ latestPeriod }) => {
     const [pageNumber, setPageNumber] = useState(1);

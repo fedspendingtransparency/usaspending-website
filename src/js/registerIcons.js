@@ -2,12 +2,12 @@
  * registerIcons.js
  * Created by Max Kendall 12/8/2020
  */
-import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faXmark, faCircleCheck, faCircleXmark
 } from '@fortawesome/pro-regular-svg-icons';
-import { faWandMagicSparkles } from "@fortawesome/pro-regular-svg-icons";
+import { faWandMagicSparkles, faLightbulb as faLightbulbReg } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDoubleDown,
     faAngleDown,
@@ -131,7 +131,7 @@ import {
     faQuestion,
     faArrowsRotate,
     faChartColumn
-} from "@fortawesome/pro-solid-svg-icons";
+} from '@fortawesome/pro-solid-svg-icons';
 
 export default function registerIcons() {
     library.add(
@@ -212,6 +212,7 @@ export default function registerIcons() {
         faLevelUpAlt,
         faLightbulb,
         faLightbulbCfl,
+        faLightbulbReg,
         faLink,
         faLinkedin,
         faList,

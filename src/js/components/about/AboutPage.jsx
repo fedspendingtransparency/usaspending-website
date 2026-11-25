@@ -16,7 +16,7 @@ import Contact from './Contact';
 import Development from './Development';
 import Licensing from './Licensing';
 
-require('pages/about/aboutPage.scss');
+import 'pages/about/aboutPage.scss';
 
 const aboutSections = [
     {
