@@ -650,7 +650,7 @@ export const descriptionInfoAsst = (
         </div>
         <div className="tooltip__text">
             <p className="tooltip__text-section">
-                The description of this award is provided by the financial assistance manager who submitted its data. The level of detail in descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes from the base award. Modifications have their own descriptions which can differ from the description of the base award; these can be viewed in the Transaction History tab of the Award History section below or by downloading the data via the top-right “DOWNLOAD” button.
+                The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in descriptions varies and depends on the author and agency standards. The description shown here comes from the base award. Subsequent contract transactions (modifications) may update, expand, or narrow the scope of the award and include their own descriptions. To understand the full history and most current scope of the award, review the transaction descriptions in the Transaction History tab of the Award History section below, or download the award data using the "DOWNLOAD" button.
             </p>
             <p className="tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the Assistance Listing (CFDA Program) module below.</p>
         </div>
@@ -664,11 +664,11 @@ export const descriptionInfoContract = (
         </div>
         <div className="tooltip__text">
             <p>
-                The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in
-                descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes
-                from the base award of the contract.  Contract transactions (also known as modifications) have their own descriptions available.
-                These transaction descriptions and other details can be viewed in the Transaction History tab of the Award History section located
-                further down this page, or by downloading the data via the top-right “DOWNLOAD” button.
+                The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in descriptions
+                varies and depends on the author and agency standards. The description shown here comes from the base award. Subsequent contract transactions
+                (modifications) may update, expand, or narrow the scope of the award and include their own descriptions. To understand the full history
+                and most current scope of the award, review the transaction descriptions in the Transaction History tab of the Award History section
+                below, or download the award data using the "DOWNLOAD" button.
             </p>
             <p>
                 Also shown below the description are groups of codes from two systems of classification:
@@ -708,10 +708,11 @@ export const descriptionInfo = (
         </div>
         <div className="tooltip__text">
             <p>
-                The description of the award is provided by the contract officer
-                who submitted this award data. The quality of these descriptions
-                can vary as they are largely dependent on their author and agency
-                standards.
+                The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in
+                descriptions varies and depends on the author and agency standards. The description shown here comes from the base award.
+                Subsequent contract transactions (modifications) may update, expand, or narrow the scope of the award and include their own
+                descriptions. To understand the full history and most current scope of the award, review the transaction descriptions in the
+                Transaction History tab of the Award History section below, or download the award data using the "DOWNLOAD" button.
             </p>
             <p>
                 Also shown below are codes from two sets, North American Industry
