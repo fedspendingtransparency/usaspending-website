@@ -164,13 +164,8 @@
           }
 
           .date-picker__input-field {
-            @media (min-width: $tablet-screen) {
-              width: rem(70);
-            }
-
-            @media (min-width: $large-screen) {
-              width: rem(95);
-            }
+            width: 100%;
+            min-width: 0;
           }
 
           .date-picker__input-field:invalid {
@@ -181,9 +176,11 @@
         .date-range-column {
           margin-right: 0.5 * $global-margin;
           width: 100%;
+          min-width: 0; // flex items default to min-width:auto, so the native date input's intrinsic width would force overflow
 
           .generate-datepicker-wrap {
             width: 100%;
+            min-width: 0;
 
             input {
               margin-bottom: 0;
@@ -219,17 +216,28 @@
 
           .date-range-option__dropdown-section-picker-wrapper {
             width: 100%;
+            min-width: 0; // allow flex item to shrink below content width so it doesn't overlap the Add button
             margin-right: $global-margin * 0.5;
 
             // DTUI NewPicker.jsx override
             .filter__dropdown-container {
+              // block (not flex) so the button is sized by its parent width and cannot overflow into the Add button
+              display: block;
               height: rem(32);
+              width: 100%;
+              min-width: 0;
 
               .filter__dropdown-button-list-container {
                 width: 100%;
+                min-width: 0;
 
-                button {
+                > button {
+                  box-sizing: border-box;
                   width: 100%;
+                  min-width: 0;
+                  max-width: rem(460);
+                  height: rem(32);
+                  padding: 0 rem(8);
                 }
 
                 [class*="filter__dropdown-button"] {
@@ -296,9 +304,12 @@
             }
           }
 
-          button {
-            margin: 0;
+          .date-range-option__dropdown-section-picker-wrapper ~ button,
+          .date-range-option__dropdown-section-picker-wrapper ~ * button {
             @include new-search-button;
+            height: rem(18);
+            min-height: 0;
+            margin: 0;
           }
         }
       }

@@ -23,6 +23,10 @@
 .mobile-search-sidebar-v2 {
   @import "./_sidebarTransitions";
 
+  // FlexGridCol is a flex item with no intrinsic width; without this it shrinks to its content
+  // (e.g. the Time Period "Custom dates" tab is narrower than the "Fiscal years" chips)
+  width: 100%;
+
   @include media($medium-screen) {
     display: none;
   }
