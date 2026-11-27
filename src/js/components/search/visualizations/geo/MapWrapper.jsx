@@ -203,12 +203,14 @@ const MapWrapper = ({
     const prepareLayers = () => new Promise((resolve, reject) => {
         if (!mapReady) {
             // something went wrong, the map isn't ready yet
-            reject();
+            reject(new Error('prepareLayers: map is not ready'));
+            return;
         }
 
         const source = mapboxSources[scope];
         if (!source) {
-            reject();
+            reject(new Error(`prepareLayers: no mapbox source for scope ${scope}`));
+            return;
         }
 
         // hide all the other layers
@@ -294,7 +296,8 @@ const MapWrapper = ({
 
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
-            });
+            })
+            .catch((err) => console.error(err));
     };
 
     const measureMap = (forced = false) => {
